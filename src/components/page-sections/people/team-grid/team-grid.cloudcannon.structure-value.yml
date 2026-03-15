@@ -6,7 +6,6 @@ value:
   id:
   heading: Insights
   subtext: Practical insights to help you understand money and make informed decisions
-  useCollection: true
   sort: alphabetical
   teamMembers: []
   maxContentWidth: 2xl

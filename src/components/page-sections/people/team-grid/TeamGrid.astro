@@ -10,9 +10,6 @@ const {
   id = "",
   heading = "",
   subtext = "",
-  useCollection = false,
-  sort = "alphabetical",
-  teamMembers = [],
   maxContentWidth = "2xl",
   paddingVertical = "4xl",
   colorScheme = "inherit",
@@ -26,28 +23,11 @@ const {
 } = Astro.props;
 
 // Get team members from collec~tion if useCollection is true, otherwise use teamMembers array
-let members = useCollection
-  ? (await getCollection("blog")).map((entry) => ({
+const members = (await getCollection("blog")).map((entry) => ({
       title: entry.data.title,
       description: entry.data.description,
       imageSource: entry.data.image
     }))
-  : teamMembers;
-
-// Sort members if using collection
-if (useCollection) {
-  if (sort === "alphabetical") {
-    members = members.sort((a, b) => a.title.localeCompare(b.title));
-  } else if (sort === "order") {
-    members = members.sort((a, b) => {
-      // Handle cases where order might be undefined
-      const orderA = a.order ?? Infinity;
-      const orderB = b.order ?? Infinity;
-
-      return orderA - orderB;
-    });
-  }
-}
 ---
 
 <CustomSection
@@ -84,7 +64,7 @@ if (useCollection) {
     gap="md"
     minItemWidth={350}
     maxItemWidth={400}
-    data-children-prop={useCollection ? "" : "teamMembers"}
+    data-children-prop={""}
     layout="start"
   >
     {
@@ -93,9 +73,9 @@ if (useCollection) {
           {...member}
           class="team-grid-item"
           data-index={index}
-          data-editable={useCollection ? undefined : "array-item"}
-          data-id={useCollection ? undefined : "page-sections/people/team-grid/team-item"}
-          editable={useCollection ? false : true}
+          data-editable={undefined}
+          data-id={undefined}
+          editable={false}
         />
       ))
     }
