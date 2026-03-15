@@ -32,8 +32,6 @@ eyebrowText:
 heading:
   type: html
   comment: Main heading text for the section.
-  options:
-    styles: .cloudcannon/styles/editor.css
 subtext:
   type: markdown
   comment: Optional subtext displayed beneath the heading.
