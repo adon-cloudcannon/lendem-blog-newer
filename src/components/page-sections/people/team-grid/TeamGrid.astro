@@ -8,7 +8,6 @@ import { getCollection } from "astro:content";
 
 const {
   id = "",
-  eyebrowText = "",
   heading = "",
   subtext = "",
   useCollection = false,
@@ -64,13 +63,6 @@ if (useCollection) {
   id={id}
   {...htmlAttributes}
 >
-  <SimpleText
-    alignX="center"
-    class="eyebrow"
-    data-prop="eyebrowText"
-  >
-    {eyebrowText}
-  </SimpleText>
   <Heading
     class="team-grid-heading"
     level="h2"

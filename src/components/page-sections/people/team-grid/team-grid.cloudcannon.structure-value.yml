@@ -4,10 +4,9 @@ description: Grid layout for showcasing team members.
 value:
   _component: page-sections/people/team-grid
   id:
-  eyebrowText: Our team
-  heading: Meet the team
-  subtext: Get to know the people behind our work.
-  useCollection: false
+  heading: Insights
+  subtext: Practical insights to help you understand money and make informed decisions
+  useCollection: true
   sort: alphabetical
   teamMembers: []
   maxContentWidth: 2xl

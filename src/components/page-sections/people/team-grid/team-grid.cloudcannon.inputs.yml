@@ -21,9 +21,6 @@ teamMembers:
 id:
   type: text
   comment: Unique identifier for the section which can be used as an anchor link.
-eyebrowText:
-  type: text
-  comment: Optional label displayed above the heading.
 heading:
   type: html
   comment: Main heading text for the section.
