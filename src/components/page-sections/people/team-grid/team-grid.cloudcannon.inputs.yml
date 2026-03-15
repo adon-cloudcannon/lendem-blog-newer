@@ -21,11 +21,6 @@ teamMembers:
 id:
   type: text
   comment: Unique identifier for the section which can be used as an anchor link.
-eyebrowIcon:
-  type: object
-  comment: Optional icon displayed above the eyebrow.
-  options:
-    structures: _structures.eyebrowIcon
 eyebrowText:
   type: text
   comment: Optional label displayed above the heading.

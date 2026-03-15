@@ -1,7 +1,6 @@
 ---
 import CustomSection from "@builders/custom-section/CustomSection.astro";
 import Heading from "@core-elements/heading/Heading.astro";
-import Icon from "@core-elements/icon/Icon.astro";
 import SimpleText from "@core-elements/simple-text/SimpleText.astro";
 import TeamItem from "@page-sections/people/team-grid/TeamItem.astro";
 import Grid from "@wrappers/grid/Grid.astro";
@@ -9,7 +8,6 @@ import { getCollection } from "astro:content";
 
 const {
   id = "",
-  eyebrowIcon = {},
   eyebrowText = "",
   heading = "",
   subtext = "",
@@ -66,10 +64,6 @@ if (useCollection) {
   id={id}
   {...htmlAttributes}
 >
-  <Icon
-    alignX="center"
-    {...eyebrowIcon}
-  />
   <SimpleText
     alignX="center"
     class="eyebrow"
