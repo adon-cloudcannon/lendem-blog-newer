@@ -10,8 +10,6 @@ const {
   id = "",
   heading = "",
   subtext = "",
-  maxContentWidth = "2xl",
-  paddingVertical = "4xl",
   colorScheme = "inherit",
   backgroundColor,
   contentBackground,
@@ -33,7 +31,7 @@ const members = (await getCollection("blog")).map((entry) => ({
 <CustomSection
   class:list={["team-grid", className]}
   paddingHorizontal="lg"
-  paddingVertical={paddingVertical}
+  paddingVertical={"2xl"}
   colorScheme={colorScheme}
   backgroundColor={backgroundColor}
   contentBackground={contentBackground}
@@ -45,9 +43,9 @@ const members = (await getCollection("blog")).map((entry) => ({
 >
   <Heading
     class="team-grid-heading"
-    level="h2"
+    level="h1"
     size="lg"
-    alignX="center"
+    alignX="start"
     data-prop="heading"
     text={heading}
   />
