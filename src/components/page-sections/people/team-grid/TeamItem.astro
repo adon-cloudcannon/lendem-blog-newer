@@ -6,8 +6,8 @@ import Card from "@wrappers/card/Card.astro";
 import GridItem from "@wrappers/grid/GridItem.astro";
 
 const {
-  name = "",
-  role = "",
+  title = "",
+  description = "",
   imageSource = "",
   hoverImageSource = "",
   imageAlt = "",
@@ -39,7 +39,7 @@ const cardClasses = ["team-item", className].filter(Boolean).join(" ");
         style="margin-bottom: var(--spacing-xs); margin-top: 0;"
         data-prop={editable ? "name" : undefined}
       >
-        {name}
+        {title}
       </Heading>
       <SimpleText
         class="team-role"
@@ -48,14 +48,14 @@ const cardClasses = ["team-item", className].filter(Boolean).join(" ");
         style="font-weight: var(--font-weight-bold); margin-bottom: var(--spacing-sm);margin-top: 0;"
         data-prop={editable ? "role" : undefined}
       >
-        {role}
+        {description}
       </SimpleText>
     </div>
     <div class="team-image-container">
       <Image
         class="team-image"
         source={imageSource}
-        alt={imageAlt || name}
+        alt={imageAlt || title}
         aspectRatio="square"
         widths={[400, 800]}
         sizes="400px"

@@ -30,19 +30,17 @@ const {
 
 // Get team members from collec~tion if useCollection is true, otherwise use teamMembers array
 let members = useCollection
-  ? (await getCollection("team")).map((entry) => ({
-      name: entry.data.name,
-      role: entry.data.role,
-      imageSource: entry.data.imageSource,
-      imageAlt: entry.data.imageAlt,
-      order: entry.data.order,
+  ? (await getCollection("blog")).map((entry) => ({
+      title: entry.data.title,
+      description: entry.data.description,
+      imageSource: entry.data.image
     }))
   : teamMembers;
 
 // Sort members if using collection
 if (useCollection) {
   if (sort === "alphabetical") {
-    members = members.sort((a, b) => a.name.localeCompare(b.name));
+    members = members.sort((a, b) => a.title.localeCompare(b.title));
   } else if (sort === "order") {
     members = members.sort((a, b) => {
       // Handle cases where order might be undefined
