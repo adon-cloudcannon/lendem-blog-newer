@@ -161,10 +161,10 @@ pageSections:
     rounded: false
   - _component: page-sections/people/team-grid
     id:
-    eyebrowIcon: {}
-    eyebrowText: Our team
-    heading: Meet the team
-    subtext: Get to know the people behind our work.
+    heading: Insights
+    subtext: >-
+      Practical insights to help you understand money and make informed
+      decisions
     useCollection: true
     sort: alphabetical
     teamMembers: []
@@ -175,4 +175,6 @@ pageSections:
     contentBackground: false
     verticalOffset: {}
     rounded: false
+    eyebrowIcon: {}
+    eyebrowText: Our team
 ---
