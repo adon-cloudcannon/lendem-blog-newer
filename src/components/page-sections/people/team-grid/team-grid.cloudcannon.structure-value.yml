@@ -1,14 +1,23 @@
 label: Team Grid
 icon: people
-description: Responsive grid layout for showcasing team members.
+description: Grid layout for showcasing team members.
 value:
   _component: page-sections/people/team-grid
-  eyebrow: Our team
+  id:
+  eyebrowIcon: {}
+  eyebrowText: Our team
   heading: Meet the team
   subtext: Get to know the people behind our work.
+  useCollection: false
+  sort: alphabetical
   teamMembers: []
+  maxContentWidth: 2xl
+  paddingVertical: 4xl
   colorScheme: inherit
   backgroundColor: base
+  contentBackground: false
+  verticalOffset: {}
+  rounded: false
 preview:
   text:
     - Team Grid
@@ -17,7 +26,7 @@ preview:
   icon: people
 picker_preview:
   text: Team Grid
-  subtext: Grid of team member cards with photos and bios.
+  subtext: Grid of team member cards with photos.
 _inputs_from_glob:
   - /src/components/page-sections/people/team-grid/team-grid.cloudcannon.inputs.yml
 _structures:
@@ -26,9 +35,9 @@ _structures:
       - label: Team Member
         icon: person
         value:
+          _component: page-sections/people/team-grid/team-item
           name: Team member name
           role: Job title
-          bio: Brief bio or description of the team member.
           imageSource: /src/assets/images/component-docs/profile.jpg
           imageAlt: Team member photo
         preview:
@@ -47,9 +56,6 @@ _structures:
           role:
             type: text
             comment: Job title or role of the team member.
-          bio:
-            type: textarea
-            comment: Brief biography or description of the team member.
           imageSource:
             type: image
             comment: Photo of the team member.
@@ -57,9 +63,6 @@ _structures:
               paths:
                 uploads: src/assets/images
                 static: ""
-              resize_style: contain
-              width: 1920
-              height: 1280
           imageAlt:
             type: text
             comment: Alt text describing the team member photo.
