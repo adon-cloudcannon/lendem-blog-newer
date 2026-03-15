@@ -1,7 +1,9 @@
 ---
 _schema: default
 title: Astro Component Starter
-description: Build fast, customizable Astro sites with a modern component starter that is easy to edit and maintain.
+description: >-
+  Build fast, customizable Astro sites with a modern component starter that is
+  easy to edit and maintain.
 pageSections:
   - _component: page-sections/heroes/hero-center
     eyebrow:
@@ -94,9 +96,6 @@ pageSections:
     eyebrow: Principles
     heading: Built for real-world web projects
     subtext: No trends. No noise. Just reliability.
-    gap: xl
-    minItemWidth: 280
-    maxItemWidth: 360
     features:
       - title: Web fundamentals
         description: >-
@@ -130,6 +129,9 @@ pageSections:
         iconColor: pink
     colorScheme: inherit
     backgroundColor: surface
+    gap: xl
+    minItemWidth: 280
+    maxItemWidth: 360
     align: center
   - _component: page-sections/ctas/cta-center
     heading: Ready to start building?
@@ -156,5 +158,21 @@ pageSections:
         size: md
     colorScheme: dark
     backgroundColor: surface
+    rounded: false
+  - _component: page-sections/people/team-grid
+    id:
+    eyebrowIcon: {}
+    eyebrowText: Our team
+    heading: Meet the team
+    subtext: Get to know the people behind our work.
+    useCollection: true
+    sort: alphabetical
+    teamMembers: []
+    maxContentWidth: 2xl
+    paddingVertical: 4xl
+    colorScheme: inherit
+    backgroundColor: base
+    contentBackground: false
+    verticalOffset: {}
     rounded: false
 ---
