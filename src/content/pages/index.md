@@ -11,8 +11,6 @@ pageSections:
     subtext: >-
       Practical insights to help you understand money and make informed
       decisions
-    maxContentWidth: 2xl
-    paddingVertical: 4xl
     colorScheme: inherit
     backgroundColor: base
     contentBackground: false
