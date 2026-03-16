@@ -157,49 +157,6 @@ pageSections:
     paddingVertical: 2xl
     colorScheme: dark
     backgroundColor: surface
-  - _component: page-sections/people/team-grid
-    eyebrow: Our Team
-    heading: Meet the people
-    subtext: We're a group of stock photography faces that fill out this team grid.
-    teamMembers:
-      - name: Alex Smith
-        role: Lead Developer
-        bio: >-
-          As a fictional representation of a real employee, I exist solely to
-          demonstrate how profile information appears in this layout. My
-          headshot is perfectly lit, and my description maintains the ideal
-          length for this component.
-        imageSource: /src/assets/images/component-docs/profile1.jpg
-        imageAlt: Alex Smith, CEO
-      - name: Tom Rodriguez
-        role: Chief Technology Officer
-        bio: >-
-          I'm here to show how multiple team members look when displayed
-          together. My expertise includes being professionally photographed and
-          having exactly two sentences of biographical text.
-        imageSource: /src/assets/images/component-docs/profile2.jpg
-        imageAlt: Tom Rodriguez, CTO
-      - name: Helen Kim
-        role: Head of Design
-        bio: >-
-          I demonstrate how the component handles a third profile entry. My
-          carefully crafted placeholder text ensures the layout remains
-          consistent, regardless of whether you're viewing on a tablet or
-          desktop display.
-        imageSource: /src/assets/images/component-docs/profile3.jpg
-        imageAlt: Helen Kim, Head of Design
-      - name: Emily Watson
-        role: Director of Operations
-        bio: >-
-          I round out the team grid to demonstrate how the layout adapts to a
-          fourth member. My presence here confirms that the component scales
-          appropriately, maintaining visual balance across different screen
-          sizes.
-        imageSource: /src/assets/images/component-docs/profile4.jpg
-        imageAlt: Emily Watson, Director of Operations
-    colorScheme: dark
-    backgroundColor: surface
-    paddingVertical: 2xl
   - _component: page-sections/ctas/cta-form
     heading: Form and function!
     subtext: >-
