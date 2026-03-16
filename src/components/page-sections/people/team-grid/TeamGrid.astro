@@ -66,8 +66,9 @@ const { remarkPluginFrontmatter:renderedFeaturePost } = await render(featuredPos
       verticalAlignment="start"
       gap="lg"
       editable={false}
+      data-cloudcannon-ignore
     >
-    <Fragment slot="first" editable={false}>
+    <Fragment slot="first" editable={false} data-cloudcannon-ignore>
       <Card
         paddingHorizontal="lg"
         paddingVertical="lg"
@@ -77,6 +78,7 @@ const { remarkPluginFrontmatter:renderedFeaturePost } = await render(featuredPos
         backgroundImage={{"source":null,"alt":null,"positionVertical":"top","positionHorizontal":"center"}}
         data-prop={undefined}
         editable={false}
+        data-cloudcannon-ignore
       >
         <Image
           class="blog-image"
@@ -89,6 +91,7 @@ const { remarkPluginFrontmatter:renderedFeaturePost } = await render(featuredPos
           data-prop-src={undefined}
           data-prop-alt={undefined}
           slot="before"
+          data-cloudcannon-ignore
         />
         <Heading
           level="h4"
@@ -98,22 +101,25 @@ const { remarkPluginFrontmatter:renderedFeaturePost } = await render(featuredPos
           text={renderedFeaturePost.title}
           editable={false}
           data-prop={undefined}
+          data-cloudcannon-ignore
         />
         <SimpleText
           alignX="start"
           size="md"
           editable={false}
           data-prop={undefined}
+          data-cloudcannon-ignore
         >
           { renderedFeaturePost.description }
         </SimpleText>
-        <div class="feature-date-container">
+        <div class="feature-date-container" data-cloudcannon-ignore>
           <Icon name="calendar" size="md" />
           <SimpleText
             alignX="start"
             size="md"
             class="feature-date"
             editable={false}
+            data-cloudcannon-ignore
           >
             { new Date(renderedFeaturePost.date).toLocaleDateString('en-US', {
               year: 'numeric',
@@ -127,7 +133,7 @@ const { remarkPluginFrontmatter:renderedFeaturePost } = await render(featuredPos
         </div>
       </Card>
     </Fragment>
-    <Fragment slot="second" editable={false}>
+    <Fragment slot="second" editable={false} data-cloudcannon-ignore>
       <Grid
         class="team-grid-grid"
         gap="md"
