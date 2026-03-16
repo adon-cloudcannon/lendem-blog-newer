@@ -22,7 +22,7 @@ const {
   ...htmlAttributes
 } = Astro.props;
 
-const featuredPosts = featuredArticles.map(x => x.replace("/src/content/blog/","").replace(".mdx",""))
+const featuredPosts = featuredArticles.map(x => x.replace("/src/content/blog/","").replace(".mdx",""));
 const featuredPost = await getEntry('blog', featuredPosts[0]);
 const { remarkPluginFrontmatter:renderedFeaturePost } = await render(featuredPost);
 
@@ -42,6 +42,8 @@ const { remarkPluginFrontmatter:renderedFeaturePost } = await render(featuredPos
   maxContentWidth={"2xl"}
   id={id}
   {...htmlAttributes}
+  data-prop={undefined}
+  editable={false}
 >
   <Heading
     class="team-grid-heading"
