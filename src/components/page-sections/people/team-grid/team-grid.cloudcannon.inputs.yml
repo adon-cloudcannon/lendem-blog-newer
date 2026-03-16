@@ -52,6 +52,12 @@ backgroundColor:
         name: Highlight Linear Gradient
       - id: highlight-radial-gradient
         name: Highlight Radial Gradient
-contentBackground:
-  type: switch
-  comment: Add a radial background in the base color behind the content.
+featuredArticles:
+  type: multiselect
+  options:
+    allow_empty: true
+    values: collections.blog
+    value_key: {url|slugify}
+    preview:
+      text:
+        - key: title

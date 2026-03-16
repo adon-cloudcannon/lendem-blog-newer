@@ -6,18 +6,15 @@ value:
   id:
   heading: Insights
   subtext: Practical insights to help you understand money and make informed decisions
+  featuredArticles: []
   colorScheme: inherit
   backgroundColor: base
-  contentBackground: false
 preview:
   text:
-    - Team Grid
+    - Featured Blog
   subtext:
     - key: subtext
   icon: people
-picker_preview:
-  text: Team Grid
-  subtext: Grid of team member cards with photos.
 _inputs_from_glob:
   - /src/components/page-sections/people/team-grid/team-grid.cloudcannon.inputs.yml
 _structures:
