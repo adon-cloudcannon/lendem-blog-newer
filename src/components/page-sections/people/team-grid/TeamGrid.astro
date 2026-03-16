@@ -73,8 +73,9 @@ const { remarkPluginFrontmatter:renderedFeaturePost } = await render(featuredPos
         paddingVertical="lg"
         colorScheme="inherit"
         backgroundColor="base"
-        class={["featured-article"]}
+        class:list={["featured-article"]}
         backgroundImage={{"source":null,"alt":null,"positionVertical":"top","positionHorizontal":"center"}}
+        data-prop={undefined}
         editable={false}
       >
         <Image
@@ -85,9 +86,8 @@ const { remarkPluginFrontmatter:renderedFeaturePost } = await render(featuredPos
           widths={[400, 800]}
           sizes="400px"
           editable={false}
-          data-prop-src="imageSource"
-          data-prop-alt="imageAlt"
-          data-editable="image"
+          data-prop-src={undefined}
+          data-prop-alt={undefined}
           slot="before"
         />
         <Heading
@@ -97,11 +97,13 @@ const { remarkPluginFrontmatter:renderedFeaturePost } = await render(featuredPos
           iconPosition="before"
           text={renderedFeaturePost.title}
           editable={false}
+          data-prop={undefined}
         />
         <SimpleText
           alignX="start"
           size="md"
           editable={false}
+          data-prop={undefined}
         >
           { renderedFeaturePost.description }
         </SimpleText>
