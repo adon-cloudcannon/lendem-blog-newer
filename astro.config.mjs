@@ -7,6 +7,8 @@ import { fileURLToPath } from "node:url";
 
 import mdx from "@astrojs/mdx";
 
+import { remarkReadingTime } from './plugins/reading-time.mjs';
+
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 // https://astro.build/config
@@ -23,6 +25,9 @@ export default defineConfig({
   },
   image: {
     domains: ["picsum.photos"],
+  },
+  markdown: {
+    remarkPlugins: [remarkReadingTime]
   },
   integrations: [
     {
@@ -77,7 +82,9 @@ export default defineConfig({
         return !page.includes("/component-docs");
       },
     }),
-    mdx(),
+    mdx({
+      extendMarkdownConfig: true
+    }),
   ],
   vite: {
     css: {

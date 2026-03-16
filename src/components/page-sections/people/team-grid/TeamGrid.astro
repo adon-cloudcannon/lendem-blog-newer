@@ -1,32 +1,40 @@
 ---
 import CustomSection from "@builders/custom-section/CustomSection.astro";
+import Icon from "@components/building-blocks/core-elements/icon/Icon.astro";
+import Image from "@components/building-blocks/core-elements/image/Image.astro";
+import Card from "@components/building-blocks/wrappers/card/Card.astro";
+import Split from "@components/building-blocks/wrappers/split/Split.astro";
 import Heading from "@core-elements/heading/Heading.astro";
 import SimpleText from "@core-elements/simple-text/SimpleText.astro";
 import TeamItem from "@page-sections/people/team-grid/TeamItem.astro";
 import Grid from "@wrappers/grid/Grid.astro";
-import { getCollection } from "astro:content";
+import { getEntry, render } from "astro:content";
 
 const {
   id = "",
   heading = "",
   subtext = "",
   colorScheme = "inherit",
+  featuredArticles = [],
   backgroundColor,
   class: className,
   editable = false,
   ...htmlAttributes
 } = Astro.props;
 
-// Get team members from collec~tion if useCollection is true, otherwise use teamMembers array
-const members = (await getCollection("blog")).map((entry) => ({
+const featuredPosts = featuredArticles.map(x => x.replace("/src/content/blog/","").replace(".mdx",""))
+const featuredPost = await getEntry('blog', featuredPosts[0]);
+const { remarkPluginFrontmatter:renderedFeaturePost } = await render(featuredPost);
+
+/*const members = (await getCollection("blog")).map((entry) => ({
   title: entry.data.title,
   description: entry.data.description,
   imageSource: entry.data.image
-}))
+}))*/
 ---
 
 <CustomSection
-  class:list={["team-grid", className]}
+  class:list={["featured-articles", className]}
   paddingHorizontal="lg"
   paddingVertical={"2xl"}
   colorScheme={colorScheme}
@@ -51,58 +59,151 @@ const members = (await getCollection("blog")).map((entry) => ({
   >
     {subtext}
   </SimpleText>
-  <Grid
-    class="team-grid-grid"
-    gap="md"
-    minItemWidth={350}
-    maxItemWidth={400}
-    data-children-prop={""}
-    layout="start"
-  >
-    {
-      members.map((member: any, index: number) => (
-        <TeamItem
-          {...member}
-          class="team-grid-item"
-          data-index={index}
-          data-editable={undefined}
-          data-id={undefined}
+  <Split
+      label=""
+      distributionMode="two-thirds-third"
+      minSplitWidth={760}
+      verticalAlignment="start"
+      gap="lg"
+      editable={false}
+    >
+    <Fragment slot="first" editable={false}>
+      <Card
+        paddingHorizontal="lg"
+        paddingVertical="lg"
+        colorScheme="inherit"
+        backgroundColor="base"
+        class={["featured-article"]}
+        backgroundImage={{"source":null,"alt":null,"positionVertical":"top","positionHorizontal":"center"}}
+        editable={false}
+      >
+        <Image
+          class="blog-image"
+          source={renderedFeaturePost.image ?? ""}
+          alt={""}
+          aspectRatio="widescreen"
+          widths={[400, 800]}
+          sizes="400px"
+          editable={false}
+          data-prop-src="imageSource"
+          data-prop-alt="imageAlt"
+          data-editable="image"
+          slot="before"
+        />
+        <Heading
+          level="h4"
+          size="default"
+          alignX="start"
+          iconPosition="before"
+          text={renderedFeaturePost.title}
           editable={false}
         />
-      ))
-    }
-  </Grid>
+        <SimpleText
+          alignX="start"
+          size="md"
+          editable={false}
+        >
+          { renderedFeaturePost.description }
+        </SimpleText>
+        <div class="feature-date-container">
+          <Icon name="calendar" size="md" />
+          <SimpleText
+            alignX="start"
+            size="md"
+            class="feature-date"
+            editable={false}
+          >
+            { new Date(renderedFeaturePost.date).toLocaleDateString('en-US', {
+              year: 'numeric',
+              month: 'short',
+              day: 'numeric',
+            }) }
+            <div class="divider">•</div>
+            <Icon name="clock" size="md" />
+            { renderedFeaturePost.minutesRead }
+          </SimpleText>
+        </div>
+      </Card>
+    </Fragment>
+    <Fragment slot="second" editable={false}>
+      <Grid
+        class="team-grid-grid"
+        gap="md"
+        minItemWidth={350}
+        maxItemWidth={400}
+        data-children-prop={""}
+        layout="start"
+      >
+        {
+          featuredPosts.slice(1).map(async (article: any, index: number) => {
+            const post = await getEntry('blog', article);
+            const { remarkPluginFrontmatter:renderedPost } = await render(post);
+
+            return (
+              <TeamItem
+                {...renderedPost}
+                class="team-grid-item"
+                data-index={index}
+                data-editable={undefined}
+                data-id={undefined}
+                editable={false}
+              />
+            )
+          })
+        }
+      </Grid>
+    </Fragment>
+  </Split>
 </CustomSection>
 
 <style is:global>
   @layer page-sections {
-    .team-grid-heading {
-      margin-bottom: var(--spacing-sm);
+    .featured-article{
+      box-shadow: 0px 1px 4px 0px rgba(12,12,13,0.1);
     }
 
-    .team-grid-subtext {
-      margin-top: 0;
-    }
-
-    .team-grid-grid {
-      margin-top: var(--spacing-xl);
-    }
-
-    .team-grid .card .card-content {
-      display: grid;
-      grid-template-columns: 1fr;
-      align-items: start;
-      height: 100%;
-    }
-
-    .team-grid .grid-item {
+    .feature-date-container, .feature-date{
+      margin-top:0;
+      color:#5A5A5A;
       display: flex;
-      flex-direction: column;
-      height: 100%;
+      align-items: center;
+      gap: 8px;
     }
 
-    .team-grid .team-item.card {
-      height: 100%;
+    .feature-date-container{
+      display:flex;
+      align-items: center;
+      gap:8px;
+      font-size:var(--font-size-sm);
+      *{
+        font-size:var(--font-size-sm);
+      }
+
+      & svg>*{
+        stroke:#5A5A5A;
+      }
+    }
+
+    .card-content{
+      display:flex;
+      flex-direction: column;
+      gap:16px;
+
+      & p, & h4, & .simple-text{
+        margin:0;
+      }
+    }
+
+    .divider{
+      margin:0 8px;
+    }
+
+    .split{ 
+      .pane.second{
+        box-shadow: 0px 1px 4px 0px rgba(12,12,13,0.1);
+        padding: 24px;
+        background:white;
+      }
     }
   }
 </style>

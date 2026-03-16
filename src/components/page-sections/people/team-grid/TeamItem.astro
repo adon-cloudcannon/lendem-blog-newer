@@ -23,7 +23,7 @@ const cardClasses = ["team-item", className].filter(Boolean).join(" ");
   <Card
     {...htmlAttributes}
     class:list={cardClasses || undefined}
-    paddingHorizontal="lg"
+    paddingHorizontal="none"
     paddingVertical="sm"
     rounded={false}
     border={false}
@@ -68,115 +68,6 @@ const cardClasses = ["team-item", className].filter(Boolean).join(" ");
 
 <style>
   @layer page-sections {
-    .team-item {
-      display: flex;
-      flex-direction: column;
-      height: 100%;
-
-      .team-content {
-        max-width: 70%;
-        color: var(--color-text-muted);
-        min-height: 5rem;
-        display: flex;
-        flex-direction: column;
-
-        .team-name,
-        .team-role {
-          color: var(--color-text-muted);
-        }
-        .simple-text {
-          position: relative;
-          flex-grow: 1;
-          &::before {
-            border-bottom: 2px solid var(--color-text-muted);
-            content: "";
-            top: calc(100% + 20px);
-            position: absolute;
-            display: block;
-            width: 100%;
-            z-index: var(--layer-below);
-          }
-          &::after {
-            position: absolute;
-            top: calc(100% + 16px);
-            display: block;
-            content: "";
-            background: var(--color-text-muted);
-            height: 10px;
-            width: 10px;
-            border-radius: var(--radius-full);
-            z-index: var(--layer-below);
-          }
-        }
-      }
-      .team-image-container {
-        position: relative;
-        width: 75%;
-        justify-self: end;
-
-        .team-image {
-          margin: 0;
-          border-radius: var(--radius-full);
-          filter: grayscale(1);
-          transition: filter 0.3s ease;
-        }
-      }
-
-      &:hover {
-        .team-content {
-          max-width: 70%;
-          color: var(--color-text-strong);
-
-          .team-name,
-          .team-role {
-            color: var(--color-text-strong);
-          }
-          .simple-text {
-            position: relative;
-            &::before {
-              border-bottom: 2px solid var(--color-text-brand);
-              content: "";
-              top: calc(100% + 20px);
-              position: absolute;
-              display: block;
-              width: 100%;
-              z-index: var(--layer-below);
-            }
-            &::after {
-              position: absolute;
-              top: calc(100% + 16px);
-              display: block;
-              content: "";
-              background: var(--color-text-brand);
-              height: 10px;
-              width: 10px;
-              border-radius: var(--radius-full);
-              z-index: var(--layer-below);
-            }
-          }
-        }
-        .team-image-container {
-          &::before {
-            --angle: 0deg;
-            content: "";
-            position: absolute;
-            inset: 0;
-            z-index: -1;
-            margin: -4px;
-            border-radius: var(--radius-full);
-            background: conic-gradient(
-              from var(--angle),
-              var(--color-bg-brand),
-              var(--color-bg-inverse),
-              var(--color-bg-brand)
-            );
-            animation: rotate-angle 2s linear infinite;
-          }
-          .team-image {
-            filter: grayscale(0);
-          }
-        }
-      }
-    }
+    
   }
 </style>
