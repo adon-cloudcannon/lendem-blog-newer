@@ -45,6 +45,7 @@ const { remarkPluginFrontmatter:renderedFeaturePost } = await render(featuredPos
   data-prop={undefined}
   data-editable={false}
   editable={false}
+  data-cloudcannon-ignore
 >
   <Heading
     class="team-grid-heading"
@@ -71,7 +72,7 @@ const { remarkPluginFrontmatter:renderedFeaturePost } = await render(featuredPos
       editable={false}
       data-cloudcannon-ignore
     >
-    <Fragment slot="first" editable={false} data-cloudcannon-ignore>
+    <Fragment slot="first" editable={false} data-cloudcannon-ignore data-editable={false}>
       <Card
         paddingHorizontal="lg"
         paddingVertical="lg"
