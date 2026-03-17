@@ -1,8 +1,8 @@
-label: Team Grid
-icon: people
+label: Featured Blog
+icon: star
 description: Grid layout for showcasing team members.
 value:
-  _component: page-sections/people/team-grid
+  _component: page-sections/blog/featured-blog
   id:
   heading: Insights
   subtext: Practical insights to help you understand money and make informed decisions
@@ -16,41 +16,5 @@ preview:
     - key: subtext
   icon: people
 _inputs_from_glob:
-  - /src/components/page-sections/people/team-grid/team-grid.cloudcannon.inputs.yml
+  - /src/components/page-sections/blog/featured-blog/featured-blog.cloudcannon.inputs.yml
 _structures:
-  teamGridItems:
-    values:
-      - label: Team Member
-        icon: person
-        value:
-          _component: page-sections/people/team-grid/team-item
-          name: Team member name
-          role: Job title
-          imageSource: /src/assets/images/component-docs/profile.jpg
-          imageAlt: Team member photo
-        preview:
-          text:
-            - key: name
-            - Team Member
-          subtext:
-            - key: role
-            - Job title
-          image:
-            - key: imageSource
-        _inputs:
-          name:
-            type: text
-            comment: Full name of the team member.
-          role:
-            type: text
-            comment: Job title or role of the team member.
-          imageSource:
-            type: image
-            comment: Photo of the team member.
-            options:
-              paths:
-                uploads: src/assets/images
-                static: ""
-          imageAlt:
-            type: text
-            comment: Alt text describing the team member photo.
