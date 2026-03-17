@@ -5,11 +5,13 @@ import Text from "@core-elements/text/Text.astro";
 import ContentSelector from "@wrappers/content-selector/ContentSelector.astro";
 import ContentSelectorPanel from "@wrappers/content-selector/ContentSelectorPanel.astro";
 
-import tags from "@data/topics.json";
-import Grid from "@components/building-blocks/wrappers/grid/Grid.astro";
-import GridItem from "@components/building-blocks/wrappers/grid/GridItem.astro";
+import BentoBoxGrid from "@components/building-blocks/wrappers/bento-box-grid/BentoBoxGrid.astro";
+import BentoBoxGridItem from "@components/building-blocks/wrappers/bento-box-grid/BentoBoxGridItem.astro";
+import Split from "@components/building-blocks/wrappers/split/Split.astro";
+import Image from "@components/building-blocks/core-elements/image/Image.astro";
 
 import { getCollection } from "astro:content";
+import tags from "@data/topics.json";
 
 const {
   id = "",
@@ -44,19 +46,32 @@ const {
         <Heading alignX="start" level="h2" size="sm">
           {tag}
         </Heading>
-        <Grid>
+        <BentoBoxGrid>
           { posts.slice(0,4).map(post => 
-              <GridItem>
-                <Heading level="h3">
-                  {post.data.title}
-                </Heading>
-                <Text>
-                  <p>{post.data.description}</p>
-                </Text>
-              </GridItem>
+              <BentoBoxGridItem
+                columnSpan={6}
+                rowSpan={1}
+              >
+                <Split 
+                  verticalAlignment="center"
+                  distributionMode="third-two-thirds"
+                >
+                  <Fragment slot="first">
+                    <Image source={post.data.image} aspectRatio="square" />
+                  </Fragment>
+                  <Fragment slot="second">
+                    <Heading level="h3" size="xs">
+                      {post.data.title}
+                    </Heading>
+                    <Text>
+                      <p>{post.data.description}</p>
+                    </Text>
+                  </Fragment>
+                </Split>
+              </BentoBoxGridItem>
             )
           }
-        </Grid>
+        </BentoBoxGrid>
       </ContentSelectorPanel>
     })}
   </ContentSelector>
@@ -66,6 +81,14 @@ const {
   @layer page-sections {
     .content-selector-tab-heading{
       font-size: var(--font-size-md);
+    }
+
+    @container (max-width: 700px) {
+      .split-inner{
+        grid-template-columns: 128px 1fr!important;
+
+        & .pane.second{ box-shadow: none!important;}
+      }
     }
   }
 </style>

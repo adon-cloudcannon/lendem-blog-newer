@@ -27,7 +27,7 @@
 
   --color-border: var(--gray-4);
   --color-border-inputs: var(--gray-7);
-  --color-border-strong: var(--gray-10);
+  --color-border-strong: var(--color-brand);
   --color-border-subtle: var(--gray-1);
 
   --color-state-hover: rgba(0, 0, 0, 0.04);
