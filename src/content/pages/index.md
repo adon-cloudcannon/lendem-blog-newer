@@ -18,7 +18,7 @@ pageSections:
       - /src/content/blog/2025-11-19-how-we-think-about-js-in-this-starter.mdx
       - /src/content/blog/2025-11-26-launching-projects-faster-with-presets.mdx
     colorScheme: inherit
-    backgroundColor: base
+    backgroundColor: brand-linear-gradient-muted
   - _component: page-sections/ctas/cta-center
     heading: Need extra cash?
     subtext: A simple, secure way to cover urgent expenses.
