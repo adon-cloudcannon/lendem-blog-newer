@@ -1,0 +1,38 @@
+---
+import Heading from "@core-elements/heading/Heading.astro";
+import List from "@core-elements/list/List.astro";
+import ListItem from "@core-elements/list/ListItem.astro";
+import Text from "@core-elements/text/Text.astro";
+import ContentSelector from "@wrappers/content-selector/ContentSelector.astro";
+import ContentSelectorPanel from "@wrappers/content-selector/ContentSelectorPanel.astro";
+---
+
+<ContentSelector navigationPosition="top">
+  <ContentSelectorPanel icon_name="question-mark-circle" sub_text="Common questions" title="FAQ">
+    <Heading alignX="start" level="h2">
+      Frequently asked questions
+    </Heading>
+    <Text alignX="start" size="md">
+      <p><strong>Do you offer support?</strong> Yes — email us anytime.</p>
+      <p><strong>Can I cancel?</strong> Yes, you can cancel anytime.</p>
+    </Text>
+  </ContentSelectorPanel>
+  <ContentSelectorPanel icon_name="truck" sub_text="How we deliver" title="Shipping">
+    <Text alignX="start" size="md">
+      <p>We ship worldwide. Orders leave within 2 business days.
+        Delivery times vary by region.</p>
+    </Text>
+    <List alignX="start" direction="vertical" size="md">
+      <ListItem iconName="clock">NZ &amp; AU: 2–5 days</ListItem>
+      <ListItem iconName="globe-alt">US &amp; EU: 5–10 days</ListItem>
+    </List>
+  </ContentSelectorPanel>
+  <ContentSelectorPanel icon_name="arrow-path" sub_text="Easy and fair" title="Returns">
+    <Text alignX="start" size="md">
+      <p>30‑day returns. Unused items only. Full refund once received.</p>
+    </Text>
+    <Text link="null" size="md" variant="secondary">
+      <p>Start a return</p>
+    </Text>
+  </ContentSelectorPanel>
+</ContentSelector>
