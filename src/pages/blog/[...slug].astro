@@ -1,6 +1,7 @@
 ---
 import Icon from "@components/building-blocks/core-elements/icon/Icon.astro";
 import Split from "@components/building-blocks/wrappers/split/Split.astro";
+import TableOfContents from "@components/page-sections/blog/table-of-contents/TableOfContents.astro";
 import Heading from "@core-elements/heading/Heading.astro";
 import Image from "@core-elements/image/Image.astro";
 import SimpleText from "@core-elements/simple-text/SimpleText.astro";
@@ -51,7 +52,7 @@ interface Props {
 }
 
 const { post } = Astro.props;
-const { Content } = await render(post);
+const { Content, headings } = await render(post);
 
 const WPM = 200;
 const countWords = str => str.trim().split(/\s+/).length;
@@ -144,9 +145,7 @@ if(post)
         </div>
       </Fragment>
       <Fragment slot="second">
-        <div>
-          TOC
-        </div>
+        <TableOfContents headings={headings} />
 
         Popular articles
       </Fragment>
