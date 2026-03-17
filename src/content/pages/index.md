@@ -19,4 +19,19 @@ pageSections:
       - /src/content/blog/2025-11-26-launching-projects-faster-with-presets.mdx
     colorScheme: inherit
     backgroundColor: base
+  - _component: page-sections/ctas/cta-center
+    heading: Need extra cash?
+    subtext: A simple, secure way to cover urgent expenses.
+    buttonSections:
+      - _component: building-blocks/core-elements/button
+        text: Apply Now
+        hideText: false
+        link: ''
+        iconName: ''
+        iconPosition: before
+        variant: primary
+        size: md
+    colorScheme: inherit
+    backgroundColor: base
+    rounded: false
 ---
