@@ -144,19 +144,6 @@ pageSections:
     heading: Why this approach works
     subtext: Highlight the core reasons in a simple, swipeable format.
     paddingVertical: 4xl
-  - _component: page-sections/people/testimonial-section
-    text: >-
-      This testimonial component has completely changed the way I present my
-      quotations on Astro sites. I couldn't be happier with the results.
-    authorName: John Convincingname
-    authorDescription: Founder
-    authorImage: /src/assets/images/component-docs/profile.jpg
-    alignX: center
-    maxContentWidth: xl
-    paddingHorizontal: xl
-    paddingVertical: 2xl
-    colorScheme: dark
-    backgroundColor: surface
   - _component: page-sections/ctas/cta-form
     heading: Form and function!
     subtext: >-
