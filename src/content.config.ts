@@ -92,7 +92,7 @@ const blogPostSchema = z.object({
   date: z.coerce.date(),
   author: z.string().default("Anonymous"),
   image: z.string().optional(),
-  tags: z.array(z.string()).default([]),
+  topic: z.string().optional(),
   minutesRead: z.string().optional()
 });
 
