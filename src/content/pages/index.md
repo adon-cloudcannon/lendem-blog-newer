@@ -32,6 +32,6 @@ pageSections:
         variant: primary
         size: md
     colorScheme: inherit
-    backgroundColor: base
+    backgroundColor: muted
     rounded: false
 ---

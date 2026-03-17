@@ -10,7 +10,6 @@ const {
   buttonSections = [],
   colorScheme = "inherit",
   backgroundColor,
-  paddingVertical = "4xl",
   class: className,
   rounded = false,
   useDefaultEditableBinding = false,
@@ -21,31 +20,46 @@ const {
 
 <CustomSection
   class:list={["cta-center", className]}
-  maxContentWidth="lg"
+  maxContentWidth="2xl"
   paddingHorizontal="lg"
-  paddingVertical={paddingVertical}
+  paddingVertical={"lg"}
   colorScheme={colorScheme}
-  backgroundColor={backgroundColor}
   rounded={rounded}
   useDefaultEditableBinding={useDefaultEditableBinding}
   {...htmlAttributes}
 >
-  <Heading
-    level="h2"
-    size="xl"
-    alignX="center"
-    data-prop="heading"
-    text={heading}
-  />
-  <Text
-    alignX="center"
-    data-prop="subtext"
-    text={subtext}
-  />
-  <ButtonGroup
-    class="buttonSections"
-    buttonSections={buttonSections}
-    alignX="center"
-    data-children-prop="buttonSections"
-  />
+  <div class:list={["cta-content",`bg-${backgroundColor}`]}>
+    <Heading
+      level="h2"
+      size="xl"
+      alignX="center"
+      data-prop="heading"
+      text={heading}
+    />
+    <Text
+      alignX="center"
+      data-prop="subtext"
+      text={subtext}
+    />
+    <ButtonGroup
+      class="buttonSections"
+      buttonSections={buttonSections}
+      alignX="center"
+      data-children-prop="buttonSections"
+    />
+  </div>
 </CustomSection>
+
+<style is:global>
+  @layer page-sections {
+
+    .cta-content{
+      padding:32px 24px;
+      border: 1px solid #D9D9D9;
+    }
+
+    .bg-muted{
+      background-color: var(--color-bg-muted);
+    }
+  }
+</style>
