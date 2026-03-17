@@ -5,7 +5,7 @@ description: >-
   Build fast, customizable Astro sites with a modern component starter that is
   easy to edit and maintain.
 pageSections:
-  - _component: page-sections/people/team-grid
+  - _component: page-sections/blog/featured-blog
     id:
     heading: Insights
     subtext: >-

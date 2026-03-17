@@ -1,0 +1,75 @@
+---
+import Icon from "@components/building-blocks/core-elements/icon/Icon.astro";
+import Heading from "@core-elements/heading/Heading.astro";
+import Image from "@core-elements/image/Image.astro";
+import SimpleText from "@core-elements/simple-text/SimpleText.astro";
+import Card from "@wrappers/card/Card.astro";
+import GridItem from "@wrappers/grid/GridItem.astro";
+
+const {
+  title = "",
+  description = "",
+  date,
+  minutesRead = "",
+  editable = false,
+  class: className,
+  _component,
+  ...htmlAttributes
+} = Astro.props;
+
+const cardClasses = ["blog-item", className].filter(Boolean).join(" ");
+---
+
+<GridItem>
+  <Card
+    {...htmlAttributes}
+    class:list={cardClasses || undefined}
+    paddingHorizontal="none"
+    paddingVertical="sm"
+    rounded={false}
+    border={false}
+    backgroundColor=""
+  >
+    <div class="team-content">
+      <Heading class="feature-title" level="h4" size="xs" alignX="start" editable={false}>
+        {title}
+      </Heading>
+      <div class="feature-date-container">
+        <Icon name="calendar" size="md" />
+        <SimpleText
+          alignX="start"
+          size="md"
+          class="feature-date"
+          editable={false}
+        >
+          { new Date(date).toLocaleDateString('en-US', {
+            year: 'numeric',
+            month: 'short',
+            day: 'numeric',
+          }) }
+        </SimpleText>
+        <div class="divider">•</div>
+        {minutesRead}
+      </div>
+    </div>
+  </Card>
+</GridItem>
+
+<style>
+  @layer page-sections {
+    .feature-title {
+      margin-bottom: var(--spacing-sm);
+      margin-top: var(--spacing-sm);
+    }
+
+    .blog-item{
+      border-top: 1px solid #D9D9D9;
+      margin-top:0;
+    }
+
+    .feature-date-container, .feature-date, .feature-date p{
+      color:#5A5A5A;
+      margin-bottom:0;
+    }
+  }
+</style>

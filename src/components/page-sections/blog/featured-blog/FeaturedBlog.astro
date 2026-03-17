@@ -6,7 +6,7 @@ import Card from "@components/building-blocks/wrappers/card/Card.astro";
 import Split from "@components/building-blocks/wrappers/split/Split.astro";
 import Heading from "@core-elements/heading/Heading.astro";
 import SimpleText from "@core-elements/simple-text/SimpleText.astro";
-import TeamItem from "@page-sections/people/team-grid/TeamItem.astro";
+import BlogItem from "@page-sections/blog/featured-blog/BlogItem.astro";
 import Grid from "@wrappers/grid/Grid.astro";
 import { getEntry } from "astro:content";
 
@@ -135,7 +135,7 @@ if(featuredPost)
     </Fragment>
     <Fragment slot="second" editable={false} data-cloudcannon-ignore>
       <Grid
-        class="team-grid-grid"
+        class="featured-blog-grid"
         gap="md"
         minItemWidth={350}
         maxItemWidth={400}
@@ -151,9 +151,9 @@ if(featuredPost)
               post.data.minutesRead = `${Math.ceil(countWords(content)/WPM)} min read`;
 
             return (
-              <TeamItem
+              <BlogItem
                 {...post?.data}
-                class="team-grid-item"
+                class="featured-blog-item"
                 data-index={index}
                 data-editable={undefined}
                 data-id={undefined}
