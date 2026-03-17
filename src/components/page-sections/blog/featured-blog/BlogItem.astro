@@ -40,7 +40,7 @@ const cardClasses = ["blog-item", className].filter(Boolean).join(" ");
         <Icon name="calendar" size="md" />
         <SimpleText
           alignX="start"
-          size="md"
+          size="sm"
           class="feature-date"
           editable={false}
         >
@@ -66,7 +66,7 @@ const cardClasses = ["blog-item", className].filter(Boolean).join(" ");
     }
 
     .blog-item{
-      border-top: 1px solid #D9D9D9;
+      border-top: 1px solid var(--color-border-subtle);
       margin-top:0;
 
       & .divider{
@@ -77,6 +77,28 @@ const cardClasses = ["blog-item", className].filter(Boolean).join(" ");
     .feature-date-container, .feature-date, .feature-date p{
       color:#5A5A5A;
       margin-bottom:0;
+    }
+
+    .feature-date-container, .feature-date{
+      margin-top:0;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .feature-date-container{
+      display:flex;
+      align-items: center;
+      gap:8px;
+      font-size:var(--font-size-sm);
+      *{
+        font-size:var(--font-size-sm);
+        color:#5A5A5A!important;
+      }
+
+      & svg>*{
+        stroke:#5A5A5A;
+      }
     }
   }
 </style>

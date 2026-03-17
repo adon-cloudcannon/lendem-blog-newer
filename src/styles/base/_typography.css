@@ -56,7 +56,7 @@
     p,
     ul,
     ol {
-      color: var(--color-text);
+      color: inherit;
       font-size: var(--font-size-md);
       line-height: 1.6;
     }

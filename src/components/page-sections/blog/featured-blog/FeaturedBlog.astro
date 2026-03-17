@@ -60,6 +60,7 @@ if(featuredPost)
     {subtext}
   </SimpleText>
   <Split
+      class={"featured-blog-split"}
       label=""
       distributionMode="two-thirds-third"
       minSplitWidth={760}
@@ -117,7 +118,7 @@ if(featuredPost)
           <Icon name="calendar" size="md" />
           <SimpleText
             alignX="start"
-            size="md"
+            size="sm"
             class="feature-date"
             editable={false}
             data-cloudcannon-ignore
@@ -177,8 +178,7 @@ if(featuredPost)
   </Split>
 </CustomSection>
 
-<style is:global>
-  @layer page-sections {
+<style>
     .bg-brand-linear-gradient-muted{
       background: linear-gradient(135deg, #FFF4ED 0%, #FFFFFF 50%, #F9FAFB 100%);
     }
@@ -202,6 +202,7 @@ if(featuredPost)
       font-size:var(--font-size-sm);
       *{
         font-size:var(--font-size-sm);
+        color:#5A5A5A;
       }
 
       & svg>*{
@@ -223,8 +224,8 @@ if(featuredPost)
       margin:0 8px;
     }
 
-    .split{ 
-      .pane.second{
+    .featured-blog-split{ 
+      & :global(.pane.second){
         box-shadow: 0px 1px 4px 0px rgba(12,12,13,0.1);
         padding: 24px;
         background:white;
@@ -236,5 +237,5 @@ if(featuredPost)
         margin:0;
       }
     }
-  }
+  
 </style>

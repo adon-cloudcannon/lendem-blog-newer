@@ -1,4 +1,6 @@
 ---
+import Icon from "@components/building-blocks/core-elements/icon/Icon.astro";
+import Split from "@components/building-blocks/wrappers/split/Split.astro";
 import Heading from "@core-elements/heading/Heading.astro";
 import Image from "@core-elements/image/Image.astro";
 import SimpleText from "@core-elements/simple-text/SimpleText.astro";
@@ -50,11 +52,14 @@ interface Props {
 
 const { post } = Astro.props;
 const { Content } = await render(post);
-const date = post.data.date.toLocaleDateString("en-US", {
-  year: "numeric",
-  month: "long",
-  day: "numeric",
-});
+
+const WPM = 200;
+const countWords = str => str.trim().split(/\s+/).length;
+
+const content = post?.body;
+
+if(post)
+  post.data.minutesRead = `${Math.ceil(countWords(content)/WPM)} min read`;
 ---
 
 <Page
@@ -63,64 +68,89 @@ const date = post.data.date.toLocaleDateString("en-US", {
   image={post.data.image}
 >
   <CustomSection
-    maxContentWidth="xl"
+    maxContentWidth="2xl"
     paddingHorizontal="lg"
     paddingVertical="4xl"
     colorScheme="inherit"
     backgroundColor="base"
     class="post-container"
   >
-    <SimpleText
-      size="sm"
-      style="color: var(--color-text-muted); margin-bottom: var(--spacing-sm);"
-      data-prop="author"
-    >
-      {date} • {post.data.author}
-    </SimpleText>
-
-    <Heading
-      data-prop="title"
-      level="h1"
-      size="2xl"
-      style="margin-bottom: var(--spacing-xs);"
-    >
-      {post.data.title}
-    </Heading>
-
-    {
-      post.data.description && (
-        <SimpleText
-          data-prop="description"
+    <Split distributionMode="two-thirds-third">
+      <Fragment slot="first">
+        <div class="topic-pill">
+          {post.data.topic}
+        </div>
+        <Heading
+          data-prop="title"
+          level="h1"
           size="lg"
-          style="color: var(--color-text-muted); margin-bottom: 0; margin-top: var(--spacing-xs);"
+          style="margin-bottom: var(--spacing-xs);"
         >
-          {post.data.description}
-        </SimpleText>
-      )
-    }
+          {post.data.title}
+        </Heading>
+        {
+          post.data.description && (
+            <SimpleText
+              data-prop="description"
+              size="lg"
+              style="color: var(--color-text-muted); margin-bottom: 0; margin-top: var(--spacing-xs);"
+            >
+              {post.data.description}
+            </SimpleText>
+          )
+        }
+        
+        <div class="feature-date-container" data-cloudcannon-ignore>
+          <Icon name="calendar" size="md" />
+          <SimpleText
+            alignX="start"
+            size="md"
+            class="feature-date"
+            editable={false}
+            data-cloudcannon-ignore
+          >
+            { new Date(post.data.date).toLocaleDateString('en-US', {
+              year: 'numeric',
+              month: 'short',
+              day: 'numeric',
+            }) }
+            
+            <Icon name="clock" size="md" />
+            { post?.data.minutesRead ?? "" }
+          </SimpleText>
+        </div>
 
-    {
-      post.data.image && (
-        <Image
-          source={post.data.image}
-          alt={post.data.title}
-          rounded={true}
-          data-prop-src="image"
-          data-prop-alt="title"
-          class="post-image"
-          aspectRatio="horizontal-strip"
-          positionVertical="center"
-        />
-      )
-    }
+        {
+          post.data.image && (
+            <Image
+              source={post.data.image}
+              alt={post.data.title}
+              rounded={true}
+              data-prop-src="image"
+              data-prop-alt="title"
+              class="post-image"
+              aspectRatio="widescreen"
+              positionVertical="center"
+            />
+          )
+        }
 
-    <div
-      class="post"
-      data-editable="text"
-      data-prop="@content"
-    >
-      <Content components={mdxComponents} />
-    </div>
+        <div
+          class="post"
+          data-editable="text"
+          data-prop="@content"
+        >
+          <Content components={mdxComponents} />
+        </div>
+      </Fragment>
+      <Fragment slot="second">
+        <div>
+          TOC
+        </div>
+
+        Popular articles
+      </Fragment>
+    </Split>
   </CustomSection>
 </Page>
 
@@ -132,9 +162,7 @@ const date = post.data.date.toLocaleDateString("en-US", {
   .post {
     display: grid;
     grid-template-columns:
-      minmax(0, 1fr)
-      minmax(0, 70ch)
-      minmax(0, 1fr);
+      1fr;
     margin-inline: auto;
     margin-top: var(--spacing-xl);
   }
@@ -164,11 +192,49 @@ const date = post.data.date.toLocaleDateString("en-US", {
     }
   }
 
+  .post > h2{
+    font-size: var(--font-size-xl);
+  }
+
   .post > .astro-code {
     margin-block: var(--spacing-xl);
   }
 
   .post-image {
     margin-top: var(--spacing-xl);
+  }
+
+  .topic-pill{
+    background:var(--color-bg-brand);
+    color:white;
+    display:inline-flex;
+    justify-content: flex-start;
+    padding:4px 8px;
+    border-radius:var(--radius-sm);
+    font-weight: bold;
+    font-size: var(--font-size-xs);
+  }
+
+  .feature-date-container, .feature-date{
+    margin-top:0;
+    color:#5A5A5A;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .feature-date-container{
+    display:flex;
+    align-items: center;
+    gap:8px;
+    font-size:var(--font-size-sm);
+    *{
+      font-size:var(--font-size-sm);
+      color:#5A5A5A;
+    }
+
+    & svg>*{
+      stroke:#5A5A5A;
+    }
   }
 </style>

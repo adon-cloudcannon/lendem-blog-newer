@@ -17,7 +17,7 @@
   --color-link-hover: darkblue;
 
   --color-bg: var(--gray-0);
-  --color-bg-surface: var(--gray-1);
+  --color-bg-surface: #FFF4ED;
   --color-bg-muted: #F5F5F5;
   --color-bg-accent: #d5fdff;
   --color-bg-highlight: #fff9d6;
@@ -28,7 +28,7 @@
   --color-border: var(--gray-4);
   --color-border-inputs: var(--gray-7);
   --color-border-strong: var(--color-brand);
-  --color-border-subtle: var(--gray-1);
+  --color-border-subtle: #D9D9D9;
 
   --color-state-hover: rgba(0, 0, 0, 0.04);
   --color-state-active: rgba(0, 0, 0, 0.08);
