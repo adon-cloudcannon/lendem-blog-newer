@@ -22,15 +22,15 @@ const {
   ...htmlAttributes
 } = Astro.props;
 
+const WPM = 200;
+const countWords = str => str.trim().split(/\s+/).length;
+
 const featuredPosts = featuredArticles.map(x => x.replace("/src/content/blog/","").replace(".mdx",""));
 const featuredPost = await getEntry('blog', featuredPosts[0]);
-const { remarkPluginFrontmatter:renderedFeaturePost } = await render(featuredPost);
+const content = featuredPost?.body;
 
-/*const members = (await getCollection("blog")).map((entry) => ({
-  title: entry.data.title,
-  description: entry.data.description,
-  imageSource: entry.data.image
-}))*/
+if(featuredPost)
+  featuredPost.data.minutesRead = `${Math.ceil(countWords(content)/WPM)} min read`;
 ---
 
 <CustomSection
@@ -86,7 +86,7 @@ const { remarkPluginFrontmatter:renderedFeaturePost } = await render(featuredPos
       >
         <Image
           class="blog-image"
-          source={renderedFeaturePost.image ?? ""}
+          source={featuredPost?.data.image ?? ""}
           alt={""}
           aspectRatio="widescreen"
           widths={[400, 800]}
@@ -102,7 +102,7 @@ const { remarkPluginFrontmatter:renderedFeaturePost } = await render(featuredPos
           size="default"
           alignX="start"
           iconPosition="before"
-          text={renderedFeaturePost.title}
+          text={featuredPost?.data.title ?? ""}
           editable={false}
           data-prop={undefined}
           data-cloudcannon-ignore
@@ -114,7 +114,7 @@ const { remarkPluginFrontmatter:renderedFeaturePost } = await render(featuredPos
           data-prop={undefined}
           data-cloudcannon-ignore
         >
-          { renderedFeaturePost.description }
+          { featuredPost?.data.description ?? "" }
         </SimpleText>
         <div class="feature-date-container" data-cloudcannon-ignore>
           <Icon name="calendar" size="md" />
@@ -125,14 +125,14 @@ const { remarkPluginFrontmatter:renderedFeaturePost } = await render(featuredPos
             editable={false}
             data-cloudcannon-ignore
           >
-            { new Date(renderedFeaturePost.date).toLocaleDateString('en-US', {
+            { new Date(featuredPost.data.date).toLocaleDateString('en-US', {
               year: 'numeric',
               month: 'short',
               day: 'numeric',
             }) }
             <div class="divider">•</div>
             <Icon name="clock" size="md" />
-            { renderedFeaturePost.minutesRead }
+            { featuredPost?.data.minutesRead ?? "" }
           </SimpleText>
         </div>
       </Card>
@@ -149,11 +149,14 @@ const { remarkPluginFrontmatter:renderedFeaturePost } = await render(featuredPos
         {
           featuredPosts.slice(1).map(async (article: any, index: number) => {
             const post = await getEntry('blog', article);
-            const { remarkPluginFrontmatter:renderedPost } = await render(post);
+            const content = post?.body;
+
+            if(post)
+              post.data.minutesRead = `${Math.ceil(countWords(content)/WPM)} min read`;
 
             return (
               <TeamItem
-                {...renderedPost}
+                {...post?.data}
                 class="team-grid-item"
                 data-index={index}
                 data-editable={undefined}
