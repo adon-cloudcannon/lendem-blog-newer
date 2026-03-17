@@ -3,6 +3,7 @@ icon: hero
 description: Centered call-to-action with headline, supporting text, and buttons.
 value:
   _component: page-sections/ctas/cta-center
+  image: /src/assets/images/img_moneyhand.png
   heading: Heading text
   subtext: Subtext placeholder text that will be replaced with actual content.
   buttonSections:

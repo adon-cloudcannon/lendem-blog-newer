@@ -7,6 +7,7 @@ import Card from "@wrappers/card/Card.astro";
 import GridItem from "@wrappers/grid/GridItem.astro";
 
 const {
+  id,
   title = "",
   description = "",
   date,
@@ -29,6 +30,7 @@ const cardClasses = ["blog-item", className].filter(Boolean).join(" ");
     rounded={false}
     border={false}
     backgroundColor=""
+    link={`/blog/${id}`}
   >
     <div class="team-content">
       <Heading class="feature-title" level="h4" size="xs" alignX="start" editable={false}>

@@ -79,6 +79,7 @@ if(featuredPost)
         data-prop={undefined}
         editable={false}
         data-cloudcannon-ignore
+        link={`/blog/${featuredPost?.id}`}
       >
         <Image
           class="blog-image"
@@ -160,6 +161,7 @@ if(featuredPost)
 
             return (
               <BlogItem
+                id={post?.id}
                 {...post?.data}
                 class="featured-blog-item"
                 data-index={index}
@@ -177,6 +179,10 @@ if(featuredPost)
 
 <style is:global>
   @layer page-sections {
+    .bg-brand-linear-gradient-muted{
+      background: linear-gradient(135deg, #FFF4ED 0%, #FFFFFF 50%, #F9FAFB 100%);
+    }
+
     .featured-article{
       box-shadow: 0px 1px 4px 0px rgba(12,12,13,0.1);
     }
@@ -222,6 +228,12 @@ if(featuredPost)
         box-shadow: 0px 1px 4px 0px rgba(12,12,13,0.1);
         padding: 24px;
         background:white;
+      }
+    }
+
+    .featured-blog-grid{
+      & .heading{
+        margin:0;
       }
     }
   }
