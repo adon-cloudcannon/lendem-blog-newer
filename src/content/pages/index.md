@@ -19,6 +19,15 @@ pageSections:
       - /src/content/blog/2025-11-26-launching-projects-faster-with-presets.mdx
     colorScheme: inherit
     backgroundColor: brand-linear-gradient-muted
+  - _component: page-sections/blog/blog-by-tags
+    id:
+    heading: Insights
+    subtext: >-
+      Practical insights to help you understand money and make informed
+      decisions
+    featuredArticles: []
+    colorScheme: inherit
+    backgroundColor: base
   - _component: page-sections/ctas/cta-center
     image: /src/assets/images/img_moneyhand.png
     heading: Need extra cash?
