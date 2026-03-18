@@ -1,10 +1,16 @@
 {
-    "popularArticles":[],
-    "_inputs":{
-        "popularArticles":{
-            "type":"multiselect",
-            "options":{
-                "values":"collections.blog"
+    "popularArticles": [
+        "/src/content/blog/2025-10-15-why-we-built-our-component-starter.mdx",
+        "/src/content/blog/2025-10-22-keeping-performance-simple.mdx",
+        "/src/content/blog/2025-10-29-why-our-components-stay-small.mdx",
+        "/src/content/blog/2025-11-12-our-approach-to-css-just-enough.mdx",
+        "/src/content/blog/2025-11-19-how-we-think-about-js-in-this-starter.mdx"
+    ],
+    "_inputs": {
+        "popularArticles": {
+            "type": "multiselect",
+            "options": {
+                "values": "collections.blog"
             }
         }
     }
