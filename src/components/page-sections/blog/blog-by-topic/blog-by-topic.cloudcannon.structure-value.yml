@@ -2,7 +2,7 @@ label: Blog By Tags
 icon: list_alt
 description: Grid layout for showcasing team members.
 value:
-  _component: page-sections/blog/blog-by-tags
+  _component: page-sections/blog/blog-by-topic
   id:
   heading: Insights
   subtext: Practical insights to help you understand money and make informed decisions
@@ -16,5 +16,5 @@ preview:
     - key: subtext
   icon: people
 _inputs_from_glob:
-  - /src/components/page-sections/blog/blog-by-tags/blog-by-tags.cloudcannon.inputs.yml
+  - /src/components/page-sections/blog/blog-by-topic/blog-by-topic.cloudcannon.inputs.yml
 _structures:

@@ -19,12 +19,11 @@ pageSections:
       - /src/content/blog/2025-11-26-launching-projects-faster-with-presets.mdx
     colorScheme: inherit
     backgroundColor: brand-linear-gradient-muted
-  - _component: page-sections/blog/blog-by-tags
+  - _component: page-sections/blog/blog-by-topic
     id:
     heading: Insights
     subtext: >-
-      Practical insights to help you understand money and make informed
-      decisions
+      Practical insights to help you understand money and make informed decisions
     featuredArticles: []
     colorScheme: inherit
     backgroundColor: base

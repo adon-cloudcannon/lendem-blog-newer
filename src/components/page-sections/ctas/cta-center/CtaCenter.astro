@@ -16,6 +16,8 @@ const {
   rounded = false,
   useDefaultEditableBinding = false,
   _component,
+  paddingHorizontal = "lg",
+  paddingVertical = "lg",
   ...htmlAttributes
 } = Astro.props;
 ---
@@ -23,14 +25,13 @@ const {
 <CustomSection
   class:list={["cta-center", className]}
   maxContentWidth="2xl"
-  paddingHorizontal="lg"
-  paddingVertical={"lg"}
+  paddingHorizontal={paddingHorizontal}
+  paddingVertical={paddingVertical}
   colorScheme={colorScheme}
-  rounded={rounded}
   useDefaultEditableBinding={useDefaultEditableBinding}
   {...htmlAttributes}
 >
-  <div class:list={["cta-content",`bg-${backgroundColor}`]}>
+  <div class:list={["cta-content",`bg-${backgroundColor}`, rounded ? "rounded-sm" : ""]}>
     <Image source={image} width={136} aspectRatio="square" />
     <Heading
       level="h2"
@@ -55,7 +56,9 @@ const {
 
 <style is:global>
   @layer page-sections {
-
+    .rounded-sm{
+      border-radius: var(--radius-sm);
+    }
     .cta-content{
       padding:32px 24px;
       border: 1px solid var(--color-border-subtle);
@@ -65,6 +68,11 @@ const {
         justify-content: center;
         margin-top:0;
       }
+    }
+
+    .button > a{
+      width:100%;
+      max-width:320px;
     }
 
     .bg-muted{
