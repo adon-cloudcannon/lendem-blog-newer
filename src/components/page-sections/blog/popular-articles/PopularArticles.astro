@@ -1,9 +1,27 @@
 ---
 import Heading from "@components/building-blocks/core-elements/heading/Heading.astro";
+import Icon from "@components/building-blocks/core-elements/icon/Icon.astro";
 
-
+import { popularArticles } from "@data/popularArticles.json";
 ---
 
 <div class="blog-card">
-    <Heading text="Popular Articles" level="h3" size="sm" />
+    <Heading text="Popular Articles" level="h3" size="sm">
+        <Icon name="arrow-trending-up" color="orange" size="md" />
+        Popular Articles
+    </Heading>
+
+    {
+        popularArticles.map(article => article)
+    }
 </div>
+
+<style is:global>
+    .blog-card{
+        .heading-text{
+            display:flex;
+            align-items:center;
+            gap:8px;
+        }
+    }
+</style>
