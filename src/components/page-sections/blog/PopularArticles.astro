@@ -1,0 +1,53 @@
+---
+import Heading from "@components/building-blocks/core-elements/heading/Heading.astro";
+import Icon from "@components/building-blocks/core-elements/icon/Icon.astro";
+import BlogCard from "@components/page-sections/blog/BlogCard.astro";
+
+import { popularArticles } from "@data/popularArticles.json";
+import { getEntry } from "astro:content";
+const popularPosts = popularArticles.map(x => x.replace("/src/content/blog/","").replace(".mdx",""));
+---
+
+<div class="blog-card">
+    <Heading text="Popular Articles" level="h3" size="sm">
+        <Icon name="arrow-trending-up" color="orange" size="md" />
+        Popular Articles
+    </Heading>
+
+    {
+        popularPosts.map(async article => {
+            const post = await getEntry('blog', article);
+            return (
+                <BlogCard 
+                    post={post} 
+                    border={false}
+                />
+            )
+        })
+    }
+</div>
+
+<style>
+    .blog-card{
+        
+        :global(.heading-text){
+            display:flex;
+            align-items:center;
+            gap:8px;
+        }
+
+        :global(.bento-box-grid-item-content){
+            padding:16px 0;
+
+            :global(& p, & h3, & .text, & .text p){
+                margin:0;
+            }
+        }
+
+        :global(.split-inner){
+            grid-template-columns: 80px 1fr!important;
+        }
+    }
+
+    
+</style>

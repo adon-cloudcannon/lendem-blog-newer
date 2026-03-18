@@ -8,6 +8,7 @@ const {
   style: userStyle,
   columnSpan = 4,
   rowSpan = 1,
+  border = false,
   _component,
   "data-children-prop": childrenDataProp,
   "data-prop-columnSpan": customDataPropColumnSpan,
@@ -26,7 +27,7 @@ const arrayDataAttributes = effectiveChildrenProp
   {...htmlAttributes}
 >
   <div
-    class="bento-box-grid-item-content"
+    class:list={["bento-box-grid-item-content", border ? "with-border" : ""]}
     style={`--column-span: ${columnSpan}; --row-span: ${rowSpan}; ${userStyle ?? ""}`}
     {...arrayDataAttributes}
   >
@@ -45,6 +46,10 @@ const arrayDataAttributes = effectiveChildrenProp
 
 <style is:global>
   @layer components {
+    .pane.second{
+      gap:8px!important;
+    }
+
     .bento-box-grid-item {
       display: contents;
     }

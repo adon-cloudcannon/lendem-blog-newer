@@ -141,33 +141,6 @@ const splitId = `split-${crypto.randomUUID()}`;
   </div>
 </section>
 
-{
-  minSplitWidth > 0 && (
-    <style
-      is:inline
-      set:html={`
-    @container (max-width: ${minSplitWidth}px) {
-      .split-inner[data-split-id="${splitId}"] {
-        grid-template-columns: var(--split-columns-mobile);
-      }
-      ${
-        reverseOrderOnMobile
-          ? `
-      .split-inner.reversed[data-split-id="${splitId}"] .pane.first {
-        order: 2;
-      }
-      .split-inner.reversed[data-split-id="${splitId}"] .pane.second {
-        order: 1;
-      }
-      `
-          : ""
-      }
-    }
-  `}
-    />
-  )
-}
-
 <style>
   @layer components {
     .split {
