@@ -110,7 +110,7 @@ const featuredPost = await getEntry('blog', featuredPosts[0]);
           { featuredPost?.data.description ?? "" }
         </SimpleText>
         <div class="feature-date-container" data-cloudcannon-ignore>
-          <Icon name="calendar" size="md" />
+          <Icon name="calendar" size="none" />
           <SimpleText
             alignX="start"
             size="sm"
@@ -124,7 +124,7 @@ const featuredPost = await getEntry('blog', featuredPosts[0]);
               day: 'numeric',
             }) }
             <div class="divider">•</div>
-            <Icon name="clock" size="md" />
+            <Icon name="clock" size="none" />
             { readingTime(featuredPost)}
           </SimpleText>
         </div>
