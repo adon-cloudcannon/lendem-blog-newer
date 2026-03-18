@@ -1,5 +1,6 @@
 ---
 import Icon from "@components/building-blocks/core-elements/icon/Icon.astro";
+import Input from "@components/building-blocks/forms/input/Input.astro";
 import Split from "@components/building-blocks/wrappers/split/Split.astro";
 import ExploreTopics from "@components/page-sections/blog/ExploreTopics.astro";
 import PopularArticles from "@components/page-sections/blog/PopularArticles.astro";
@@ -58,12 +59,11 @@ const { post } = Astro.props;
 const { Content, headings } = await render(post);
 
 const WPM = 200;
-const countWords = str => str.trim().split(/\s+/).length;
+const countWords = (str) => str.trim().split(/\s+/).length;
 
 const content = post?.body;
 
-if(post)
-  post.data.minutesRead = `${Math.ceil(countWords(content)/WPM)} min read`;
+if (post) post.data.minutesRead = `${Math.ceil(countWords(content) / WPM)} min read`;
 ---
 
 <Page
@@ -74,12 +74,48 @@ if(post)
   <CustomSection
     maxContentWidth="2xl"
     paddingHorizontal="lg"
-    paddingVertical="4xl"
+    paddingVertical="none"
+    colorScheme="inherit"
+    backgroundColor="muted"
+    class="breadcrumb-container"
+  >
+    <div class="breadcrumb">
+      Home
+      <Icon
+        name="chevron-right"
+        size="sm"
+      />
+      Insights
+      <Icon
+        name="chevron-right"
+        size="sm"
+      />
+      {post.data.topic}
+      <Icon
+        name="chevron-right"
+        size="sm"
+      />
+      {post.data.title}
+    </div>
+    <Input
+      name="search"
+      placeholder="Search by keyword, topic..."
+      type="text"
+    />
+  </CustomSection>
+
+  <CustomSection
+    maxContentWidth="2xl"
+    paddingHorizontal="lg"
+    paddingVertical="2xl"
     colorScheme="inherit"
     backgroundColor="base"
     class="post-container"
   >
-    <Split distributionMode="two-thirds-third" gap="xl">
+    <Split
+      distributionMode="two-thirds-third"
+      gap="xl"
+    >
       <Fragment slot="first">
         <div class="topic-pill">
           {post.data.topic}
@@ -103,9 +139,15 @@ if(post)
             </SimpleText>
           )
         }
-        
-        <div class="feature-date-container" data-cloudcannon-ignore>
-          <Icon name="calendar" size="md" />
+
+        <div
+          class="feature-date-container"
+          data-cloudcannon-ignore
+        >
+          <Icon
+            name="calendar"
+            size="md"
+          />
           <SimpleText
             alignX="start"
             size="md"
@@ -113,14 +155,19 @@ if(post)
             editable={false}
             data-cloudcannon-ignore
           >
-            { new Date(post.data.date).toLocaleDateString('en-US', {
-              year: 'numeric',
-              month: 'short',
-              day: 'numeric',
-            }) }
-            
-            <Icon name="clock" size="md" />
-            { post?.data.minutesRead ?? "" }
+            {
+              new Date(post.data.date).toLocaleDateString("en-US", {
+                year: "numeric",
+                month: "short",
+                day: "numeric",
+              })
+            }
+
+            <Icon
+              name="clock"
+              size="md"
+            />
+            {post?.data.minutesRead ?? ""}
           </SimpleText>
         </div>
 
@@ -154,7 +201,7 @@ if(post)
 
         <ExploreTopics />
 
-        <CtaCenter 
+        <CtaCenter
           image="/src/assets/images/img_moneyhand.png"
           heading="Need extra cash?"
           subtext="A simple, secure way to cover urgent expenses."
@@ -164,15 +211,15 @@ if(post)
           paddingVertical="none"
           buttonSections={[
             {
-              "_component": "building-blocks/core-elements/button",
-              "text": "Apply Now",
-              "hideText": false,
-              "link": "",
-              "iconName": "",
-              "iconPosition": "before",
-              "variant": "primary",
-              "size": "md"
-            }
+              _component: "building-blocks/core-elements/button",
+              text: "Apply Now",
+              hideText: false,
+              link: "",
+              iconName: "",
+              iconPosition: "before",
+              variant: "primary",
+              size: "md",
+            },
           ]}
         />
       </Fragment>
@@ -181,6 +228,28 @@ if(post)
 </Page>
 
 <style is:global>
+  .breadcrumb-container {
+    .outer-content {
+      padding: 24px 0;
+      .content {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        .breadcrumb {
+          align-items: center;
+          display: flex;
+          font-size: var(--font-size-xs);
+          gap: 8px;
+        }
+
+        .input {
+          width: fit-content;
+        }
+      }
+    }
+  }
+
   .post-container.custom-section > .outer-content > .content {
     padding-bottom: 0 !important;
   }
@@ -215,7 +284,7 @@ if(post)
     }
   }
 
-  .post > h2{
+  .post > h2 {
     font-size: var(--font-size-xl);
   }
 
@@ -227,52 +296,58 @@ if(post)
     margin-top: var(--spacing-xl);
   }
 
-  .topic-pill{
-    background:var(--color-bg-brand);
-    color:white;
-    display:inline-flex;
+  .topic-pill {
+    background: var(--color-bg-brand);
+    color: white;
+    display: inline-flex;
     justify-content: flex-start;
-    padding:4px 8px;
-    border-radius:var(--radius-sm);
+    padding: 4px 8px;
+    border-radius: var(--radius-sm);
     font-weight: bold;
     font-size: var(--font-size-xs);
   }
 
-  .feature-date-container, .feature-date{
-    margin-top:0;
-    color:#5A5A5A;
+  .feature-date-container,
+  .feature-date {
+    margin-top: 0;
+    color: #5a5a5a;
     display: flex;
     align-items: center;
     gap: 8px;
   }
 
-  .feature-date-container{
-    display:flex;
+  .feature-date-container {
+    display: flex;
     align-items: center;
-    gap:8px;
-    font-size:var(--font-size-sm);
-    *{
-      font-size:var(--font-size-sm);
-      color:#5A5A5A;
+    gap: 8px;
+    font-size: var(--font-size-sm);
+    * {
+      font-size: var(--font-size-sm);
+      color: #5a5a5a;
     }
 
-    & svg>*{
-      stroke:#5A5A5A;
+    & svg > * {
+      stroke: #5a5a5a;
     }
   }
 
-  .split-inner{
-    .pane.second{
-      display:flex;
+  .split-inner {
+    .pane.second {
+      display: flex;
       flex-direction: column;
-      gap:32px;
+      gap: 32px;
+      position: sticky;
+      top: 100px;
+      align-self: start;
+      max-height: 100vh;
+      overflow: scroll;
     }
   }
 
-  .blog-card{
-      background: var(--color-bg-muted);
-      padding:24px;
-      border:1px solid var(--color-border-subtle);
-      border-radius: var(--radius-sm);
+  .blog-card {
+    background: var(--color-bg-muted);
+    padding: 24px;
+    border: 1px solid var(--color-border-subtle);
+    border-radius: var(--radius-sm);
   }
 </style>
