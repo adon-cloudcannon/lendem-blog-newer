@@ -44,14 +44,14 @@ const arrayDataAttributes = effectiveChildrenProp
   </div>
 </div>
 
-<style is:global>
+<style>
   @layer components {
-    .pane.second{
-      gap:8px!important;
-    }
-
     .bento-box-grid-item {
       display: contents;
+
+      :global(.pane.second){
+        gap:8px!important;
+      }
     }
 
     .bento-box-grid-item > .bento-box-grid-item-content {

@@ -10,6 +10,8 @@ import BlogItem from "@page-sections/blog/featured-blog/BlogItem.astro";
 import Grid from "@wrappers/grid/Grid.astro";
 import { getEntry } from "astro:content";
 
+import readingTime from "@components/utils/readingTime";
+
 const {
   id = "",
   heading = "",
@@ -22,15 +24,8 @@ const {
   ...htmlAttributes
 } = Astro.props;
 
-const WPM = 200;
-const countWords = str => str.trim().split(/\s+/).length;
-
 const featuredPosts = featuredArticles.map(x => x.replace("/src/content/blog/","").replace(".mdx",""));
 const featuredPost = await getEntry('blog', featuredPosts[0]);
-const content = featuredPost?.body;
-
-if(featuredPost)
-  featuredPost.data.minutesRead = `${Math.ceil(countWords(content)/WPM)} min read`;
 ---
 
 <CustomSection
@@ -130,7 +125,7 @@ if(featuredPost)
             }) }
             <div class="divider">•</div>
             <Icon name="clock" size="md" />
-            { featuredPost?.data.minutesRead ?? "" }
+            { readingTime(featuredPost)}
           </SimpleText>
         </div>
       </Card>
@@ -155,14 +150,11 @@ if(featuredPost)
         {
           featuredPosts.slice(1).map(async (article: any, index: number) => {
             const post = await getEntry('blog', article);
-            const content = post?.body;
-
-            if(post)
-              post.data.minutesRead = `${Math.ceil(countWords(content)/WPM)} min read`;
 
             return (
               <BlogItem
                 id={post?.id}
+                minutesRead={readingTime(post)}
                 {...post?.data}
                 class="featured-blog-item"
                 data-index={index}

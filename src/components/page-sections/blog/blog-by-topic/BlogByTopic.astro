@@ -1,14 +1,17 @@
 ---
 import CustomSection from "@components/page-sections/builders/custom-section/CustomSection.astro";
 import Heading from "@core-elements/heading/Heading.astro";
+import Text from "@core-elements/text/Text.astro";
 import ContentSelector from "@wrappers/content-selector/ContentSelector.astro";
 import ContentSelectorPanel from "@wrappers/content-selector/ContentSelectorPanel.astro";
 
 import BentoBoxGrid from "@components/building-blocks/wrappers/bento-box-grid/BentoBoxGrid.astro";
+import BentoBoxGridItem from "@components/building-blocks/wrappers/bento-box-grid/BentoBoxGridItem.astro";
+import Split from "@components/building-blocks/wrappers/split/Split.astro";
+import Image from "@components/building-blocks/core-elements/image/Image.astro";
 
 import { getCollection } from "astro:content";
 import tags from "@data/topics.json";
-import BlogCard from "@components/page-sections/blog/BlogCard.astro";
 
 const {
   id = "",
@@ -45,10 +48,27 @@ const {
         </Heading>
         <BentoBoxGrid>
           { posts.slice(0,4).map(post => 
-              <BlogCard 
-                post={post} 
-                border={true}
-              />
+              <BentoBoxGridItem
+                columnSpan={6}
+                rowSpan={1}
+              >
+                <Split 
+                  verticalAlignment="center"
+                  distributionMode="third-two-thirds"
+                >
+                  <Fragment slot="first">
+                    <Image source={post.data.image} aspectRatio="square" />
+                  </Fragment>
+                  <Fragment slot="second">
+                    <Heading level="h3" size="xs">
+                      {post.data.title}
+                    </Heading>
+                    <Text>
+                      <p>{post.data.description}</p>
+                    </Text>
+                  </Fragment>
+                </Split>
+              </BentoBoxGridItem>
             )
           }
         </BentoBoxGrid>
@@ -58,23 +78,7 @@ const {
 </CustomSection>
 
 <style>
-    :global(.bento-box-grid-item-content){
-      padding:16px;
-
-      :global(.split-inner){
-        grid-template-columns: 128px 1fr!important;
-
-        & .pane.second{ 
-          box-shadow: none!important;
-          padding:0!important;
-
-          & h3, & p, & .text{
-            margin:0!important;
-          }
-        }
-      }
-    }
-
+  .blog-by-topic{
     :global(.content-selector-tab-heading){
       font-size: var(--font-size-md);
       font-weight: normal;
@@ -83,4 +87,20 @@ const {
     :global(.content-selector-input:checked + .content-selector-tab .content-selector-tab-heading){
       font-weight:bold;
     }
+
+    :global(.bento-box-grid-item-content){
+      padding:16px;
+      border: 1px solid var(--color-border-subtle);
+    
+      :global(.split-inner){
+        grid-template-columns: 128px 1fr!important;
+
+        & .pane.second{ 
+          & h3, & p, & .text{
+            margin:0!important;
+          }
+        }
+      }
+    }
+  }
 </style>
