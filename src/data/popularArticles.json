@@ -1,0 +1,11 @@
+{
+    "popularArticles":[],
+    "_inputs":{
+        "popularArticles":{
+            "type":"multiselect",
+            "options":{
+                "values":"collections.blog"
+            }
+        }
+    }
+}
