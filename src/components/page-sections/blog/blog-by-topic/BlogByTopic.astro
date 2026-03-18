@@ -81,6 +81,11 @@ const {
   @layer page-sections {
     .content-selector-tab-heading{
       font-size: var(--font-size-md);
+      font-weight: normal;
+    }
+
+    .content-selector-input:checked + .content-selector-tab .content-selector-tab-heading{
+      font-weight:bold;
     }
 
     .bento-box-grid-item-content{
