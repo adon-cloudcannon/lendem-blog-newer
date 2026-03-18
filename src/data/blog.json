@@ -6,6 +6,20 @@
         "/src/content/blog/2025-11-12-our-approach-to-css-just-enough.mdx",
         "/src/content/blog/2025-11-19-how-we-think-about-js-in-this-starter.mdx"
     ],
+    "socials": [
+        {
+            "name": "Facebook",
+            "logo": "social/facebook"
+        },
+        {
+            "name": "X/Twitter",
+            "logo": "social/x"
+        },
+        {
+            "name": "LinkedIn",
+            "logo": "social/linkedin"
+        }
+    ],
     "_inputs": {
         "popularArticles": {
             "type": "multiselect",

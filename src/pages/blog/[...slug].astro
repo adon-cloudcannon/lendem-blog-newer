@@ -13,6 +13,8 @@ import Page from "@layouts/Page.astro";
 import CustomSection from "@page-sections/builders/custom-section/CustomSection.astro";
 import { getCollection, render, type CollectionEntry } from "astro:content";
 
+import { socials } from "@data/blog.json";
+
 // Automatically import all components from building-blocks and page-sections for MDX
 const buildingBlocksImports = import.meta.glob("../../components/building-blocks/**/*.astro", {
   eager: true,
@@ -77,6 +79,12 @@ if (post) post.data.minutesRead = `${Math.ceil(countWords(content) / WPM)} min r
     paddingVertical="none"
     colorScheme="inherit"
     backgroundColor="muted"
+    backgroundImage={
+      {
+        "source":"/src/assets/images/Service Mark.svg",
+        "positionHorizontal":"right"
+      }
+    }
     class="breadcrumb-container"
   >
     <div class="breadcrumb">
@@ -139,36 +147,45 @@ if (post) post.data.minutesRead = `${Math.ceil(countWords(content) / WPM)} min r
             </SimpleText>
           )
         }
-
-        <div
-          class="feature-date-container"
-          data-cloudcannon-ignore
-        >
-          <Icon
-            name="calendar"
-            size="md"
-          />
-          <SimpleText
-            alignX="start"
-            size="md"
-            class="feature-date"
-            editable={false}
+        <div class="date-socials">
+          <div
+            class="feature-date-container"
             data-cloudcannon-ignore
           >
-            {
-              new Date(post.data.date).toLocaleDateString("en-US", {
-                year: "numeric",
-                month: "short",
-                day: "numeric",
-              })
-            }
-
             <Icon
-              name="clock"
+              name="calendar"
               size="md"
             />
-            {post?.data.minutesRead ?? ""}
-          </SimpleText>
+            <SimpleText
+              alignX="start"
+              size="md"
+              class="feature-date"
+              editable={false}
+              data-cloudcannon-ignore
+            >
+              {
+                new Date(post.data.date).toLocaleDateString("en-US", {
+                  year: "numeric",
+                  month: "short",
+                  day: "numeric",
+                })
+              }
+
+              <Icon
+                name="clock"
+                size="md"
+              />
+              {post?.data.minutesRead ?? ""}
+            </SimpleText>
+          </div>
+
+          <div class="social-container">
+          {
+            socials.map(social => {
+              return <Icon name={social.logo} size="md" />
+            })
+          }
+          </div>
         </div>
 
         {
@@ -229,6 +246,11 @@ if (post) post.data.minutesRead = `${Math.ceil(countWords(content) / WPM)} min r
 
 <style is:global>
   .breadcrumb-container {
+    .background-image{
+      img{
+        object-fit:contain;
+      }
+    }
     .outer-content {
       padding: 24px 0;
       .content {
@@ -307,6 +329,13 @@ if (post) post.data.minutesRead = `${Math.ceil(countWords(content) / WPM)} min r
     font-size: var(--font-size-xs);
   }
 
+  .date-socials{
+    display:flex;
+    justify-content: space-between;
+    border-bottom:1px solid var(--color-border-subtle);
+    padding:16px 0;
+  }
+
   .feature-date-container,
   .feature-date {
     margin-top: 0;
@@ -331,6 +360,11 @@ if (post) post.data.minutesRead = `${Math.ceil(countWords(content) / WPM)} min r
     }
   }
 
+  .social-container{
+    display: flex;
+    gap:8px;
+  }
+
   .split-inner {
     .pane.second {
       display: flex;
@@ -339,8 +373,7 @@ if (post) post.data.minutesRead = `${Math.ceil(countWords(content) / WPM)} min r
       position: sticky;
       top: 100px;
       align-self: start;
-      max-height: 100vh;
-      overflow: scroll;
+      max-height: 1000vh;
     }
   }
 
