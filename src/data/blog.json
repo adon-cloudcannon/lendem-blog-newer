@@ -9,15 +9,28 @@
     "socials": [
         {
             "name": "Facebook",
-            "logo": "social/facebook"
+            "logo": "insights/facebook",
+            "url": ""
         },
         {
             "name": "X/Twitter",
-            "logo": "social/x"
+            "logo": "insights/twitter",
+            "url": ""
         },
         {
             "name": "LinkedIn",
-            "logo": "social/linkedin"
+            "logo": "insights/linkedin",
+            "url": ""
+        },
+        {
+            "name": "Blue Chat",
+            "logo": "insights/blue-chat",
+            "url": ""
+        },
+        {
+            "name": "Green Chat",
+            "logo": "insights/green-chat",
+            "url": ""
         }
     ],
     "_inputs": {

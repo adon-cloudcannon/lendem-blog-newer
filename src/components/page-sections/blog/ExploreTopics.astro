@@ -4,6 +4,8 @@ import List from "@components/building-blocks/core-elements/list/List.astro";
 import ListItem from "@components/building-blocks/core-elements/list/ListItem.astro";
 import topics from "@data/topics.json";
 import { getCollection } from "astro:content";
+
+const { topic:blogTopic } = Astro.props;
 ---
 
 <div class="blog-card">
@@ -20,7 +22,7 @@ import { getCollection } from "astro:content";
           return data.topic === topic;
         });
         return (
-          <ListItem>
+          <ListItem class:list={[blogTopic === topic ? "active" : ""]}>
             {topic}
             <span class="count">{posts.length}</span>
           </ListItem>
@@ -62,6 +64,7 @@ import { getCollection } from "astro:content";
         width: 100%;
 
         .count {
+          color:black;
           align-items: center;
           background: var(--color-bg-muted);
           border-radius: 100%;

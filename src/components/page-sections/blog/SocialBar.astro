@@ -1,0 +1,14 @@
+---
+import Icon from "@components/building-blocks/core-elements/icon/Icon.astro";
+import { socials } from "@data/blog.json";
+
+const { size } = Astro.props;
+---
+
+<div class="social-container">
+{
+    socials.map(social => {
+        return <Icon name={social.logo} size={size} />
+    })
+}
+</div>

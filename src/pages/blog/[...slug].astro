@@ -14,6 +14,7 @@ import CustomSection from "@page-sections/builders/custom-section/CustomSection.
 import { getCollection, render, type CollectionEntry } from "astro:content";
 
 import { socials } from "@data/blog.json";
+import SocialBar from "@components/page-sections/blog/SocialBar.astro";
 
 // Automatically import all components from building-blocks and page-sections for MDX
 const buildingBlocksImports = import.meta.glob("../../components/building-blocks/**/*.astro", {
@@ -179,13 +180,7 @@ if (post) post.data.minutesRead = `${Math.ceil(countWords(content) / WPM)} min r
             </SimpleText>
           </div>
 
-          <div class="social-container">
-          {
-            socials.map(social => {
-              return <Icon name={social.logo} size="md" />
-            })
-          }
-          </div>
+          <SocialBar size="lg" />
         </div>
 
         {
@@ -210,13 +205,24 @@ if (post) post.data.minutesRead = `${Math.ceil(countWords(content) / WPM)} min r
         >
           <Content components={mdxComponents} />
         </div>
+
+        <div>
+          Learned something new? Share it with a friend!
+          <SocialBar size="xl" />
+        </div>
+
+        Previous and next
+
+        <CustomSection>
+            
+        </CustomSection>
       </Fragment>
       <Fragment slot="second">
         <TableOfContents headings={headings} />
 
         <PopularArticles />
 
-        <ExploreTopics />
+        <ExploreTopics topic={post.data.topic} />
 
         <CtaCenter
           image="/src/assets/images/img_moneyhand.png"
@@ -308,6 +314,18 @@ if (post) post.data.minutesRead = `${Math.ceil(countWords(content) / WPM)} min r
 
   .post > h2 {
     font-size: var(--font-size-xl);
+  }
+
+  .post > ul{
+    list-style:inside;
+    padding:0;
+    ::marker {
+      color: var(--color-brand);
+    }
+
+    & > li{
+      padding-bottom:16px;
+    }
   }
 
   .post > .astro-code {
