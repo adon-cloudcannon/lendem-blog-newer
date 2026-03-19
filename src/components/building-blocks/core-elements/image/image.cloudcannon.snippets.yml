@@ -7,7 +7,7 @@ image:
     subtext:
       - key: alt
     icon: image
-    image:
+    gallery.image:
       key: source
   definitions:
     component_name: Image
