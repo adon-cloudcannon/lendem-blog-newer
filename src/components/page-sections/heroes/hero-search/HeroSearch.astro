@@ -10,6 +10,12 @@ const {
 
 <CustomSection
     backgroundColor={backgroundColor}
+    backgroundImage={
+      {
+        "source":"/src/assets/images/Service Mark.svg",
+        "positionHorizontal":"right"
+      }
+    }
     maxContentWidth={"2xl"}
     paddingHorizontal="lg"
     paddingVertical={"2xl"}
@@ -51,6 +57,12 @@ const {
       
       + .content h1{
         color:white;
+      }
+    }
+
+    .background-image{
+      img{
+        object-fit:contain;
       }
     }
 </style>
