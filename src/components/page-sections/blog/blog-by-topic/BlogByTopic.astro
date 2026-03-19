@@ -12,6 +12,11 @@ import Image from "@components/building-blocks/core-elements/image/Image.astro";
 
 import { getCollection } from "astro:content";
 import topics from "@data/topics.json";
+import SimpleText from "@components/building-blocks/core-elements/simple-text/SimpleText.astro";
+import Icon from "@components/building-blocks/core-elements/icon/Icon.astro";
+
+import readingTime from "@components/utils/readingTime";
+import Card from "@components/building-blocks/wrappers/card/Card.astro";
 
 const {
   id = "",
@@ -53,23 +58,43 @@ const {
                 rowSpan={1}
                 style="background:white"
               >
-                <Split 
-                  verticalAlignment="center"
-                  distributionMode="third-two-thirds"
+                <Card
+                  verticalPadding="none"
                   style="margin-top:0"
+                  link={`/blog/${post.id}`}
                 >
-                  <Fragment slot="first">
-                    <Image source={post.data.image} aspectRatio="square" />
-                  </Fragment>
-                  <Fragment slot="second">
-                    <Heading level="h3" size="xs">
-                      {post.data.title}
-                    </Heading>
-                    <Text>
-                      <p>{post.data.description}</p>
-                    </Text>
-                  </Fragment>
-                </Split>
+                  <Split 
+                    verticalAlignment="center"
+                    distributionMode="third-two-thirds"
+                    style="margin-top:0"
+                  >
+                    <Fragment slot="first">
+                      <Image source={post.data.image} aspectRatio="square" />
+                    </Fragment>
+                    <Fragment slot="second">
+                      <Heading level="h3" size="xs">
+                        {post.data.title}
+                      </Heading>
+                      <div class="feature-date-container">
+                        <SimpleText
+                          alignX="start"
+                          size="xs"
+                          class="feature-date"
+                          editable={false}
+                        >
+                          { new Date(post?.data.date).toLocaleDateString('en-US', {
+                            year: 'numeric',
+                            month: 'numeric',
+                            day: 'numeric',
+                          }) }
+                        </SimpleText>
+                        <div class="divider">•</div>
+                        <Icon name="clock" size="none" />
+                        {readingTime(post)}
+                      </div>
+                    </Fragment>
+                  </Split>
+                </Card>
               </BentoBoxGridItem>
             )
           }
@@ -102,6 +127,29 @@ const {
             margin:0!important;
           }
         }
+      }
+    }
+
+    :global(.feature-date-container, .feature-date){
+      margin-top:0;
+      color:#5A5A5A;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    :global(.feature-date-container){
+      display:flex;
+      align-items: center;
+      gap:8px;
+      font-size:var(--font-size-sm);
+      *{
+        font-size:var(--font-size-sm);
+        color:#5A5A5A;
+      }
+
+      & svg>*{
+        stroke:#5A5A5A;
       }
     }
   }
