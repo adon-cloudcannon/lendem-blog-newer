@@ -42,8 +42,8 @@ backgroundColor:
         name: Brand Linear Gradient Muted
 featuredArticles:
   type: multiselect
+  comment: The first article in this list will occupy the large featured article space; the others will appear in the side list. It is recommended to have 6 articles here.
   options:
-    comment: The first article in this list will occupy the large featured article space; the others will appear in the side list. It is recommended to have 6 articles here.
     allow_empty: true
     max_items: 6
     max_items_message: Cannot be more than 6
