@@ -2,6 +2,7 @@ image:
   template: mdx_component
   inline: false
   preview:
+    view: "gallery"
     text:
       - Image
     subtext:
