@@ -3,48 +3,20 @@ _schema: default
 title: Search
 description: Search your site content with fast static search powered by Pagefind.
 pageSections:
-  - _component: page-sections/heroes/hero-search
-    heading: Search
-    backgroundColor: brand-linear-gradient-strong
-  - _component: page-sections/builders/custom-section
-    label: ''
-    contentSections:
-      - _component: building-blocks/core-elements/embed
-        html: |
-          <link href="/pagefind/pagefind-ui.css" rel="stylesheet">
-          <script src="/pagefind/pagefind-ui.js"></script>
-          <div id="search"></div>
-          <script>
-              const initSearch = () => {
-                  const searchEl = document.getElementById('search');
-                  if (!searchEl || typeof PagefindUI === 'undefined') return;
-
-                  const currentUrl = window.location.href;
-                  if (searchEl.dataset.pagefindInitialized === currentUrl) return;
-
-                  searchEl.dataset.pagefindInitialized = currentUrl;
-                  searchEl.innerHTML = '';
-                  new PagefindUI({ element: "#search", showSubResults: true });
-              };
-
-              if (document.readyState === "loading") {
-                  document.addEventListener('DOMContentLoaded', initSearch, { once: true });
-              } else {
-                  initSearch();
-              }
-
-              document.addEventListener('astro:page-load', initSearch);
-          </script>
-        aspectRatio: landscape
-    maxContentWidth: xl
-    paddingHorizontal: xl
-    paddingVertical: 2xl
-    colorScheme: inherit
-    backgroundColor: base
-    backgroundImage:
-      source: ''
-      alt: ''
-      positionVertical: top
-      positionHorizontal: center
-    rounded: false
+    -
+        _component: page-sections/heroes/hero-search
+        heading: Search
+        subtext: Subtext placeholder text that will be replaced with actual content.
+        buttonSections:
+            -
+                _component: building-blocks/core-elements/button
+                text: My Button
+                hideText: false
+                link: ''
+                iconName: ''
+                iconPosition: before
+                variant: primary
+                size: md
+        colorScheme: inherit
+        backgroundColor: brand-linear-gradient-strong
 ---
