@@ -1,0 +1,15 @@
+label: Explore Topics CTA
+icon: list_alt
+description: Grid layout for showcasing team members.
+value:
+  _component: page-sections/blog/explore-topics-cta
+  id:
+  colorScheme: inherit
+  backgroundColor: base
+preview:
+  text:
+    - Explore Topics CTA
+  icon: people
+_inputs_from_glob:
+  - /src/components/page-sections/blog/explore-topics-cta/explore-topics-cta.cloudcannon.inputs.yml
+_structures:

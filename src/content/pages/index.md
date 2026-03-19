@@ -20,6 +20,8 @@ pageSections:
       - /src/content/blog/2025-12-03-building-for-the-long-term.mdx
     colorScheme: inherit
     backgroundColor: brand-linear-gradient-muted
+  - _component: page-sections/blog/explore-topics-cta
+    backgroundColor: brand-linear-gradient-strong
   - _component: page-sections/blog/blog-by-topic
     id:
     heading: Insights

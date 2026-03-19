@@ -11,7 +11,7 @@ import Split from "@components/building-blocks/wrappers/split/Split.astro";
 import Image from "@components/building-blocks/core-elements/image/Image.astro";
 
 import { getCollection } from "astro:content";
-import tags from "@data/topics.json";
+import topics from "@data/topics.json";
 
 const {
   id = "",
@@ -37,14 +37,14 @@ const {
   {...htmlAttributes}
 >
   <ContentSelector navigationPosition="top">
-    {tags.map(async (tag,index) => {
+    {topics.map(async (topic,index) => {
       const posts = await getCollection('blog', ({ data }) => {
-        return data.topic === tag;
+        return data.topic === topic.name;
       })
 
-      return <ContentSelectorPanel title={tag} checked={index === 0}>
+      return <ContentSelectorPanel title={topic.name} checked={index === 0}>
         <Heading alignX="start" level="h2" size="sm">
-          {tag}
+          {topic.name}
         </Heading>
         <BentoBoxGrid>
           { posts.slice(0,4).map(post => 

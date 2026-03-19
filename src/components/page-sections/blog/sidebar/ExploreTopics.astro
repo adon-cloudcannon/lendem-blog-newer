@@ -19,11 +19,11 @@ const { topic:blogTopic } = Astro.props;
     {
       topics.map(async (topic) => {
         const posts = await getCollection("blog", ({ data }) => {
-          return data.topic === topic;
+          return data.topic === topic.name;
         });
         return (
-          <ListItem class:list={[blogTopic === topic ? "active" : ""]}>
-            {topic}
+          <ListItem class:list={[blogTopic === topic.name ? "active" : ""]}>
+            {topic.name}
             <span class="count">{posts.length}</span>
           </ListItem>
         );

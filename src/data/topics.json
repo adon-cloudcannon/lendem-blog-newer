@@ -1,6 +1,18 @@
 [
-    "Terms",
-    "Playbook",
-    "Pulse",
-    "Learn"
+    {
+        "name":"Terms",
+        "icon":"arrow-trending-up"
+    },
+    {
+        "name":"Playbook",
+        "icon":"wallet"
+    },
+    {
+        "name":"Pulse",
+        "icon":"banknotes"
+    },
+    {
+        "name":"Learn",
+        "icon":"chart-bar"
+    }
 ]

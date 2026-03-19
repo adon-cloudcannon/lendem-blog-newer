@@ -1,0 +1,77 @@
+---
+import Button from "@components/building-blocks/core-elements/button/Button.astro";
+import Heading from "@components/building-blocks/core-elements/heading/Heading.astro";
+import BentoBoxGrid from "@components/building-blocks/wrappers/bento-box-grid/BentoBoxGrid.astro";
+import BentoBoxGridItem from "@components/building-blocks/wrappers/bento-box-grid/BentoBoxGridItem.astro";
+import CustomSection from "@components/page-sections/builders/custom-section/CustomSection.astro";
+import topics from "@data/topics.json";
+
+const {
+    backgroundColor
+} = Astro.props;
+---
+
+<CustomSection
+    maxContentWidth="2xl"
+    paddingHorizontal = "lg",
+    paddingVertical = "2xl",
+    backgroundColor={backgroundColor}
+>
+    <Heading level="h2" size="md">
+        Explore Topics
+    </Heading>
+    <BentoBoxGrid>
+        {
+            topics.map(topic => {
+                return (
+                    <BentoBoxGridItem
+                        columnSpan={3}
+                        rowSpan={1}
+                    >
+                        <Button
+                            iconName={topic.icon}
+                            iconPosition="before"
+                            variant="large"
+                        >{topic.name}</Button>
+                    </BentoBoxGridItem>
+                )
+            })
+        }
+    </BentoBoxGrid>
+</CustomSection>
+
+<style is:global>
+    .bg-brand-linear-gradient-strong{
+      background: linear-gradient(283.67deg, #873D0E 8.88%, #7D3F1A 36.55%, #614539 88.24%);
+
+      + .content h2{
+        color:white;
+      }
+    }
+
+    .background-image{
+      img{
+        object-fit:contain;
+      }
+    }
+
+    .bento-box-grid-item-content{
+        padding:0;
+    }
+
+    .variant-large{
+        display: flex;
+        flex-direction: column;
+
+        .icon-inner{
+            background: var(--color-bg-brand);
+            color:white;
+            width:32px;
+            height:32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 100%;
+        }
+    }
+</style>
