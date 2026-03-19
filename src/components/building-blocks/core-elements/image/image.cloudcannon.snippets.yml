@@ -9,7 +9,7 @@ image:
     icon: image
     gallery:
       image:
-        key: source
+        - key: source
   definitions:
     component_name: Image
     named_args:
