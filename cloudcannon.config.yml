@@ -76,6 +76,7 @@ collections_config:
         type: multiselect
         options:
           values: collections.blog
+          max_items: 4
   data:
     path: src/data
     glob:

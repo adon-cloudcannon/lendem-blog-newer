@@ -43,7 +43,9 @@ backgroundColor:
 featuredArticles:
   type: multiselect
   options:
+    comment: The first article in this list will occupy the large featured article space; the others will appear in the side list. It is recommended to have 6 articles here.
     allow_empty: true
+    max_items: 6
     values: collections.blog
     value_key: {url|slugify}
     preview:
