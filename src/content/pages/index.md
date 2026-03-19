@@ -17,16 +17,18 @@ pageSections:
       - /src/content/blog/2025-11-12-our-approach-to-css-just-enough.mdx
       - /src/content/blog/2025-11-19-how-we-think-about-js-in-this-starter.mdx
       - /src/content/blog/2025-11-26-launching-projects-faster-with-presets.mdx
+      - /src/content/blog/2025-12-03-building-for-the-long-term.mdx
     colorScheme: inherit
     backgroundColor: brand-linear-gradient-muted
   - _component: page-sections/blog/blog-by-topic
     id:
     heading: Insights
     subtext: >-
-      Practical insights to help you understand money and make informed decisions
-    featuredArticles: []
+      Practical insights to help you understand money and make informed
+      decisions
     colorScheme: inherit
     backgroundColor: base
+    featuredArticles: []
   - _component: page-sections/ctas/cta-center
     image: /src/assets/images/img_moneyhand.png
     heading: Need extra cash?
