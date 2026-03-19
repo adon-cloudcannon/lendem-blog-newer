@@ -93,6 +93,7 @@ const blogPostSchema = z.object({
   author: z.string().default("Anonymous"),
   image: z.string().optional(),
   topic: z.string().optional(),
+  related_articles: z.array(z.string()),
   minutesRead: z.string().optional()
 });
 

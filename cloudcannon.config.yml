@@ -67,9 +67,15 @@ collections_config:
           resize_style: contain
           width: 1920
           height: 1280
-      tags:
-        type: array
+      topic:
+        type: select
         comment: Tags relevant to this post's content.
+        options:
+          values: data.topics
+      related_articles:
+        type: multiselect
+        options:
+          values: collections.blog
   data:
     path: src/data
     glob:
@@ -102,6 +108,11 @@ collection_groups:
   - heading: Data
     collections:
       - data
+
+data_config:
+  topics:
+    path: data/topics.json
+
 _inputs:
   pageSections:
     comment: The main sections of the page.

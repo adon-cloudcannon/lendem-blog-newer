@@ -17,6 +17,7 @@ import SocialBar from "@components/page-sections/blog/SocialBar.astro";
 import Button from "@components/building-blocks/core-elements/button/Button.astro";
 import BentoBoxGrid from "@components/building-blocks/wrappers/bento-box-grid/BentoBoxGrid.astro";
 import BentoBoxGridItem from "@components/building-blocks/wrappers/bento-box-grid/BentoBoxGridItem.astro";
+import Card from "@components/building-blocks/wrappers/card/Card.astro";
 
 // Automatically import all components from building-blocks and page-sections for MDX
 const buildingBlocksImports = import.meta.glob("../../components/building-blocks/**/*.astro", {
@@ -267,10 +268,14 @@ if (post) post.data.minutesRead = `${Math.ceil(countWords(content) / WPM)} min r
     </Heading>
     <BentoBoxGrid>
       <BentoBoxGridItem
-        colSpan={3}
+        columnSpan={3}
         rowSpan={1}
       >
-        something
+        <Card
+          backgroundColor="base"
+        >
+          card
+        </Card>
       </BentoBoxGridItem>
     </BentoBoxGrid>
   </CustomSection>
