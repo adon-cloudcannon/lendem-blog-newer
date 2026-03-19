@@ -1,0 +1,148 @@
+---
+import Split from "@components/building-blocks/wrappers/split/Split.astro";
+import ExploreTopics from "@components/page-sections/blog/ExploreTopics.astro";
+import PopularArticles from "@components/page-sections/blog/PopularArticles.astro";
+import CustomSection from "@components/page-sections/builders/custom-section/CustomSection.astro";
+import CtaCenter from "@components/page-sections/ctas/cta-center/CtaCenter.astro";
+import HeroSearch from "@components/page-sections/heroes/hero-search/HeroSearch.astro";
+import Page from "@layouts/Page.astro";
+
+import { getCollection } from "astro:content";
+
+type Paginate = (_data: any[], _opts: { pageSize: number }) => any;
+
+export interface Props {
+  page: { data: any[] };
+}
+
+export async function getStaticPaths({ paginate }: { paginate: Paginate }) {
+  const blogPosts = (await getCollection("blog")).sort(
+    (a: any, b: any) => b.data.date.getTime() - a.data.date.getTime()
+  );
+
+  return paginate(blogPosts, { pageSize: 9 });
+}
+
+const { page } = Astro.props as Props;
+
+// Try to load blog page from pages collection for hero sections
+let blogPage: any;
+let heroSections: any[] = [];
+
+try {
+  const pages = await getCollection("pages");
+
+  blogPage = pages.find((page: any) => page.id === "blog");
+
+  if (blogPage?.data?.pageSections) {
+    heroSections = blogPage.data.pageSections;
+  }
+} catch (e) {
+  console.error("Failed to load blog page data:", e);
+}
+
+const pageTitle = blogPage?.data?.title ?? "Blog";
+const pageDescription =
+  blogPage?.data?.description ??
+  "Read our latest articles and insights on web development, design, and technology.";
+---
+
+<Page
+  
+>
+  <HeroSearch 
+    heading="Search"
+    backgroundColor="brand-linear-gradient-strong"
+  />
+
+  <CustomSection
+    maxContentWidth="2xl"
+    paddingHorizontal="lg"
+    paddingVertical="xl"
+    colorScheme="inherit"
+    backgroundColor="base"
+    class="search-container"
+  >
+    <Split
+      distributionMode="two-thirds-third"
+      gap="xl"
+    >
+      <Fragment slot="first">
+
+      </Fragment>
+      <Fragment slot="second">
+        <PopularArticles />
+
+        <ExploreTopics topic={""} />
+
+        <CtaCenter
+          image="/src/assets/images/img_moneyhand.png"
+          heading="Need extra cash?"
+          subtext="A simple, secure way to cover urgent expenses."
+          backgroundColor="muted"
+          rounded={true}
+          paddingHorizontal="none"
+          paddingVertical="none"
+          buttonSections={[
+            {
+              _component: "building-blocks/core-elements/button",
+              text: "Apply Now",
+              hideText: false,
+              link: "",
+              iconName: "",
+              iconPosition: "before",
+              variant: "primary",
+              size: "md",
+            },
+          ]}
+        />
+      </Fragment>
+    </Split>
+  </CustomSection>
+  
+</Page>
+
+<style is:global>
+  .split > .split-inner {
+    .pane.second{
+      gap: 32px;
+      display: flex;
+      flex-direction: column;
+      position: sticky;
+      top: 100px;
+      align-self: start;
+      max-height: 1000vh;
+    }
+  }
+
+  .feature-date-container,
+  .feature-date {
+    margin-top: 0;
+    color: #5a5a5a;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .feature-date-container {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: var(--font-size-sm);
+    * {
+      font-size: var(--font-size-sm);
+      color: #5a5a5a;
+    }
+
+    & svg > * {
+      stroke: #5a5a5a;
+    }
+  }
+
+  .blog-card {
+    background: var(--color-bg-muted);
+    padding: 24px;
+    border: 1px solid var(--color-border-subtle);
+    border-radius: var(--radius-sm);
+  }
+</style>
