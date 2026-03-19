@@ -111,7 +111,7 @@ collection_groups:
 
 data_config:
   topics:
-    path: data/topics.json
+    path: src/data/topics.json
 
 _inputs:
   pageSections:
