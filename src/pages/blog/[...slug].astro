@@ -18,6 +18,8 @@ import Button from "@components/building-blocks/core-elements/button/Button.astr
 import BentoBoxGrid from "@components/building-blocks/wrappers/bento-box-grid/BentoBoxGrid.astro";
 import BentoBoxGridItem from "@components/building-blocks/wrappers/bento-box-grid/BentoBoxGridItem.astro";
 import Card from "@components/building-blocks/wrappers/card/Card.astro";
+import { getEntry } from "astro:content";
+import readingTime from "@components/utils/readingTime";
 
 // Automatically import all components from building-blocks and page-sections for MDX
 const buildingBlocksImports = import.meta.glob("../../components/building-blocks/**/*.astro", {
@@ -267,16 +269,52 @@ if (post) post.data.minutesRead = `${Math.ceil(countWords(content) / WPM)} min r
       Related Articles
     </Heading>
     <BentoBoxGrid>
-      <BentoBoxGridItem
-        columnSpan={3}
-        rowSpan={1}
-      >
-        <Card
-          backgroundColor="base"
+      { post.data.related_articles.map(async article => {
+        article = article.replace("/src/content/blog/","").replace(".mdx","")
+        const post = await getEntry('blog', article);
+
+        return <BentoBoxGridItem
+          columnSpan={3}
+          rowSpan={1}
         >
-          card
-        </Card>
-      </BentoBoxGridItem>
+          <Card
+            backgroundColor="base"
+            rounded={true}
+            link={`/blog/${post?.id}`}
+            paddingHorizontal="md"
+            paddingVertical="md"
+          >
+            <Fragment slot="before">
+              <Image source={post?.data.image} aspectRatio="landscape" />
+            </Fragment>
+            <Heading level="h3" size="sm">
+              {post?.data.title}
+            </Heading>
+            <SimpleText>
+              {post?.data.description}
+            </SimpleText>
+            <div class="feature-date-container" data-cloudcannon-ignore>
+              <Icon name="calendar" size="none" />
+              <SimpleText
+                alignX="start"
+                size="sm"
+                class="feature-date"
+                editable={false}
+                data-cloudcannon-ignore
+              >
+                { new Date(post.data.date).toLocaleDateString('en-US', {
+                  //year: 'numeric',
+                  month: 'short',
+                  day: 'numeric',
+                }) }
+                <Icon name="clock" size="none" />
+                { readingTime(post)}
+              </SimpleText>
+            </div>
+          </Card>
+        </BentoBoxGridItem>
+        })
+      }
     </BentoBoxGrid>
   </CustomSection>
 </Page>
@@ -410,13 +448,11 @@ if (post) post.data.minutesRead = `${Math.ceil(countWords(content) / WPM)} min r
     gap:8px;
   }
 
-  .split-inner {
+  .content > .split > .split-inner {
     .pane.second{
       gap: 32px;
       display: flex;
       flex-direction: column;
-    }
-    .pane.second:first-of-type {
       position: sticky;
       top: 100px;
       align-self: start;

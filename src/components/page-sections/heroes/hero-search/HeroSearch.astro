@@ -1,0 +1,56 @@
+---
+import Heading from "@components/building-blocks/core-elements/heading/Heading.astro";
+import CustomSection from "@components/page-sections/builders/custom-section/CustomSection.astro";
+
+const {
+    heading = "",
+    backgroundColor = ""
+} = Astro.props;
+---
+
+<CustomSection
+    backgroundColor={backgroundColor}
+    maxContentWidth={"2xl"}
+    paddingHorizontal="lg"
+    paddingVertical={"2xl"}
+>
+    <Heading level="h1" size="lg">
+        {heading}
+    </Heading>
+
+    <link href="/pagefind/pagefind-ui.css" rel="stylesheet">
+    <script src="/pagefind/pagefind-ui.js" is:inline></script>
+    <div id="search"></div>
+    <script>
+        const initSearch = () => {
+            const searchEl = document.getElementById('search');
+            if (!searchEl || typeof PagefindUI === 'undefined') return;
+
+            const currentUrl = window.location.href;
+            if (searchEl.dataset.pagefindInitialized === currentUrl) return;
+
+            searchEl.dataset.pagefindInitialized = currentUrl;
+            searchEl.innerHTML = '';
+            new PagefindUI({ element: "#search", showSubResults: true });
+        };
+
+        if (document.readyState === "loading") {
+            document.addEventListener('DOMContentLoaded', initSearch, { once: true });
+        } else {
+            initSearch();
+        }
+
+        document.addEventListener('astro:page-load', initSearch);
+    </script>
+
+</CustomSection>
+
+<style is:global>
+    .bg-brand-linear-gradient-strong{
+      background: linear-gradient(283.67deg, #873D0E 8.88%, #7D3F1A 36.55%, #614539 88.24%);
+      
+      + .content h1{
+        color:white;
+      }
+    }
+</style>

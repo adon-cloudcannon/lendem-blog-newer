@@ -3,17 +3,9 @@ _schema: default
 title: Search
 description: Search your site content with fast static search powered by Pagefind.
 pageSections:
-  - _component: page-sections/heroes/hero-center
-    eyebrow:
+  - _component: page-sections/heroes/hero-search
     heading: Search
-    subtext: >-
-      Everything on your site is just one search away. (Free static search
-      courtesy of <a href="https://pagefind.app/" target="_blank"
-      rel="noopener">Pagefind</a> 💙)
-    buttonSections: []
-    colorScheme: inherit
-    backgroundColor: base
-    paddingVertical: 4xl
+    backgroundColor: brand-linear-gradient-strong
   - _component: page-sections/builders/custom-section
     label: ''
     contentSections:

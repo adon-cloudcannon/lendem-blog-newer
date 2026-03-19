@@ -1,0 +1,29 @@
+label: Hero Search
+icon: hero
+description: Hero with heading, supporting text, and search.
+value:
+  _component: page-sections/heroes/hero-search
+  heading: Heading text
+  subtext: Subtext placeholder text that will be replaced with actual content.
+  buttonSections:
+    - _component: building-blocks/core-elements/button
+      text: My Button
+      hideText: false
+      link: ""
+      iconName: ""
+      iconPosition: before
+      variant: primary
+      size: md
+  colorScheme: inherit
+  backgroundColor: base
+preview:
+  text:
+    - Hero Search
+  subtext:
+    - key: heading
+  icon: hero
+picker_preview:
+  text: Hero Search
+  subtext: Hero with heading, supporting text, and search.
+_inputs_from_glob:
+  - /src/components/page-sections/heroes/hero-search/hero-search.cloudcannon.inputs.yml
