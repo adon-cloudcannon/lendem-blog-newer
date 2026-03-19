@@ -7,8 +7,9 @@ image:
     subtext:
       - key: alt
     icon: image
-    gallery.image:
-      key: source
+    gallery:
+      image:
+        key: source
   definitions:
     component_name: Image
     named_args:
