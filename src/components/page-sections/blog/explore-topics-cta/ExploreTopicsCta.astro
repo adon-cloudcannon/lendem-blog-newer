@@ -16,6 +16,12 @@ const {
     paddingHorizontal = "lg",
     paddingVertical = "2xl",
     backgroundColor={backgroundColor}
+    backgroundImage={
+      {
+        "source":"/src/assets/images/Service Mark.svg",
+        "positionHorizontal":"right"
+      }
+    }
 >
     <Heading level="h2" size="md">
         Explore Topics
@@ -32,6 +38,7 @@ const {
                             iconName={topic.icon}
                             iconPosition="before"
                             variant="large"
+                            link={`/topics/${topic.name}`}
                         >{topic.name}</Button>
                     </BentoBoxGridItem>
                 )
