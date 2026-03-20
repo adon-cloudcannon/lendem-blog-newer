@@ -45,14 +45,12 @@ const featuredPost = await getEntry('blog', featuredPosts[0]);
     alignX="start"
     data-prop="heading"
     text={heading}
-    style="margin-bottom:0"
   />
   <SimpleText
     class="team-grid-subtext"
     size="md"
     alignX="start"
     data-prop="subtext"
-    style="margin-top:0"
   >
     {subtext}
   </SimpleText>
@@ -101,6 +99,7 @@ const featuredPost = await getEntry('blog', featuredPosts[0]);
           editable={false}
           data-prop={undefined}
           data-cloudcannon-ignore
+          style="margin-bottom:0"
         />
         <SimpleText
           alignX="start"
@@ -108,6 +107,7 @@ const featuredPost = await getEntry('blog', featuredPosts[0]);
           editable={false}
           data-prop={undefined}
           data-cloudcannon-ignore
+          style="margin-top:0"
         >
           { featuredPost?.data.description ?? "" }
         </SimpleText>
