@@ -288,10 +288,10 @@ if (post) post.data.minutesRead = `${Math.ceil(countWords(content) / WPM)} min r
             <Fragment slot="before">
               <Image source={post?.data.image} aspectRatio="landscape" />
             </Fragment>
-            <Heading level="h3" size="sm">
+            <Heading level="h3" size="sm" style="margin-bottom:0">
               {post?.data.title}
             </Heading>
-            <SimpleText>
+            <SimpleText style="margin-top:0">
               {post?.data.description}
             </SimpleText>
             <div class="feature-date-container" data-cloudcannon-ignore>
@@ -449,16 +449,14 @@ if (post) post.data.minutesRead = `${Math.ceil(countWords(content) / WPM)} min r
     gap:8px;
   }
 
-  .content > .split > .split-inner {
-    .pane.second{
-      gap: 32px;
-      display: flex;
-      flex-direction: column;
-      position: sticky;
-      top: 100px;
-      align-self: start;
-      max-height: 1000vh;
-    }
+  .content > .split > .split-inner > .pane.second{
+    gap: 32px;
+    display: flex;
+    flex-direction: column;
+    position: sticky;
+    top: 100px;
+    align-self: start;
+    max-height: 1000vh;
   }
 
   .blog-card {

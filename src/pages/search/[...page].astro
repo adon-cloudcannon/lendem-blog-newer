@@ -83,16 +83,14 @@ const { page } = Astro.props as Props;
 </Page>
 
 <style is:global>
-  .split > .split-inner {
-    .pane.second{
-      gap: 32px;
-      display: flex;
-      flex-direction: column;
-      position: sticky;
-      top: 100px;
-      align-self: start;
-      max-height: 1000vh;
-    }
+  .content > .split > .split-inner > .pane.second{
+    gap: 32px;
+    display: flex;
+    flex-direction: column;
+    position: sticky;
+    top: 100px;
+    align-self: start;
+    max-height: 1000vh;
   }
 
   .feature-date-container,
