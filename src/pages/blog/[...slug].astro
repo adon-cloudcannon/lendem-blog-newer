@@ -288,10 +288,28 @@ if (post) post.data.minutesRead = `${Math.ceil(countWords(content) / WPM)} min r
             <Fragment slot="before">
               <Image source={post?.data.image} aspectRatio="landscape" />
             </Fragment>
-            <Heading level="h3" size="sm" style="margin-bottom:0">
+            <Heading level="h3" size="sm" 
+              style="
+                margin-bottom:0;
+                overflow: hidden;
+                display: -webkit-box;
+                -webkit-box-orient: vertical;
+                -webkit-line-clamp: 2;
+                line-clamp: 2;
+              "
+            >
               {post?.data.title}
             </Heading>
-            <SimpleText style="margin-top:0">
+            <SimpleText 
+              style="
+                margin-top:0;
+                overflow: hidden;
+                display: -webkit-box;
+                -webkit-box-orient: vertical;
+                -webkit-line-clamp: 2;
+                line-clamp: 2;
+              "
+            >
               {post?.data.description}
             </SimpleText>
             <div class="feature-date-container" data-cloudcannon-ignore>
