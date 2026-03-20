@@ -22,6 +22,7 @@ const { id } = Astro.props;
                 box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
                 border-radius:8px;
                 overflow:hidden;
+                height:100%
             "
         >
             <Fragment slot="before">
@@ -33,6 +34,7 @@ const { id } = Astro.props;
             <Heading
                 level="h3"
                 size="sm"
+                style="margin-bottom:0"
             >[[PAGEFIND-TITLE]]</Heading>
             <SimpleText
                 style="
@@ -58,3 +60,11 @@ const { id } = Astro.props;
         </Card>
     </BentoBoxGridItem>
 </div>
+
+<style>
+    .card-content{
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+    }
+</style>
