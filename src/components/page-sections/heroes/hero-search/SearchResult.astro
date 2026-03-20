@@ -29,7 +29,15 @@ const { id } = Astro.props;
                 level="h3"
                 size="sm"
             >[[PAGEFIND-TITLE]]</Heading>
-            <SimpleText>[[PAGEFIND-EXCERPT]]</SimpleText>
+            <SimpleText
+                style="
+                overflow: hidden;
+                display: -webkit-box;
+                -webkit-box-orient: vertical;
+                -webkit-line-clamp: 2; /* number of lines to show */
+                line-clamp: 2;
+                "
+            >[[PAGEFIND-EXCERPT]]</SimpleText>
             <div class="feature-date-container">
                 <SimpleText
                     alignX="start"
