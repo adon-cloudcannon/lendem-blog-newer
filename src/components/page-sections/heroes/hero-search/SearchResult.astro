@@ -1,0 +1,44 @@
+---
+import Heading from "@components/building-blocks/core-elements/heading/Heading.astro";
+import Icon from "@components/building-blocks/core-elements/icon/Icon.astro";
+import Image from "@components/building-blocks/core-elements/image/Image.astro";
+import SimpleText from "@components/building-blocks/core-elements/simple-text/SimpleText.astro";
+import BentoBoxGridItem from "@components/building-blocks/wrappers/bento-box-grid/BentoBoxGridItem.astro";
+import Card from "@components/building-blocks/wrappers/card/Card.astro";
+
+const { id } = Astro.props;
+---
+
+<div id={id} style="display:none">
+    <BentoBoxGridItem
+        columnSpan={6}
+        rowSpan={1}
+    >
+        <Card
+            style="margin-top:0"
+        >
+            <Fragment slot="before">
+                <Image 
+                    aspectRatio="widescreen"
+                    source="[[PAGEFIND-IMAGE]]" 
+                />
+            </Fragment>
+            <Heading
+                level="h3"
+                size="sm"
+            >[[PAGEFIND-TITLE]]</Heading>
+            <SimpleText>[[PAGEFIND-EXCERPT]]</SimpleText>
+            <div class="feature-date-container">
+                <SimpleText
+                    alignX="start"
+                    size="xs"
+                    class="feature-date"
+                    editable={false}
+                >[[PAGEFIND-DATE]]</SimpleText>
+                <div class="divider">•</div>
+                <Icon name="clock" size="none" />
+                [[PAGEFIND-READINGTIME]]
+            </div>
+        </Card>
+    </BentoBoxGridItem>
+</div>

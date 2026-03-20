@@ -2,6 +2,7 @@
 import BentoBoxGridItem from "./BentoBoxGridItem.astro";
 
 const {
+  id = "",
   layout = "center",
   class: className,
   style: userStyle,
@@ -39,7 +40,7 @@ const hasItems = items?.length > 0;
 const slotContent = Astro.slots.has("default") ? await Astro.slots.render("default") : null;
 const hasSlotContent = (slotContent?.toString().trim().length ?? 0) > 0;
 
-if (!_component && !hasItems && !hasSlotContent) return;
+//if (!_component && !hasItems && !hasSlotContent) return;
 ---
 
 <div
@@ -50,6 +51,7 @@ if (!_component && !hasItems && !hasSlotContent) return;
     {...arrayDataAttributes}
     class:list={["bento-box-grid-inner", `layout-${layout}`]}
     style={gridStyles}
+    id={id}
   >
     <slot>
       {
