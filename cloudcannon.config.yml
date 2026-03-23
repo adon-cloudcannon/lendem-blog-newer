@@ -80,6 +80,7 @@ collections_config:
           max_items_message: Cannot be more than 4
   data:
     path: src/data
+    disable_url: true
     glob:
       - "**/*.json"
     icon: database
