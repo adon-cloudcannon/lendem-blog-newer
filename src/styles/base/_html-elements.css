@@ -1,4 +1,8 @@
 @layer base {
+  html{
+      scroll-behavior: smooth;
+  }
+
   :where(:root) {
     html,
     body {

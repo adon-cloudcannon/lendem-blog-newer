@@ -3,6 +3,8 @@ import Icon from "@components/building-blocks/core-elements/icon/Icon.astro";
 import List from "@core-elements/list/List.astro";
 import ListItem from "@core-elements/list/ListItem.astro";
 
+import { slugifyLabel } from "@components/utils/slugify";
+
 const { headings } = Astro.props;
 ---
 
@@ -15,7 +17,7 @@ const { headings } = Astro.props;
     {
         headings.map((heading:any,index:number) =>
             <ListItem class:list={[index === 0 ? "active" : ""]} >
-                <a href={`#${heading.text}`}>
+                <a href={`#${slugifyLabel(heading.text)}`}>
                     <Icon name="chevron-right" size="none" />
                     {heading.text}
                 </a>
