@@ -1,4 +1,6 @@
 ---
+import topics from "@data/topics.json";
+
 import BentoBoxGrid from "@components/building-blocks/wrappers/bento-box-grid/BentoBoxGrid.astro";
 import Split from "@components/building-blocks/wrappers/split/Split.astro";
 import ExploreTopics from "@components/page-sections/blog/sidebar/ExploreTopics.astro";
@@ -7,33 +9,34 @@ import CustomSection from "@components/page-sections/builders/custom-section/Cus
 import CtaCenter from "@components/page-sections/ctas/cta-center/CtaCenter.astro";
 import HeroSearch from "@components/page-sections/heroes/hero-search/HeroSearch.astro";
 import Page from "@layouts/Page.astro";
-
+import type { CollectionEntry } from "astro:content";
 import { getCollection } from "astro:content";
 
-type Paginate = (_data: any[], _opts: { pageSize: number }) => any;
-
 export interface Props {
-  page: { data: any[] };
+  page: CollectionEntry<"pages">;
 }
 
-export async function getStaticPaths({ paginate }: { paginate: Paginate }) {
-  const blogPosts = (await getCollection("blog")).sort(
-    (a: any, b: any) => b.data.date.getTime() - a.data.date.getTime()
-  );
-
-  return paginate(blogPosts, { pageSize: 9 });
+export async function getStaticPaths() {
+  return topics.map((topic) => ({
+    params: { topic: topic.name },
+    props: { topic },
+  }));
 }
 
-const { page } = Astro.props as Props;
+const { topic } = Astro.props;
+const posts = await getCollection('blog', ({ data }) => {
+  return data.topic === topic.name;
+});
 ---
 
 <Page
   
 >
   <HeroSearch 
-    heading="Search"
+    heading={topic.name}
+    description={topic.description}
     backgroundColor="brand-linear-gradient-strong"
-    variation="full-width"
+    variation="left-right"
   />
 
   <CustomSection
@@ -44,41 +47,9 @@ const { page } = Astro.props as Props;
     backgroundColor="base"
     class="search-container"
   >
-    <Split
-      distributionMode="two-thirds-third"
-      gap="xl"
-    >
-      <Fragment slot="first">
-        <BentoBoxGrid id="results"></BentoBoxGrid>
-      </Fragment>
-      <Fragment slot="second">
-        <PopularArticles />
-
-        <ExploreTopics topic={""} />
-
-        <CtaCenter
-          image="/src/assets/images/img_moneyhand.png"
-          heading="Need extra cash?"
-          subtext="A simple, secure way to cover urgent expenses."
-          backgroundColor="muted"
-          rounded={true}
-          paddingHorizontal="none"
-          paddingVertical="none"
-          buttonSections={[
-            {
-              _component: "building-blocks/core-elements/button",
-              text: "Apply Now",
-              hideText: false,
-              link: "",
-              iconName: "",
-              iconPosition: "before",
-              variant: "primary",
-              size: "md",
-            },
-          ]}
-        />
-      </Fragment>
-    </Split>
+    {
+      posts.map(post => post)
+    }
   </CustomSection>
   
 </Page>

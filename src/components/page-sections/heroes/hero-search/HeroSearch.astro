@@ -3,10 +3,15 @@ import Heading from "@components/building-blocks/core-elements/heading/Heading.a
 import CustomSection from "@components/page-sections/builders/custom-section/CustomSection.astro";
 
 import SearchResult from "./SearchResult.astro";
+import Split from "@components/building-blocks/wrappers/split/Split.astro";
+import Input from "@components/building-blocks/forms/input/Input.astro";
+import SimpleText from "@components/building-blocks/core-elements/simple-text/SimpleText.astro";
 
 const {
     heading = "",
-    backgroundColor = ""
+    description = "",
+    backgroundColor = "",
+    variation = "full-width"
 } = Astro.props;
 ---
 
@@ -22,42 +27,63 @@ const {
     paddingHorizontal="lg"
     paddingVertical={"2xl"}
 >
-    <Heading level="h1" size="lg">
-        {heading}
-    </Heading>
+    { variation === "left-right" ?
+        <Split
+            distributionMode="two-thirds-third"
+        >
+            <Fragment slot="first">
+                <Heading level="h1" size="lg">
+                    {heading}
+                </Heading>
+                <SimpleText
+                    style="color:white"
+                >
+                    {description}
+                </SimpleText>
+            </Fragment>
+            <Fragment slot="second">
+                <Input />
+            </Fragment>
+        </Split>
+        :
 
-    <link href="/pagefind/pagefind-modular-ui.css" rel="stylesheet">
-    <script src="/pagefind/pagefind-modular-ui.js" is:inline></script>
-    <div id="search"></div>
+        <Heading level="h1" size="lg">
+            {heading}
+        </Heading>
 
-    <SearchResult id="card-template" />
+        <link href="/pagefind/pagefind-modular-ui.css" rel="stylesheet">
+        <script src="/pagefind/pagefind-modular-ui.js" is:inline></script>
+        <div id="search"></div>
 
-    <script>
-        window.addEventListener('DOMContentLoaded', (event) => {
-            const instance = new PagefindModularUI.Instance();
-            instance.add(new PagefindModularUI.Input({
-                containerElement: "#search"
-            }));
-            instance.add(new PagefindModularUI.ResultList({
-                containerElement: "#results",
-                placeholderTemplate: () => {
-                    return "<p>Loading...</p>";
-                },
-                resultTemplate: (result) => {
-                    console.log(result)
-                    let template = document.getElementById("card-template")?.innerHTML;
-                    template = template?.replace("[[PAGEFIND-TITLE]]", result.meta.title)
-                    template = template?.replace("[[PAGEFIND-IMAGE]]", result.meta.image)
-                    template = template?.replace("[[PAGEFIND-EXCERPT]]", result.excerpt)
+        <SearchResult id="card-template" />
 
-                    const readingTime = `${Math.ceil(result.word_count / 200)} min read`;
-                    template = template?.replace("[[PAGEFIND-READINGTIME]]", readingTime)
-                    return template;
-                }
-            }));
-        });
-    </script>
+        <script>
+            window.addEventListener('DOMContentLoaded', (event) => {
+                const instance = new PagefindModularUI.Instance();
+                instance.add(new PagefindModularUI.Input({
+                    containerElement: "#search"
+                }));
+                instance.add(new PagefindModularUI.ResultList({
+                    containerElement: "#results",
+                    placeholderTemplate: () => {
+                        return "<p>Loading...</p>";
+                    },
+                    resultTemplate: (result) => {
+                        console.log(result)
+                        let template = document.getElementById("card-template")?.innerHTML;
+                        template = template?.replace("[[PAGEFIND-TITLE]]", result.meta.title)
+                        template = template?.replace("[[PAGEFIND-IMAGE]]", result.meta.image)
+                        template = template?.replace("[[PAGEFIND-EXCERPT]]", result.excerpt)
 
+                        const readingTime = `${Math.ceil(result.word_count / 200)} min read`;
+                        template = template?.replace("[[PAGEFIND-READINGTIME]]", readingTime)
+                        return template;
+                    }
+                }));
+            });
+        </script>
+    }
+    
 </CustomSection>
 
 <style is:global>

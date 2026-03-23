@@ -582,6 +582,8 @@ _select_data:
       name: Map
     - id: map-pin
       name: Map Pin
+    - id: material/account-balance-wallet
+      name: Material/account-balance-wallet
     - id: material/savings
       name: Material/savings
     - id: megaphone
