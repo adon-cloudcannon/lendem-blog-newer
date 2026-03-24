@@ -11,6 +11,7 @@ import Grid from "@wrappers/grid/Grid.astro";
 import { getEntry } from "astro:content";
 
 import readingTime from "@components/utils/readingTime";
+import Input from "@components/building-blocks/forms/input/Input.astro";
 
 const {
   id = "",
@@ -38,14 +39,25 @@ const featuredPost = await getEntry('blog', featuredPosts[0]);
   id={id}
   {...htmlAttributes}
 >
-  <Heading
-    class="team-grid-heading"
-    level="h1"
-    size="lg"
-    alignX="start"
-    data-prop="heading"
-    text={heading}
-  />
+  <div style="display:flex; align-items:center;justify-content:space-between">
+    <Heading
+      class="team-grid-heading"
+      level="h1"
+      size="lg"
+      alignX="start"
+      data-prop="heading"
+      text={heading}
+      style="margin:0"
+    />
+    <Input
+      name="search"
+      placeholder="Search by keyword, topic..."
+      type="text"
+      iconName="magnifying-glass"
+      iconPosition="after"
+      style="margin:0; max-width:336px"
+    />
+  </div>
   <SimpleText
     class="team-grid-subtext"
     size="md"
