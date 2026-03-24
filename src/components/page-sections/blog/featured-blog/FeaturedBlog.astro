@@ -28,9 +28,8 @@ const {
 
 const featuredPosts = featuredArticles.map(x => x.replace("/src/content/insights/","").replace(".mdx",""));
 const posts = await getCollection('blog', (data) => {
-  console.log(data)
-        return featuredPosts.includes(data.id);
-      })
+  return featuredPosts.includes(data.id);
+})
 const featuredPost = posts[0];
 ---
 
@@ -171,8 +170,8 @@ const featuredPost = posts[0];
           editable={false}
         />
         {
-          featuredPosts.slice(1).map(async (article: any, index: number) => {
-            const post = await getEntry('blog', article);
+          posts.slice(1).map(async (post: any, index: number) => {
+            //const post = await getEntry('blog', article);
 
             return (
               <BlogItem

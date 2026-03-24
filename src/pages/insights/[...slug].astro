@@ -279,7 +279,6 @@ if (post) post.data.minutesRead = `${Math.ceil(countWords(content) / WPM)} min r
     </Heading>
     <BentoBoxGrid>
       { post.data.related_articles.map(async article => {
-        console.log(article)
         article = article.replace("/src/content/insights/","").replace(".mdx","")
         const post = await getEntry('blog', article);
 
