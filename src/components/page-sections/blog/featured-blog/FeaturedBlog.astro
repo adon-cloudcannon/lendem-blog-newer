@@ -136,7 +136,7 @@ const featuredPost = await getEntry('blog', featuredPosts[0]);
             editable={false}
             data-cloudcannon-ignore
           >
-            { new Date(featuredPost.data.date).toLocaleDateString('en-US', {
+            { featuredPost && new Date(featuredPost.data.date).toLocaleDateString('en-US', {
               year: 'numeric',
               month: 'short',
               day: 'numeric',
