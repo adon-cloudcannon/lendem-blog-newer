@@ -143,7 +143,7 @@ const featuredPost = await getEntry('blog', featuredPosts[0]);
             }) }
             <div class="divider">•</div>
             <Icon name="clock" size="none" />
-            { readingTime(featuredPost)}
+            { featuredPost && readingTime(featuredPost)}
           </SimpleText>
         </div>
       </Card>
