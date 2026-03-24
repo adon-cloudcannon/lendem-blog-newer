@@ -12,7 +12,6 @@ import Grid from "@wrappers/grid/Grid.astro";
 import readingTime from "@components/utils/readingTime";
 import SearchInput from "@components/page-sections/heroes/hero-search/SearchInput.astro";
 import { getCollection } from "astro:content";
-import { undefined } from "astro:schema";
 
 const {
   id = "",
@@ -82,6 +81,7 @@ const featuredPost = posts[0];
       verticalAlignment="start"
       gap="lg"
       editable={false}
+      data-prop={undefined}
       data-cloudcannon-ignore
     >
     <Fragment slot="first" editable={false} data-cloudcannon-ignore data-editable={false}>
