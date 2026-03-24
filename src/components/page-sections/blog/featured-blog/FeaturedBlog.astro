@@ -12,6 +12,7 @@ import Grid from "@wrappers/grid/Grid.astro";
 import readingTime from "@components/utils/readingTime";
 import SearchInput from "@components/page-sections/heroes/hero-search/SearchInput.astro";
 import { getCollection } from "astro:content";
+import { undefined } from "astro:schema";
 
 const {
   id = "",
@@ -80,6 +81,7 @@ const featuredPost = posts[0];
       minSplitWidth={760}
       verticalAlignment="start"
       gap="lg"
+      data-prop={undefined}
       editable={false}
       data-cloudcannon-ignore
     >
@@ -132,22 +134,7 @@ const featuredPost = posts[0];
         </SimpleText>
         <div class="feature-date-container" data-cloudcannon-ignore>
           <Icon name="calendar" size="none" />
-          <SimpleText
-            alignX="start"
-            size="sm"
-            class="feature-date"
-            editable={false}
-            data-cloudcannon-ignore
-          >
-            { new Date(featuredPost.data.date).toLocaleDateString('en-US', {
-              year: 'numeric',
-              month: 'short',
-              day: 'numeric',
-            }) }
-            <div class="divider">•</div>
-            <Icon name="clock" size="none" />
-            { readingTime(featuredPost)}
-          </SimpleText>
+          
         </div>
       </Card>
     </Fragment>
