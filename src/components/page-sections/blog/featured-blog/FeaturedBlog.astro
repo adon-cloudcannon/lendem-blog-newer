@@ -12,6 +12,7 @@ import { getEntry } from "astro:content";
 
 import readingTime from "@components/utils/readingTime";
 import SearchInput from "@components/page-sections/heroes/hero-search/SearchInput.astro";
+import { getCollection } from "astro:content";
 
 const {
   id = "",
@@ -26,7 +27,11 @@ const {
 } = Astro.props;
 
 const featuredPosts = featuredArticles.map(x => x.replace("/src/content/insights/","").replace(".mdx",""));
-const featuredPost = await getEntry('blog', featuredPosts[0]);
+const posts = await getCollection('blog', (data) => {
+  console.log(data)
+        return featuredPosts.includes(data.id);
+      })
+const featuredPost = posts[0];
 ---
 
 <CustomSection
@@ -52,7 +57,15 @@ const featuredPost = await getEntry('blog', featuredPosts[0]);
     <SearchInput
       style="margin:0; max-width:336px"
     />
-    
+    <script> 
+      document.querySelector("input[name=search]")?.addEventListener("keydown", e => {
+          if(e.keyCode == 13){
+              const term = e.target.value;
+              if(term != "")
+                  window.location.href = `/search/?term=${term}`
+          }
+      })
+    </script>
   </div>
   <SimpleText
     class="team-grid-subtext"
