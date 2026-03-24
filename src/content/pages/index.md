@@ -15,8 +15,10 @@ pageSections:
       - /src/content/insights/2025-10-22-keeping-performance-simple.mdx
       - /src/content/insights/2025-10-29-why-our-components-stay-small.mdx
       - /src/content/insights/2025-11-12-our-approach-to-css-just-enough.mdx
-      - /src/content/insights/2025-11-19-how-we-think-about-js-in-this-starter.mdx
-      - /src/content/insights/2025-11-26-launching-projects-faster-with-presets.mdx
+      - >-
+        /src/content/insights/2025-11-19-how-we-think-about-js-in-this-starter.mdx
+      - >-
+        /src/content/insights/2025-11-26-launching-projects-faster-with-presets.mdx
       - /src/content/insights/2025-12-03-building-for-the-long-term.mdx
     colorScheme: inherit
     backgroundColor: brand-linear-gradient-muted
@@ -28,8 +30,6 @@ pageSections:
       decisions
     colorScheme: inherit
     backgroundColor: muted
-  - _component: page-sections/blog/explore-topics-cta
-    backgroundColor: brand-linear-gradient-strong
   - _component: page-sections/ctas/cta-center
     image: /src/assets/images/img_moneyhand.png
     heading: Need extra cash?
