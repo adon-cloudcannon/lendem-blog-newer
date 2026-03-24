@@ -85,9 +85,7 @@ const {
                 
                 instance.add(new PagefindModularUI.ResultList({
                     containerElement: "#results",
-                    placeholderTemplate: () => {
-                        return "<p>Loading...</p>";
-                    },
+                    
                     resultTemplate: (result) => {
                         console.log(result)
                         let template = document.getElementById("card-template")?.innerHTML;
