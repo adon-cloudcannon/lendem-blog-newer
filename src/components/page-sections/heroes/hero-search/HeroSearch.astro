@@ -30,23 +30,35 @@ const {
     paddingVertical={"2xl"}
 >
     { variation === "left-right" ?
-        <Split
-            distributionMode="two-thirds-third"
-        >
-            <Fragment slot="first">
-                <Heading level="h1" size="lg">
-                    {heading}
-                </Heading>
-                <SimpleText
-                    style="color:white"
-                >
-                    {description}
-                </SimpleText>
-            </Fragment>
-            <Fragment slot="second">
-                <SearchInput borderless={true} />
-            </Fragment>
-        </Split>
+        <>
+            <Split
+                distributionMode="two-thirds-third"
+            >
+                <Fragment slot="first">
+                    <Heading level="h1" size="lg">
+                        {heading}
+                    </Heading>
+                    <SimpleText
+                        style="color:white"
+                    >
+                        {description}
+                    </SimpleText>
+                </Fragment>
+                <Fragment slot="second">
+                    <SearchInput borderless={true} />
+                </Fragment>
+            </Split>
+
+            <script> 
+                document.querySelector("input[name=search]")?.addEventListener("keydown", e => {
+                    if(e.keyCode == 13){
+                        const term = e.target.value;
+                        if(term != "")
+                            window.location.href = `/search/?term=${term}`
+                    }
+                })
+            </script>
+        </>
         :
 
         <Heading level="h1" size="lg">
@@ -69,6 +81,13 @@ const {
         <script>
             window.addEventListener('DOMContentLoaded', (event) => {
                 const instance = new PagefindModularUI.Instance();
+                const params = new URLSearchParams(window.location.search);
+                if(params.size > 0){
+                    const term = params.get("term");
+                    document.querySelector("input[name=search]").value = term;
+                    instance.triggerSearch(term);
+                }
+                
                 instance.add(new PagefindModularUI.Input({
                     containerElement: "#search"
                 }));
@@ -117,6 +136,8 @@ const {
 
     .search-button{
         a{
+            width: fit-content;
+            min-width: 180px;
             height:100%
         }
     }

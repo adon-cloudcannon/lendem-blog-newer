@@ -114,6 +114,15 @@ if (post) post.data.minutesRead = `${Math.ceil(countWords(content) / WPM)} min r
     <SearchInput
       style="margin:0; max-width:336px"
     />
+    <script> 
+      document.querySelector("input[name=search]")?.addEventListener("keydown", e => {
+          if(e.keyCode == 13){
+              const term = e.target.value;
+              if(term != "")
+                  window.location.href = `/search/?term=${term}`
+          }
+      })
+    </script>
   </CustomSection>
 
   <CustomSection

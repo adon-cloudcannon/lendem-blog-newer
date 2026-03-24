@@ -17,16 +17,6 @@ const {
     {...htmlAttributes}
 />
 
-<script>
-    document.querySelector("input[name=search]")?.addEventListener("keydown", e => {
-        if(e.keyCode == 13){
-            const term = e.target.value;
-            if(term != "")
-                window.location.href = `/search/?term=${term}`
-        }
-    })
-</script>
-
 <style is:global>
     .input.bordered .icon-after input{
         border: 2px solid var(--color-border-subtle);
