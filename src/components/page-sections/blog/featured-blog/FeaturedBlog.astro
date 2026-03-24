@@ -172,7 +172,7 @@ const featuredPost = await getEntry('blog', featuredPosts[0]);
             return (
               <BlogItem
                 id={post?.id}
-                minutesRead={readingTime(post)}
+                minutesRead={post ? readingTime(post) : null}
                 {...post?.data}
                 class="featured-blog-item"
                 data-index={index}

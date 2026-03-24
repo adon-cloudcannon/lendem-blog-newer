@@ -1,4 +1,6 @@
 export default (post:any) => {
+    if(!post)
+        return "";
     const WPM = 200;
     const countWords = (str:string) => str.trim().split(/\s+/).length;
     const content = post?.body;
