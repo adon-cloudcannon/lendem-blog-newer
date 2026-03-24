@@ -82,15 +82,7 @@ const {
             window.addEventListener('DOMContentLoaded', (event) => {
                 const instance = new PagefindModularUI.Instance();
                 const params = new URLSearchParams(window.location.search);
-                if(params.size > 0){
-                    const term = params.get("term");
-                    document.querySelector("input[name=search]").value = term;
-                    instance.triggerSearch(term);
-                }
                 
-                instance.add(new PagefindModularUI.Input({
-                    containerElement: "#search"
-                }));
                 instance.add(new PagefindModularUI.ResultList({
                     containerElement: "#results",
                     placeholderTemplate: () => {
@@ -113,6 +105,12 @@ const {
                         return template;
                     }
                 }));
+
+                if(params.size > 0){
+                    const term = params.get("term");
+                    document.querySelector("input[name=search]").value = term;
+                    instance.triggerSearch(term);
+                }
             });
         </script>
     }
