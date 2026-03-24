@@ -11,7 +11,7 @@ import { getEntry } from "astro:content";
 import readingTime from "@components/utils/readingTime";
 
 const popularPosts = popularArticles.map((x) =>
-  x.replace("/src/content/blog/", "").replace(".mdx", "")
+  x.replace("/src/content/insights/", "").replace(".mdx", "")
 );
 ---
 
@@ -53,7 +53,7 @@ const popularPosts = popularArticles.map((x) =>
                 size="sm"
                 class="popular-article-title"
               >
-                {post.data.title}
+                {post?.data.title}
               </SimpleText>
               <div class="feature-date-container">
                 <SimpleText

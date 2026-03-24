@@ -98,7 +98,7 @@ const blogPostSchema = z.object({
 });
 
 const blogCollection = defineCollection({
-  loader: glob({ pattern: "**/*.mdx", base: "./src/content/blog" }),
+  loader: glob({ pattern: "**/*.mdx", base: "./src/content/insights" }),
   schema: blogPostSchema,
 });
 
