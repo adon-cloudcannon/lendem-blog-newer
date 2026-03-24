@@ -8,7 +8,6 @@ import Heading from "@core-elements/heading/Heading.astro";
 import SimpleText from "@core-elements/simple-text/SimpleText.astro";
 import BlogItem from "@page-sections/blog/featured-blog/BlogItem.astro";
 import Grid from "@wrappers/grid/Grid.astro";
-import { getEntry } from "astro:content";
 
 import readingTime from "@components/utils/readingTime";
 import SearchInput from "@components/page-sections/heroes/hero-search/SearchInput.astro";
@@ -175,9 +174,9 @@ const featuredPost = posts[0];
 
             return (
               <BlogItem
-                id={post?.id}
-                minutesRead={post ? readingTime(post) : null}
-                {...post?.data}
+                id={post.id}
+                minutesRead={readingTime(post)}
+                {...post.data}
                 class="featured-blog-item"
                 data-index={index}
                 data-editable={undefined}
