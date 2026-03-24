@@ -1,6 +1,5 @@
 ---
 import Icon from "@components/building-blocks/core-elements/icon/Icon.astro";
-import Input from "@components/building-blocks/forms/input/Input.astro";
 import Split from "@components/building-blocks/wrappers/split/Split.astro";
 import ExploreTopics from "@components/page-sections/blog/sidebar/ExploreTopics.astro";
 import PopularArticles from "@components/page-sections/blog/sidebar/PopularArticles.astro";
@@ -20,6 +19,7 @@ import BentoBoxGridItem from "@components/building-blocks/wrappers/bento-box-gri
 import Card from "@components/building-blocks/wrappers/card/Card.astro";
 import { getEntry } from "astro:content";
 import readingTime from "@components/utils/readingTime";
+import SearchInput from "@components/page-sections/heroes/hero-search/SearchInput.astro";
 
 // Automatically import all components from building-blocks and page-sections for MDX
 const buildingBlocksImports = import.meta.glob("../../components/building-blocks/**/*.astro", {
@@ -111,12 +111,8 @@ if (post) post.data.minutesRead = `${Math.ceil(countWords(content) / WPM)} min r
       />
       {post.data.title}
     </div>
-    <Input
-      name="search"
-      placeholder="Search by keyword, topic..."
-      type="text"
-      iconName="magnifying-glass"
-      iconPosition="after"
+    <SearchInput
+      style="margin:0; max-width:336px"
     />
   </CustomSection>
 
@@ -361,10 +357,6 @@ if (post) post.data.minutesRead = `${Math.ceil(countWords(content) / WPM)} min r
           display: flex;
           font-size: var(--font-size-xs);
           gap: 8px;
-        }
-
-        .input {
-          width: fit-content;
         }
       }
     }

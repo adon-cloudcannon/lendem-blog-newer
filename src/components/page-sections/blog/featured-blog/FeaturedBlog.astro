@@ -11,7 +11,7 @@ import Grid from "@wrappers/grid/Grid.astro";
 import { getEntry } from "astro:content";
 
 import readingTime from "@components/utils/readingTime";
-import Input from "@components/building-blocks/forms/input/Input.astro";
+import SearchInput from "@components/page-sections/heroes/hero-search/SearchInput.astro";
 
 const {
   id = "",
@@ -49,12 +49,7 @@ const featuredPost = await getEntry('blog', featuredPosts[0]);
       text={heading}
       style="margin:0"
     />
-    <Input
-      name="search"
-      placeholder="Search by keyword, topic..."
-      type="text"
-      iconName="magnifying-glass"
-      iconPosition="after"
+    <SearchInput
       style="margin:0; max-width:336px"
     />
   </div>

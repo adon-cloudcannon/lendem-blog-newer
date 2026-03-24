@@ -1,0 +1,28 @@
+---
+import Input from "@components/building-blocks/forms/input/Input.astro";
+
+const {
+    borderless = false,
+    ...htmlAttributes
+} = Astro.props;
+---
+<Input
+    name="search"
+    placeholder="Search by keyword, topic..."
+    type="text"
+    iconName="magnifying-glass"
+    iconPosition="after"
+    class:list={[borderless ? "borderless" : "bordered"]}
+    {...htmlAttributes}
+/>
+
+<style is:global>
+    .input.bordered .icon-after input{
+        border: 2px solid var(--color-border-subtle);
+        border-right:none;
+    }
+
+    .input.borderless input{
+        border: none;
+    }
+</style>

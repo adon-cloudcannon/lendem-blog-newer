@@ -4,9 +4,9 @@ import CustomSection from "@components/page-sections/builders/custom-section/Cus
 
 import SearchResult from "./SearchResult.astro";
 import Split from "@components/building-blocks/wrappers/split/Split.astro";
-import Input from "@components/building-blocks/forms/input/Input.astro";
 import SimpleText from "@components/building-blocks/core-elements/simple-text/SimpleText.astro";
 import Button from "@components/building-blocks/core-elements/button/Button.astro";
+import SearchInput from "./SearchInput.astro";
 
 const {
     heading = "",
@@ -43,13 +43,7 @@ const {
                 </SimpleText>
             </Fragment>
             <Fragment slot="second">
-                <Input
-                    name="search"
-                    placeholder="Search by keyword, topic..."
-                    type="text"
-                    iconName="magnifying-glass"
-                    iconPosition="after"
-                />
+                <SearchInput borderless={true} />
             </Fragment>
         </Split>
         :

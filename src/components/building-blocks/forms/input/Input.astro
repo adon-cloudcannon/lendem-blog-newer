@@ -87,7 +87,9 @@ const hasIcon = iconName?.trim().length > 0;
       gap: var(--spacing-xs);
       margin: 0;
       margin-bottom: var(--spacing-md);
+      padding-left: var(--spacing-em-sm);
       width: 100%;
+      border-radius: var(--radius-xs);
 
       .input-required {
         color: var(--color-error);
@@ -97,11 +99,9 @@ const hasIcon = iconName?.trim().length > 0;
       .field-shell {
         align-items: center;
         background-color: var(--color-bg);
-        border: 1px solid var(--color-border-inputs);
-        border-radius: var(--radius-xs);
         display: flex;
-        gap: var(--spacing-em-sm);
-        padding-left: var(--spacing-em-sm);
+        overflow:hidden;
+        border-radius: var(--radius-xs);
         transition:
           border-color var(--animation-normal) ease-in-out,
           box-shadow var(--animation-normal) ease-in-out;
@@ -123,6 +123,12 @@ const hasIcon = iconName?.trim().length > 0;
             height: 48px;
             justify-content: center;
           }
+
+          input{
+            align-self:stretch;
+            border-bottom-left-radius: var(--radius-xs);
+            border-top-left-radius: var(--radius-xs);
+          }
         }
 
         :global(.input-icon) {
@@ -133,12 +139,12 @@ const hasIcon = iconName?.trim().length > 0;
 
         > .field {
           background-color: transparent;
-          border: 0;
+          
           border-radius: 0;
           box-shadow: none;
           flex: 1 1 auto;
           min-width: 0;
-          padding-inline: 0;
+          
 
           &:focus {
             box-shadow: none;
