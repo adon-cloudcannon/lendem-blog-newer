@@ -24,10 +24,10 @@ collections_config:
         type: text
         comment: Controls the metadata title for the page.
   blog:
-    path: src/content/blog
+    path: src/content/insights
     glob:
       - "**/*.mdx"
-    url: /blog/[full_slug]/
+    url: /insights/[full_slug]/
     disable_url: false
     icon: article
     _enabled_editors:
@@ -44,7 +44,7 @@ collections_config:
         remove_extra_inputs: false
     create:
       path: "[relative_base_path]/{filename|slugify|lowercase}.mdx"
-    new_preview_url: /blog/
+    new_preview_url: /insights/
     _inputs:
       title:
         type: text
