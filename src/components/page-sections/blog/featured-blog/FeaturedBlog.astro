@@ -94,11 +94,11 @@ const featuredPost = posts[0];
         data-prop={undefined}
         editable={false}
         data-cloudcannon-ignore
-        link={`/insights/${featuredPost?.id}`}
+        link={`/insights/${featuredPost.id}`}
       >
         <Image
           class="blog-image"
-          source={featuredPost?.data.image ?? ""}
+          source={featuredPost.data.image}
           alt={""}
           aspectRatio="widescreen"
           widths={[400, 800]}
@@ -114,7 +114,7 @@ const featuredPost = posts[0];
           size="md"
           alignX="start"
           iconPosition="before"
-          text={featuredPost?.data.title ?? ""}
+          text={featuredPost.data.title}
           editable={false}
           data-prop={undefined}
           data-cloudcannon-ignore
@@ -128,7 +128,7 @@ const featuredPost = posts[0];
           data-cloudcannon-ignore
           style="margin-top:0"
         >
-          { featuredPost?.data.description ?? "" }
+          { featuredPost.data.description }
         </SimpleText>
         <div class="feature-date-container" data-cloudcannon-ignore>
           <Icon name="calendar" size="none" />
@@ -139,14 +139,14 @@ const featuredPost = posts[0];
             editable={false}
             data-cloudcannon-ignore
           >
-            { featuredPost && new Date(featuredPost.data.date).toLocaleDateString('en-US', {
+            { new Date(featuredPost.data.date).toLocaleDateString('en-US', {
               year: 'numeric',
               month: 'short',
               day: 'numeric',
             }) }
             <div class="divider">•</div>
             <Icon name="clock" size="none" />
-            { featuredPost && readingTime(featuredPost)}
+            { readingTime(featuredPost)}
           </SimpleText>
         </div>
       </Card>
