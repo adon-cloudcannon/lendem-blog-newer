@@ -16,11 +16,15 @@ subtext:
     underline: false
     bulletedlist: false
     numberedlist: false
-buttonSections:
-  type: array
-  comment: Button blocks for calls to action.
+variation:
+  type: select
+  comment: Choose between two different layouts for the search hero - full-width or left-right.
   options:
-    structures: _structures.buttonSections
+    values:
+      - id: full-width
+        name: Full width
+      - id: left-right
+        name: Left-right split
 colorScheme:
   type: select
   comment: Color scheme theme for the hero.

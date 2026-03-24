@@ -5,15 +5,7 @@ value:
   _component: page-sections/heroes/hero-search
   heading: Heading text
   subtext: Subtext placeholder text that will be replaced with actual content.
-  buttonSections:
-    - _component: building-blocks/core-elements/button
-      text: My Button
-      hideText: false
-      link: ""
-      iconName: ""
-      iconPosition: before
-      variant: primary
-      size: md
+  variation: "full-width"
   colorScheme: inherit
   backgroundColor: base
 preview:
