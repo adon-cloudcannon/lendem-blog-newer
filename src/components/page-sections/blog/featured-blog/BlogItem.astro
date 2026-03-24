@@ -68,6 +68,12 @@ const cardClasses = ["blog-item", className].filter(Boolean).join(" ");
       border-top: 1px solid var(--color-border-subtle);
       margin-top:0;
 
+      &:hover{
+        :global(.heading-text){
+          color:var(--color-bg-brand);
+        }
+      }
+
       & .divider{
         margin:0;
       }

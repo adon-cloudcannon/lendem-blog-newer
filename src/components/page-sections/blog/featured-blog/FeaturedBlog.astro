@@ -204,6 +204,14 @@ const featuredPost = await getEntry('blog', featuredPosts[0]);
       }
     }
 
+    .card{
+      &:hover{
+        :global(.heading-text){
+          color:var(--color-bg-brand);
+        }
+      }
+    }
+
     .card-content{
       display:flex;
       flex-direction: column;
