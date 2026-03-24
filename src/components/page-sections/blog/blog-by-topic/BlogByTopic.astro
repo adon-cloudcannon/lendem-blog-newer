@@ -118,6 +118,14 @@ const {
     :global(.bento-box-grid-item-content){
       padding:16px;
       border: 1px solid var(--color-border-subtle);
+
+      &:hover{
+        border-color:var(--color-border-strong);
+
+        :global(.heading-text){
+          color:var(--color-bg-brand);
+        }
+      }
     
       :global(.split-inner){
         grid-template-columns: 128px 1fr!important;
