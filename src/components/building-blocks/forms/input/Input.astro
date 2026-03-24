@@ -87,7 +87,7 @@ const hasIcon = iconName?.trim().length > 0;
       gap: var(--spacing-xs);
       margin: 0;
       margin-bottom: var(--spacing-md);
-      padding-left: var(--spacing-em-sm);
+      
       width: 100%;
       border-radius: var(--radius-xs);
 
@@ -111,17 +111,20 @@ const hasIcon = iconName?.trim().length > 0;
           box-shadow: 0 0 0 3px var(--color-focus-ring);
         }
 
+        & .icon.input-icon{
+          display: flex;
+          align-items: center;
+          width: 48px;
+          height: 48px;
+          justify-content: center;
+        }
+
         &.icon-after {
           flex-direction: row-reverse;
 
           & .icon.input-icon{
             color: white;
             background: var(--color-brand);
-            display: flex;
-            align-items: center;
-            width: 48px;
-            height: 48px;
-            justify-content: center;
           }
 
           input{

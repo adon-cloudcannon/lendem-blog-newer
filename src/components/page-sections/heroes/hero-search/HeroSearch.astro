@@ -7,6 +7,7 @@ import Split from "@components/building-blocks/wrappers/split/Split.astro";
 import SimpleText from "@components/building-blocks/core-elements/simple-text/SimpleText.astro";
 import Button from "@components/building-blocks/core-elements/button/Button.astro";
 import SearchInput from "./SearchInput.astro";
+import Input from "@components/building-blocks/forms/input/Input.astro";
 
 const {
     heading = "",
@@ -55,8 +56,12 @@ const {
         <link href="/pagefind/pagefind-modular-ui.css" rel="stylesheet">
         <script src="/pagefind/pagefind-modular-ui.js" is:inline></script>
         <div style="display:flex;gap:16px">
-            <div id="search" style="width:100%"></div>
-            <Button variant="primary">Search</Button>
+            <SearchInput 
+                iconPosition="before" 
+                borderless={true}
+                style="height:100%;margin:0"
+            />
+            <Button class:list={["search-button"]} variant="primary">Search</Button>
         </div>
 
         <SearchResult id="card-template" />
@@ -108,5 +113,11 @@ const {
       img{
         object-fit:contain;
       }
+    }
+
+    .search-button{
+        a{
+            height:100%
+        }
     }
 </style>
