@@ -99,12 +99,12 @@ if (post) post.data.minutesRead = `${Math.ceil(countWords(content) / WPM)} min r
         name="chevron-right"
         size="none"
       />
-      Insights
+      <a href={`/insights/`}>Insights</a>
       <Icon
         name="chevron-right"
         size="none"
       />
-      <a href={`/blog/${post.data.topic}`}>{post.data.topic}</a>
+      <a href={`/insights/${post.data.topic}`}>{post.data.topic}</a>
       <Icon
         name="chevron-right"
         size="none"
@@ -274,7 +274,8 @@ if (post) post.data.minutesRead = `${Math.ceil(countWords(content) / WPM)} min r
     </Heading>
     <BentoBoxGrid>
       { post.data.related_articles.map(async article => {
-        article = article.replace("/src/content/blog/","").replace(".mdx","")
+        console.log(article)
+        article = article.replace("/src/content/insights/","").replace(".mdx","")
         const post = await getEntry('blog', article);
 
         return <BentoBoxGridItem
@@ -284,7 +285,7 @@ if (post) post.data.minutesRead = `${Math.ceil(countWords(content) / WPM)} min r
           <Card
             backgroundColor="base"
             rounded={true}
-            link={`/blog/${post?.id}`}
+            link={`/insights/${post?.id}`}
             paddingHorizontal="md"
             paddingVertical="md"
           >

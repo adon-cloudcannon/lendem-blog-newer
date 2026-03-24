@@ -24,7 +24,7 @@ const {
   ...htmlAttributes
 } = Astro.props;
 
-const featuredPosts = featuredArticles.map(x => x.replace("/src/content/blog/","").replace(".mdx",""));
+const featuredPosts = featuredArticles.map(x => x.replace("/src/content/insights/","").replace(".mdx",""));
 const featuredPost = await getEntry('blog', featuredPosts[0]);
 ---
 
@@ -75,7 +75,7 @@ const featuredPost = await getEntry('blog', featuredPosts[0]);
         data-prop={undefined}
         editable={false}
         data-cloudcannon-ignore
-        link={`/blog/${featuredPost?.id}`}
+        link={`/insights/${featuredPost?.id}`}
       >
         <Image
           class="blog-image"
