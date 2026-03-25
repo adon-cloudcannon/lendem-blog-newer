@@ -73,7 +73,23 @@ const featuredPost = posts[0];
   >
     {subtext}
   </SimpleText>
-  
+  <Split
+      class={"featured-blog-split"}
+      label=""
+      distributionMode="two-thirds-third"
+      minSplitWidth={760}
+      verticalAlignment="start"
+      gap="lg"
+      editable={false}
+      data-cloudcannon-ignore
+    >
+    <Fragment slot="first" editable={false} data-cloudcannon-ignore data-editable={false}>
+      
+    </Fragment>
+    <Fragment slot="second" editable={false} data-cloudcannon-ignore>
+      
+    </Fragment>
+  </Split>
 </CustomSection>
 
 <style>
