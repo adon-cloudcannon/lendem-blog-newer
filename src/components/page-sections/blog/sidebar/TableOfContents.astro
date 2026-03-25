@@ -28,40 +28,35 @@ const { headings } = Astro.props;
     <script>
         const articleSections = document.querySelectorAll<HTMLDivElement>(".post h2");
 
+        let currentActiveId: string | null = null;
+
         const observer = new IntersectionObserver((entries) => {
-            // Get all currently intersecting entries
             const visible = entries
                 .filter(entry => entry.isIntersecting)
-                // Sort by vertical position (top of viewport)
                 .sort((a, b) => a.boundingClientRect.top - b.boundingClientRect.top);
 
             if (visible.length === 0) return;
 
-            // Pick the "best" one
-            // Option A: closest to top
-            const activeEntry = visible[0];
-
-            // Option B (your idea): pick the next one down
-            // const activeEntry = visible[visible.length - 1];
-
-            const id = activeEntry.target.getAttribute("id");
+            const candidate = visible[0];
+            const id = candidate.target.getAttribute("id");
             if (!id) return;
 
-            // Remove all active states
+            if (currentActiveId === id) return;
+
+            currentActiveId = id;
+
             document
                 .querySelectorAll(".table-of-contents .item.active")
                 .forEach(el => el.classList.remove("active"));
 
-            // Add active to the chosen one
             const link = document.querySelector<HTMLAnchorElement>(
                 `.table-of-contents a[href="#${id}"]`
             );
 
             link?.closest(".item")?.classList.add("active");
         }, {
-            // This helps a LOT with stability
             rootMargin: "0px 0px -60% 0px",
-            threshold: [0, 1],
+            threshold: [0],
         });
 
         articleSections.forEach(section => observer.observe(section));

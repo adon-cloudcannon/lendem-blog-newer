@@ -2,21 +2,25 @@
     {
         "name":"Terms",
         "description": "A beginner’s guide to understanding how investing works and where to start",
-        "icon":"arrow-trending-up"
+        "icon":"arrow-trending-up",
+        "featuredArticle": ""
     },
     {
         "name":"Playbook",
         "description":"",
-        "icon":"material/account-balance-wallet"
+        "icon":"material/account-balance-wallet",
+        "featuredArticle": ""
     },
     {
         "name":"Pulse",
         "description":"",
-        "icon":"material/savings"
+        "icon":"material/savings",
+        "featuredArticle": ""
     },
     {
         "name":"Learn",
         "description":"",
-        "icon":"chart-bar"
+        "icon":"chart-bar",
+        "featuredArticle": ""
     }
 ]

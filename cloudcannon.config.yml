@@ -112,6 +112,14 @@ collection_groups:
     collections:
       - data
 
+file_config:
+  - glob: data/topics.json
+    _inputs:
+      featuredArticle:
+        type: select
+        options:
+          values: collections.blog
+
 data_config:
   topics:
     path: src/data/topics.json
