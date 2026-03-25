@@ -139,11 +139,7 @@ const featuredPost = posts[0];
             editable={false}
             data-cloudcannon-ignore
           >
-            { featuredPost && new Date(featuredPost.data.date).toLocaleDateString('en-US', {
-              year: 'numeric',
-              month: 'short',
-              day: 'numeric',
-            }) }
+            
             <div class="divider">•</div>
             <Icon name="clock" size="none" />
             { readingTime(featuredPost)}
