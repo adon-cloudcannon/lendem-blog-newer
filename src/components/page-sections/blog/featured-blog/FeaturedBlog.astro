@@ -84,10 +84,55 @@ const featuredPost = posts[0];
       data-cloudcannon-ignore
     >
     <Fragment slot="first" editable={false} data-cloudcannon-ignore data-editable={false}>
-      
+      <Card
+        paddingHorizontal="lg"
+        paddingVertical="lg"
+        colorScheme="inherit"
+        backgroundColor="base"
+        class:list={["featured-article"]}
+        backgroundImage={{"source":null,"alt":null,"positionVertical":"top","positionHorizontal":"center"}}
+        data-prop={undefined}
+        editable={false}
+        data-cloudcannon-ignore
+        link={`/insights/${featuredPost.id}`}
+      >
+        
+      </Card>
     </Fragment>
     <Fragment slot="second" editable={false} data-cloudcannon-ignore>
-      
+      <Grid
+        class="featured-blog-grid"
+        gap="md"
+        minItemWidth={350}
+        maxItemWidth={400}
+        data-children-prop={""}
+        layout="start"
+      >
+        <Heading
+          level="h2"
+          size="sm"
+          alignX="start"
+          iconPosition="before"
+          text={"Featured Posts"}
+          editable={false}
+        />
+        {
+          posts.slice(1).map(async (post: any, index: number) => {
+            return (
+              <BlogItem
+                id={post.id}
+                minutesRead={readingTime(post)}
+                {...post.data}
+                class="featured-blog-item"
+                data-index={index}
+                data-editable={undefined}
+                data-id={undefined}
+                editable={false}
+              />
+            )
+          })
+        }
+      </Grid>
     </Fragment>
   </Split>
 </CustomSection>
