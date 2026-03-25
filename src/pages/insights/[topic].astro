@@ -1,16 +1,18 @@
 ---
 import topics from "@data/topics.json";
 
-import BentoBoxGrid from "@components/building-blocks/wrappers/bento-box-grid/BentoBoxGrid.astro";
-import Split from "@components/building-blocks/wrappers/split/Split.astro";
-import ExploreTopics from "@components/page-sections/blog/sidebar/ExploreTopics.astro";
-import PopularArticles from "@components/page-sections/blog/sidebar/PopularArticles.astro";
 import CustomSection from "@components/page-sections/builders/custom-section/CustomSection.astro";
-import CtaCenter from "@components/page-sections/ctas/cta-center/CtaCenter.astro";
 import HeroSearch from "@components/page-sections/heroes/hero-search/HeroSearch.astro";
 import Page from "@layouts/Page.astro";
 import type { CollectionEntry } from "astro:content";
 import { getCollection } from "astro:content";
+import Card from "@components/building-blocks/wrappers/card/Card.astro";
+import Image from "@components/building-blocks/core-elements/image/Image.astro";
+import Heading from "@components/building-blocks/core-elements/heading/Heading.astro";
+import SimpleText from "@components/building-blocks/core-elements/simple-text/SimpleText.astro";
+import Icon from "@components/building-blocks/core-elements/icon/Icon.astro";
+import readingTime from "@components/utils/readingTime";
+import Split from "@components/building-blocks/wrappers/split/Split.astro";
 
 export interface Props {
   page: CollectionEntry<"pages">;
@@ -27,6 +29,11 @@ const { topic } = Astro.props;
 const posts = await getCollection('blog', ({ data }) => {
   return data.topic === topic.name;
 });
+
+let featuredArticle = topics.filter(x => x.name === topic.name)[0].featuredArticle;
+if(featuredArticle)
+  featuredArticle = featuredArticle.replace("/src/content/insights/","").replace(".mdx","")
+const featuredPost = posts.filter(x => x.id === featuredArticle)[0]
 ---
 
 <Page
@@ -47,6 +54,82 @@ const posts = await getCollection('blog', ({ data }) => {
     backgroundColor="base"
     class="search-container"
   >
+    {
+      featuredPost && 
+      <Card
+        paddingHorizontal="lg"
+        paddingVertical="lg"
+        colorScheme="inherit"
+        backgroundColor="base"
+        class:list={["featured-article"]}
+        backgroundImage={{"source":null,"alt":null,"positionVertical":"top","positionHorizontal":"center"}}
+        data-prop={undefined}
+        editable={false}
+        data-cloudcannon-ignore
+        link={`/insights/${featuredPost.id}`}
+      >
+        <Split
+          distributionMode="third-two-thirds"
+        >
+          <Fragment slot="first">
+            <Image
+              class="blog-image"
+              source={featuredPost.data.image}
+              alt={""}
+              aspectRatio="widescreen"
+              widths={[400, 800]}
+              sizes="400px"
+              editable={false}
+              data-prop-src={undefined}
+              data-prop-alt={undefined}
+              data-cloudcannon-ignore
+            />
+          </Fragment>
+          <Fragment slot="second">
+            <Heading
+              level="h2"
+              size="md"
+              alignX="start"
+              iconPosition="before"
+              text={featuredPost.data.title}
+              editable={false}
+              data-prop={undefined}
+              data-cloudcannon-ignore
+              style="margin-bottom:0"
+            />
+            <SimpleText
+              alignX="start"
+              size="md"
+              editable={false}
+              data-prop={undefined}
+              data-cloudcannon-ignore
+              style="margin-top:0"
+            >
+              { featuredPost.data.description }
+            </SimpleText>
+            <div class="feature-date-container" data-cloudcannon-ignore>
+              <Icon name="calendar" size="none" />
+              <SimpleText
+                alignX="start"
+                size="sm"
+                class="feature-date"
+                editable={false}
+                data-cloudcannon-ignore
+              >
+                { new Date(featuredPost.data.date).toLocaleDateString('en-US', {
+                  year: 'numeric',
+                  month: 'short',
+                  day: 'numeric',
+                }) }
+                <div class="divider">•</div>
+                <Icon name="clock" size="none" />
+                { readingTime(featuredPost)}
+              </SimpleText>
+            </div>
+          </Fragment>
+        </Split>
+      </Card>
+    }
     {
       posts.map(post => post)
     }
