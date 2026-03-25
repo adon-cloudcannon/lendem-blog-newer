@@ -97,6 +97,7 @@ const {
                             month: 'short',
                             day: 'numeric',
                         }))
+                        template = template?.replace("[[PAGEFIND-TOPIC]]", result.meta.topic)
 
                         const readingTime = `${Math.ceil(result.word_count / 200)} min read`;
                         template = template?.replace("[[PAGEFIND-READINGTIME]]", readingTime)
