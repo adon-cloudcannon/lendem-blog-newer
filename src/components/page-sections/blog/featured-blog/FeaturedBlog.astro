@@ -114,7 +114,7 @@ const featuredPost = posts[0];
           size="sm"
           alignX="start"
           iconPosition="before"
-          text={featuredPost.data.title}
+          text={featuredPost?.data.title}
           editable={false}
           data-prop={undefined}
           data-cloudcannon-ignore
@@ -128,7 +128,7 @@ const featuredPost = posts[0];
           data-cloudcannon-ignore
           style="margin-top:0"
         >
-          { featuredPost.data.description }
+          { featuredPost?.data.description }
         </SimpleText>
         <div class="feature-date-container" data-cloudcannon-ignore>
           <Icon name="calendar" size="none" />
