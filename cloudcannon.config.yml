@@ -113,7 +113,7 @@ collection_groups:
       - data
 
 file_config:
-  - glob: data/topics.json
+  - glob: src/data/topics.json
     _inputs:
       featuredArticle:
         type: select
