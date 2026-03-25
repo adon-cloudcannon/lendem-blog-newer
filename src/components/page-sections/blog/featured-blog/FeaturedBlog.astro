@@ -42,6 +42,37 @@ const featuredPost = posts[0];
   id={id}
   {...htmlAttributes}
 >
+  <div style="display:flex; align-items:center;justify-content:space-between">
+    <Heading
+      class="team-grid-heading"
+      level="h1"
+      size="lg"
+      alignX="start"
+      data-prop="heading"
+      text={heading}
+      style="margin:0"
+    />
+    <SearchInput
+      style="margin:0; max-width:336px"
+    />
+    <script> 
+      document.querySelector("input[name=search]")?.addEventListener("keydown", e => {
+          if(e.keyCode == 13){
+              const term = e.target.value;
+              if(term != "")
+                  window.location.href = `/search/?term=${term}`
+          }
+      })
+    </script>
+  </div>
+  <SimpleText
+    class="team-grid-subtext"
+    size="md"
+    alignX="start"
+    data-prop="subtext"
+  >
+    {subtext}
+  </SimpleText>
   
 </CustomSection>
 
