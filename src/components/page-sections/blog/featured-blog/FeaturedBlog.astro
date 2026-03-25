@@ -81,7 +81,6 @@ const featuredPost = posts[0];
       verticalAlignment="start"
       gap="lg"
       editable={false}
-      data-prop={undefined}
       data-cloudcannon-ignore
     >
     <Fragment slot="first" editable={false} data-cloudcannon-ignore data-editable={false}>
@@ -112,7 +111,7 @@ const featuredPost = posts[0];
         />
         <Heading
           level="h2"
-          size="md"
+          size="sm"
           alignX="start"
           iconPosition="before"
           text={featuredPost.data.title}
@@ -133,7 +132,22 @@ const featuredPost = posts[0];
         </SimpleText>
         <div class="feature-date-container" data-cloudcannon-ignore>
           <Icon name="calendar" size="none" />
-          
+          <SimpleText
+            alignX="start"
+            size="sm"
+            class="feature-date"
+            editable={false}
+            data-cloudcannon-ignore
+          >
+            { new Date(featuredPost.data.date).toLocaleDateString('en-US', {
+              year: 'numeric',
+              month: 'short',
+              day: 'numeric',
+            }) }
+            <div class="divider">•</div>
+            <Icon name="clock" size="none" />
+            { readingTime(featuredPost)}
+          </SimpleText>
         </div>
       </Card>
     </Fragment>
