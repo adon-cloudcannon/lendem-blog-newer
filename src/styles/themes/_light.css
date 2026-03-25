@@ -17,6 +17,7 @@
   --color-link-hover: darkblue;
 
   --color-bg: var(--gray-0);
+  --color-bg-hover: #e6e6e6;
   --color-bg-surface: #FFF4ED;
   --color-bg-muted: #F5F5F5;
   --color-bg-accent: #d5fdff;

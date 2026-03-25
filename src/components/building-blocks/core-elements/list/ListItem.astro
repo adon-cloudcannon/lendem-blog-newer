@@ -7,6 +7,7 @@ const {
   iconName,
   iconColor = "default",
   showIcon = true,
+  link = "",
   class: className,
   useDefaultEditableBinding = false,
   "data-prop": customDataProp,
@@ -26,28 +27,53 @@ const textDataAttributes = effectiveDataProp
   class:list={["item", className]}
   {...htmlAttributes}
 >
-  <span class:list={["item-inner", showIcon && iconName && "list-item-has-icon"]}>
-    {
-      showIcon && iconName && (
-        <Icon
-          name={iconName}
-          color={iconColor}
-          size="none"
-          class="list-icon"
-          aria-hidden="true"
-        />
-      )
-    }
-    <p {...textDataAttributes}>
-      {text ? <Fragment set:html={md.renderInline(text)} /> : <slot />}
-    </p>
-  </span>
+  {
+    link ? 
+    <a 
+      href={link}
+      class:list={["item-inner", showIcon && iconName && "list-item-has-icon"]}
+    >
+      {
+        showIcon && iconName && (
+          <Icon
+            name={iconName}
+            color={iconColor}
+            size="none"
+            class="list-icon"
+            aria-hidden="true"
+          />
+        )
+      }
+      <p {...textDataAttributes}>
+        {text ? <Fragment set:html={md.renderInline(text)} /> : <slot />}
+      </p>
+    </a>
+    :
+    <span class:list={["item-inner", showIcon && iconName && "list-item-has-icon"]}>
+      {
+        showIcon && iconName && (
+          <Icon
+            name={iconName}
+            color={iconColor}
+            size="none"
+            class="list-icon"
+            aria-hidden="true"
+          />
+        )
+      }
+      <p {...textDataAttributes}>
+        {text ? <Fragment set:html={md.renderInline(text)} /> : <slot />}
+      </p>
+    </span>
+  }
 </li>
 
 <style>
   @layer components {
     .item {
       > .item-inner {
+        text-decoration: none;
+        color:inherit;
         &.list-item-has-icon {
           display: block;
         }

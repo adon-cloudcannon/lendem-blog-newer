@@ -139,7 +139,11 @@ const featuredPost = posts[0];
             editable={false}
             data-cloudcannon-ignore
           >
-            
+            { new Date(featuredPost.data.date).toLocaleDateString('en-US', {
+              year: 'numeric',
+              month: 'short',
+              day: 'numeric',
+            }) }
             <div class="divider">•</div>
             <Icon name="clock" size="none" />
             { readingTime(featuredPost)}
@@ -164,7 +168,22 @@ const featuredPost = posts[0];
           text={"Featured Posts"}
           editable={false}
         />
-        
+        {
+          posts.slice(1).map(async (post: any, index: number) => {
+            return (
+              <BlogItem
+                id={post.id}
+                minutesRead={readingTime(post)}
+                {...post.data}
+                class="featured-blog-item"
+                data-index={index}
+                data-editable={undefined}
+                data-id={undefined}
+                editable={false}
+              />
+            )
+          })
+        }
       </Grid>
     </Fragment>
   </Split>

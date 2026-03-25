@@ -22,7 +22,10 @@ const { topic:blogTopic } = Astro.props;
           return data.topic === topic.name;
         });
         return (
-          <ListItem class:list={[blogTopic === topic.name ? "active" : ""]}>
+          <ListItem 
+            link={`/insights/${topic.name}`}
+            class:list={[blogTopic === topic.name ? "active" : ""]}
+          >
             {topic.name}
             <span class="count">{posts.length}</span>
           </ListItem>
@@ -51,12 +54,17 @@ const { topic:blogTopic } = Astro.props;
       padding: 14.5px 12px;
 
       &.active {
-        background: var(--color-bg-brand);
+        background: var(--color-bg-brand)!important;
         color: white;
 
         .count {
           background: white;
         }
+      }
+
+      &:hover{
+        cursor:pointer;
+        background: var(--color-bg-hover);
       }
 
       & :global(.item-inner p) {
