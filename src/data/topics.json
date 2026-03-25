@@ -1,26 +1,26 @@
 [
     {
-        "name":"Terms",
+        "name": "Terms",
         "description": "A beginner’s guide to understanding how investing works and where to start",
-        "icon":"arrow-trending-up",
+        "icon": "arrow-trending-up",
+        "featuredArticle": "/src/content/insights/2025-12-31-deployment-without-drama.mdx"
+    },
+    {
+        "name": "Playbook",
+        "description": "",
+        "icon": "material/account-balance-wallet",
         "featuredArticle": ""
     },
     {
-        "name":"Playbook",
-        "description":"",
-        "icon":"material/account-balance-wallet",
+        "name": "Pulse",
+        "description": "",
+        "icon": "material/savings",
         "featuredArticle": ""
     },
     {
-        "name":"Pulse",
-        "description":"",
-        "icon":"material/savings",
-        "featuredArticle": ""
-    },
-    {
-        "name":"Learn",
-        "description":"",
-        "icon":"chart-bar",
-        "featuredArticle": ""
+        "name": "Learn",
+        "description": "",
+        "icon": "chart-bar",
+        "featuredArticle": null
     }
 ]
