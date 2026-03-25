@@ -146,7 +146,7 @@ if (post) post.data.minutesRead = `${Math.ceil(countWords(content) / WPM)} min r
           level="h1"
           size="lg"
           style="margin-bottom: var(--spacing-xs);"
-          data-pagefind-meta={`date:${post.data.date}, topic:${post.data.topic}`}
+          data-pagefind-meta={`topic, date:${post.data.date}`}
         >
           {post.data.title}
         </Heading>
