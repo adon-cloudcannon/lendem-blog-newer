@@ -37,43 +37,45 @@ const popularPosts = popularArticles.map((x) =>
           columnSpan={6}
           rowSpan={1}
         >
-          <Split
-            verticalAlignment="center"
-            distributionMode="third-two-thirds"
-          >
-            <Fragment slot="first">
-              <Image
-                source={post.data.image}
-                aspectRatio="square"
-                rounded={true}
-              />
-            </Fragment>
-            <Fragment slot="second">
-              <SimpleText
-                size="sm"
-                class="popular-article-title"
-              >
-                {post?.data.title}
-              </SimpleText>
-              <div class="feature-date-container">
+          <a href={`/insights/${post?.id}`}>
+            <Split
+              verticalAlignment="center"
+              distributionMode="third-two-thirds"
+            >
+              <Fragment slot="first">
+                <Image
+                  source={post.data.image}
+                  aspectRatio="square"
+                  rounded={true}
+                />
+              </Fragment>
+              <Fragment slot="second">
                 <SimpleText
-                  alignX="start"
-                  size="xs"
-                  class="feature-date"
-                  editable={false}
+                  size="sm"
+                  class="popular-article-title"
                 >
-                  { new Date(post?.data.date).toLocaleDateString('en-US', {
-                    year: 'numeric',
-                    month: 'numeric',
-                    day: 'numeric',
-                  }) }
+                  {post?.data.title}
                 </SimpleText>
-                <div class="divider">•</div>
-                <Icon name="clock" size="none" />
-                {readingTime(post)}
-              </div>
-            </Fragment>
-          </Split>
+                <div class="feature-date-container">
+                  <SimpleText
+                    alignX="start"
+                    size="xs"
+                    class="feature-date"
+                    editable={false}
+                  >
+                    { new Date(post?.data.date).toLocaleDateString('en-US', {
+                      year: 'numeric',
+                      month: 'numeric',
+                      day: 'numeric',
+                    }) }
+                  </SimpleText>
+                  <div class="divider">•</div>
+                  <Icon name="clock" size="none" />
+                  {readingTime(post)}
+                </div>
+              </Fragment>
+            </Split>
+          </a>
         </BentoBoxGridItem>
       );
     })
@@ -93,6 +95,11 @@ const popularPosts = popularArticles.map((x) =>
 
     :global(.bento-box-grid-item-content){
       padding:0;
+
+      & a{
+        text-decoration: none;
+        color:inherit;
+      }
     }
 
     :global(.split-inner) {
