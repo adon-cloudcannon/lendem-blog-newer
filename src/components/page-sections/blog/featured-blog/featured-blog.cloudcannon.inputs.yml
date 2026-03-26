@@ -38,8 +38,12 @@ backgroundColor:
         name: Accent
       - id: highlight
         name: Highlight
+      - id: muted
+        name: Muted
       - id: brand-linear-gradient-muted
         name: Brand Linear Gradient Muted
+      - id: brand-linear-gradient-strong
+        name: Brand Linear Gradient Strong
 featuredArticles:
   type: multiselect
   comment: The first article in this list will occupy the large featured article space; the others will appear in the side list. It is recommended to have 6 articles here.

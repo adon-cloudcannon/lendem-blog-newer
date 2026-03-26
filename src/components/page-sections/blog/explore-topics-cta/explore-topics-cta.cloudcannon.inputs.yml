@@ -29,4 +29,7 @@ backgroundColor:
         name: Highlight
       - id: muted
         name: Muted
+      - id: brand-linear-gradient-muted
+        name: Brand Linear Gradient Muted
       - id: brand-linear-gradient-strong
+        name: Brand Linear Gradient Strong

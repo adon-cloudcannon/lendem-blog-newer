@@ -15,6 +15,7 @@ import readingTime from "@components/utils/readingTime";
 import Split from "@components/building-blocks/wrappers/split/Split.astro";
 import BentoBoxGrid from "@components/building-blocks/wrappers/bento-box-grid/BentoBoxGrid.astro";
 import FeatureDate from "@components/page-sections/blog/FeatureDate.astro";
+import ArticleCardHorizontal from "@components/page-sections/blog/ArticleCardHorizontal.astro";
 
 export interface Props {
   page: CollectionEntry<"pages">;
@@ -129,7 +130,7 @@ const featuredPost = posts.filter(x => x.id === featuredArticle)[0]
     >All in {topic.name}</Heading>
     <BentoBoxGrid>
     {
-      posts.map(post => post)
+      posts.map(post => <ArticleCardHorizontal post={post} />)
     }
     </BentoBoxGrid>
   </CustomSection>

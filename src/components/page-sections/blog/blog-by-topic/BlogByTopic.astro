@@ -16,6 +16,7 @@ import Icon from "@components/building-blocks/core-elements/icon/Icon.astro";
 
 import readingTime from "@components/utils/readingTime";
 import Card from "@components/building-blocks/wrappers/card/Card.astro";
+import ArticleCardHorizontal from "../ArticleCardHorizontal.astro";
 
 const {
   id = "",
@@ -54,49 +55,7 @@ const {
           gap="md"
         >
           { posts.slice(0,4).map(post => 
-              <BentoBoxGridItem
-                columnSpan={6}
-                rowSpan={1}
-                style="background:white"
-              >
-                <Card
-                  paddingVertical="none"
-                  style="margin-top:0"
-                  link={`/insights/${post.id}`}
-                >
-                  <Split 
-                    verticalAlignment="center"
-                    distributionMode="third-two-thirds"
-                    style="margin-top:0"
-                  >
-                    <Fragment slot="first">
-                      <Image source={post.data.image} aspectRatio="square" />
-                    </Fragment>
-                    <Fragment slot="second">
-                      <Heading level="h3" size="xs">
-                        {post.data.title}
-                      </Heading>
-                      <div class="feature-date-container">
-                        <SimpleText
-                          alignX="start"
-                          size="xs"
-                          class="feature-date"
-                          editable={false}
-                        >
-                          { new Date(post.data.date).toLocaleDateString('en-US', {
-                            year: 'numeric',
-                            month: 'numeric',
-                            day: 'numeric',
-                          }) }
-                        </SimpleText>
-                        <div class="divider">•</div>
-                        <Icon name="clock" size="none" />
-                        {readingTime(post)}
-                      </div>
-                    </Fragment>
-                  </Split>
-                </Card>
-              </BentoBoxGridItem>
+              <ArticleCardHorizontal post={post} />
             )
           }
         </BentoBoxGrid>

@@ -1,0 +1,67 @@
+---
+import Heading from "@components/building-blocks/core-elements/heading/Heading.astro";
+import Icon from "@components/building-blocks/core-elements/icon/Icon.astro";
+import Image from "@components/building-blocks/core-elements/image/Image.astro";
+import SimpleText from "@components/building-blocks/core-elements/simple-text/SimpleText.astro";
+import BentoBoxGridItem from "@components/building-blocks/wrappers/bento-box-grid/BentoBoxGridItem.astro";
+import Card from "@components/building-blocks/wrappers/card/Card.astro";
+import Split from "@components/building-blocks/wrappers/split/Split.astro";
+import readingTime from "@components/utils/readingTime";
+
+const { post } = Astro.props;
+---
+
+<BentoBoxGridItem
+  columnSpan={6}
+  rowSpan={1}
+  style="background:white"
+>
+  <Card
+    paddingVertical="none"
+    style="margin-top:0"
+    link={`/insights/${post.id}`}
+  >
+    <Split
+      verticalAlignment="center"
+      distributionMode="third-two-thirds"
+      style="margin-top:0"
+    >
+      <Fragment slot="first">
+        <Image
+          source={post.data.image}
+          aspectRatio="square"
+        />
+      </Fragment>
+      <Fragment slot="second">
+        <Heading
+          level="h3"
+          size="xs"
+        >
+          {post.data.title}
+        </Heading>
+        <div class="feature-date-container">
+          <SimpleText
+            alignX="start"
+            size="xs"
+            class="feature-date"
+            editable={false}
+          >
+            {
+              new Date(post.data.date).toLocaleDateString("en-US", {
+                year: "numeric",
+                month: "numeric",
+                day: "numeric",
+              })
+            }
+          </SimpleText>
+          <div class="divider">•</div>
+          <Icon
+            name="clock"
+            size="none"
+          />
+          {readingTime(post)}
+        </div>
+      </Fragment>
+    </Split>
+  </Card>
+</BentoBoxGridItem>
