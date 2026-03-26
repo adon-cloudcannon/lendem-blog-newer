@@ -14,6 +14,7 @@ import Icon from "@components/building-blocks/core-elements/icon/Icon.astro";
 import readingTime from "@components/utils/readingTime";
 import Split from "@components/building-blocks/wrappers/split/Split.astro";
 import BentoBoxGrid from "@components/building-blocks/wrappers/bento-box-grid/BentoBoxGrid.astro";
+import FeatureDate from "@components/page-sections/blog/FeatureDate.astro";
 
 export interface Props {
   page: CollectionEntry<"pages">;
@@ -108,25 +109,7 @@ const featuredPost = posts.filter(x => x.id === featuredArticle)[0]
             >
               { featuredPost.data.description }
             </SimpleText>
-            <div class="feature-date-container" data-cloudcannon-ignore>
-              <Icon name="calendar" size="none" />
-              <SimpleText
-                alignX="start"
-                size="sm"
-                class="feature-date"
-                editable={false}
-                data-cloudcannon-ignore
-              >
-                { new Date(featuredPost.data.date).toLocaleDateString('en-US', {
-                  year: 'numeric',
-                  month: 'short',
-                  day: 'numeric',
-                }) }
-                <div class="divider">•</div>
-                <Icon name="clock" size="none" />
-                { readingTime(featuredPost)}
-              </SimpleText>
-            </div>
+            <FeatureDate post={featuredPost} />
           </Fragment>
         </Split>
       </Card>
@@ -144,10 +127,11 @@ const featuredPost = posts.filter(x => x.id === featuredArticle)[0]
       level="h2"
       size="sm"
     >All in {topic.name}</Heading>
-    <BentoBoxGrid></BentoBoxGrid>
+    <BentoBoxGrid>
     {
       posts.map(post => post)
     }
+    </BentoBoxGrid>
   </CustomSection>
 </Page>
 

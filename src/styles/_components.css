@@ -1,0 +1,11 @@
+.topic-pill {
+    background: var(--color-bg-brand);
+    border-radius: var(--radius-sm);
+    color: white;
+    display: inline-flex;
+    font-size: var(--font-size-xs);
+    font-weight: bold;
+    justify-content: flex-start;
+    padding: 4px 8px;
+    width:fit-content;
+}

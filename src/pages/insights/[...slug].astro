@@ -424,17 +424,6 @@ if (post) post.data.minutesRead = `${Math.ceil(countWords(content) / WPM)} min r
     margin-top: var(--spacing-xl);
   }
 
-  .topic-pill {
-    background: var(--color-bg-brand);
-    color: white;
-    display: inline-flex;
-    justify-content: flex-start;
-    padding: 4px 8px;
-    border-radius: var(--radius-sm);
-    font-weight: bold;
-    font-size: var(--font-size-xs);
-  }
-
   .date-socials{
     display:flex;
     justify-content: space-between;
@@ -475,7 +464,7 @@ if (post) post.data.minutesRead = `${Math.ceil(countWords(content) / WPM)} min r
     gap: 32px;
     display: flex;
     flex-direction: column;
-    position: sticky;
+    /*position: sticky;*/
     top: 100px;
     align-self: start;
     max-height: 1000vh;

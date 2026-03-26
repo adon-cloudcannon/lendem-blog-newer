@@ -1,0 +1,52 @@
+---
+import Icon from "@components/building-blocks/core-elements/icon/Icon.astro";
+import SimpleText from "@components/building-blocks/core-elements/simple-text/SimpleText.astro";
+import readingTime from "@components/utils/readingTime";
+
+const { post } = Astro.props;
+---
+
+<div class="feature-date-container">
+    <Icon name="calendar" size="none" />
+    <SimpleText
+    alignX="start"
+    size="sm"
+    class="feature-date"
+    editable={false}
+    >
+    { new Date(post.data.date).toLocaleDateString('en-US', {
+        year: 'numeric',
+        month: 'short',
+        day: 'numeric',
+    }) }
+    <div class="divider">•</div>
+    <Icon name="clock" size="none" />
+    { readingTime(post)}
+    </SimpleText>
+</div>
+
+<style>
+    .feature-date-container, .feature-date{
+        margin-top:0;
+        color:#5A5A5A;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+
+    .feature-date-container{
+        margin-top:auto;
+        display:flex;
+        align-items: center;
+        gap:8px;
+        font-size:var(--font-size-sm);
+        *{
+            font-size:var(--font-size-sm);
+            color:#5A5A5A;
+        }
+
+        & svg>*{
+            stroke:#5A5A5A;
+        }
+    }
+</style>
