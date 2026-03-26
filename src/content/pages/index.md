@@ -32,7 +32,7 @@ pageSections:
     backgroundColor: muted
   - _component: page-sections/ctas/cta-center
     image: /src/assets/images/img_moneyhand.png
-    imageAlt: ""
+    imageAlt: jnn
     heading: Need extra cash?
     subtext: A simple, secure way to cover urgent expenses.
     buttonSections:
