@@ -50,7 +50,9 @@ const {
         <Heading alignX="start" level="h2" size="sm">
           {topic.name}
         </Heading>
-        <BentoBoxGrid>
+        <BentoBoxGrid
+          gap="md"
+        >
           { posts.slice(0,4).map(post => 
               <BentoBoxGridItem
                 columnSpan={6}

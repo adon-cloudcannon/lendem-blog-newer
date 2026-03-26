@@ -13,6 +13,7 @@ import SimpleText from "@components/building-blocks/core-elements/simple-text/Si
 import Icon from "@components/building-blocks/core-elements/icon/Icon.astro";
 import readingTime from "@components/utils/readingTime";
 import Split from "@components/building-blocks/wrappers/split/Split.astro";
+import BentoBoxGrid from "@components/building-blocks/wrappers/bento-box-grid/BentoBoxGrid.astro";
 
 export interface Props {
   page: CollectionEntry<"pages">;
@@ -49,16 +50,16 @@ const featuredPost = posts.filter(x => x.id === featuredArticle)[0]
   <CustomSection
     maxContentWidth="2xl"
     paddingHorizontal="lg"
-    paddingVertical="xl"
+    paddingVertical="2xl"
     colorScheme="inherit"
     backgroundColor="base"
-    class="search-container"
+    class="topic-container"
   >
     {
       featuredPost && 
       <Card
-        paddingHorizontal="lg"
-        paddingVertical="lg"
+        paddingHorizontal="none"
+        paddingVertical="none"
         colorScheme="inherit"
         backgroundColor="base"
         class:list={["featured-article"]}
@@ -69,7 +70,7 @@ const featuredPost = posts.filter(x => x.id === featuredArticle)[0]
         link={`/insights/${featuredPost.id}`}
       >
         <Split
-          distributionMode="third-two-thirds"
+          distributionMode="forty-sixty"
         >
           <Fragment slot="first">
             <Image
@@ -130,23 +131,33 @@ const featuredPost = posts.filter(x => x.id === featuredArticle)[0]
         </Split>
       </Card>
     }
+  </CustomSection>
+  <CustomSection
+    maxContentWidth="2xl"
+    paddingHorizontal="lg"
+    paddingVertical="2xl"
+    colorScheme="inherit"
+    backgroundColor="muted"
+    class="search-container"
+  >
+    <Heading
+      level="h2"
+      size="sm"
+    >All in {topic.name}</Heading>
+    <BentoBoxGrid></BentoBoxGrid>
     {
       posts.map(post => post)
     }
   </CustomSection>
-  
 </Page>
 
 <style is:global>
-  .content > .split > .split-inner > .pane.second{
-    gap: 32px;
+  .content .card-content > .split > .split-inner > .pane.second{
     display: flex;
     flex-direction: column;
-    position: sticky;
-    top: 100px;
-    align-self: start;
-    max-height: 100vh;
-    overflow-y:scroll;
+    gap: 8px;
+    height: 100%;
+    padding: 32px 0;
   }
 
   .feature-date-container,
@@ -159,6 +170,7 @@ const featuredPost = posts.filter(x => x.id === featuredArticle)[0]
   }
 
   .feature-date-container {
+    margin-top:auto;
     display: flex;
     align-items: center;
     gap: 8px;
@@ -173,10 +185,8 @@ const featuredPost = posts.filter(x => x.id === featuredArticle)[0]
     }
   }
 
-  .blog-card {
-    background: var(--color-bg-muted);
-    padding: 24px;
-    border: 1px solid var(--color-border-subtle);
-    border-radius: var(--radius-sm);
+  .card {
+    box-shadow: 0px 1px 4px 0px rgba(12,12,13,0.1);
+    border-radius: var(--radius-xs);
   }
 </style>

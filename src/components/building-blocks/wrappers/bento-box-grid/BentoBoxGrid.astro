@@ -78,7 +78,7 @@ const hasSlotContent = (slotContent?.toString().trim().length ?? 0) > 0;
 
     .bento-box-grid > .bento-box-grid-inner {
       display: grid;
-      gap: 24px;
+      gap: var(--grid-spacing);
       grid-template-columns: repeat(12, 1fr);
       width: 100%;
     }

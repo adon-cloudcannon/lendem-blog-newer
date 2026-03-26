@@ -58,6 +58,8 @@ const getReversedDistributionMode = (mode: string) => {
     "three-quarters-quarter": "quarter-three-quarters",
     "fixed-flexible": "flexible-fixed",
     "flexible-fixed": "fixed-flexible",
+    "forty-sixty": "sixty-forty",
+    "sixty-forty": "forty-sixty",
     half: "half",
   };
 
@@ -231,6 +233,14 @@ const splitId = `split-${crypto.randomUUID()}`;
 
         &.three-quarters-quarter {
           --split-columns-desktop: 3fr 1fr;
+        }
+
+        &.forty-sixty{
+          --split-columns-desktop: 2fr 3fr;
+        }
+
+        &.sixty-forty{
+          --split-columns-desktop: 3fr 2fr;
         }
 
         &.fixed-flexible {

@@ -30,6 +30,10 @@ distributionMode:
         name: Fixed-Flexible
       - id: flexible-fixed
         name: Flexible-Fixed
+      - id: forty-sixty
+        name: Forty-Sixty
+      - id: sixty-forty
+        name: Sixty-Forty
 fixedWidth:
   comment: Fixed width in pixels for the fixed column (used when distribution mode includes 'fixed').
   type: number

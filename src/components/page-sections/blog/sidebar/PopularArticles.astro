@@ -9,6 +9,7 @@ import Split from "@components/building-blocks/wrappers/split/Split.astro";
 import { popularArticles } from "@data/blog.json";
 import { getEntry } from "astro:content";
 import readingTime from "@components/utils/readingTime";
+import BentoBoxGrid from "@components/building-blocks/wrappers/bento-box-grid/BentoBoxGrid.astro";
 
 const popularPosts = popularArticles.map((x) =>
   x.replace("/src/content/insights/", "").replace(".mdx", "")
@@ -28,13 +29,15 @@ const popularPosts = popularArticles.map((x) =>
     />
     Popular Articles
   </Heading>
-
+  <BentoBoxGrid
+    gap="none"
+  >
   {
     popularPosts.map(async (article) => {
       const post = await getEntry("blog", article);
       return (
         <BentoBoxGridItem
-          columnSpan={6}
+          columnSpan={12}
           rowSpan={1}
         >
           <a href={`/insights/${post?.id}`}>
@@ -80,6 +83,7 @@ const popularPosts = popularArticles.map((x) =>
       );
     })
   }
+  </BentoBoxGrid>
 </div>
 
 <style>
@@ -91,6 +95,10 @@ const popularPosts = popularArticles.map((x) =>
         align-items: center;
         gap: 8px;
       }
+    }
+
+    :global(.bento-box-grid){
+      margin:0;
     }
 
     :global(.bento-box-grid-item-content){
