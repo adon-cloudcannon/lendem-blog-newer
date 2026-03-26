@@ -1,18 +1,50 @@
 ---
 _schema: default
-title: Blog
+title: Astro Component Starter
 description: >-
-  Read our latest articles and insights on web development, design, and
-  technology.
+  Build fast, customizable Astro sites with a modern component starter that is
+  easy to edit and maintain.
 pageSections:
-  - _component: page-sections/heroes/hero-center
-    eyebrow: ''
-    heading: All posts
+  - _component: page-sections/blog/featured-blog
+    id:
+    heading: Insights
     subtext: >-
-      This paginated blog index displays a grid of article cards, each waiting
-      to be populated with genuine posts once your content strategy moves beyond
-      placeholder text.
-    buttonSections: []
+      Practical insights to help you understand money and make informed
+      decisions
+    featuredArticles:
+      - /src/content/insights/2025-10-22-keeping-performance-simple.mdx
+      - /src/content/insights/2025-10-29-why-our-components-stay-small.mdx
+      - /src/content/insights/2025-11-12-our-approach-to-css-just-enough.mdx
+      - >-
+        /src/content/insights/2025-11-19-how-we-think-about-js-in-this-starter.mdx
+      - >-
+        /src/content/insights/2025-11-26-launching-projects-faster-with-presets.mdx
+      - /src/content/insights/2025-12-03-building-for-the-long-term.mdx
     colorScheme: inherit
-    backgroundColor: base
+    backgroundColor: brand-linear-gradient-muted
+  - _component: page-sections/blog/blog-by-topic
+    id:
+    heading: Insights
+    subtext: >-
+      Practical insights to help you understand money and make informed
+      decisions
+    colorScheme: inherit
+    backgroundColor: muted
+  - _component: page-sections/ctas/cta-center
+    image: /src/assets/images/img_moneyhand.png
+    imageAlt:
+    heading: Need extra cash?
+    subtext: A simple, secure way to cover urgent expenses.
+    buttonSections:
+      - _component: building-blocks/core-elements/button
+        text: Apply Now
+        hideText: false
+        link: ''
+        iconName: ''
+        iconPosition: before
+        variant: primary
+        size: md
+    colorScheme: inherit
+    backgroundColor: muted
+    rounded: false
 ---
