@@ -7,6 +7,7 @@ import ButtonGroup from "@wrappers/button-group/ButtonGroup.astro";
 
 const {
   image = "",
+  imageAlt = "",
   heading = "",
   subtext = "",
   buttonSections = [],
@@ -39,7 +40,7 @@ const {
       aspectRatio="square" 
       data-editable="image" 
       data-prop-src="image"
-      data-prop-alt=""
+      data-prop-alt={imageAlt}
     />
     <Heading
       level="h2"
