@@ -77,7 +77,9 @@ if (!_component && !hasText && !hasSlotContent) return;
       margin-top: var(--spacing-lg);
 
       > .heading-inner {
-        display: block;
+        display: flex;
+        align-items: center;
+        width: 100%;
 
         :global(.heading-icon) {
           bottom: 0.1em;
@@ -87,6 +89,10 @@ if (!_component && !hasText && !hasSlotContent) return;
           &:global(.heading-icon-after) {
             margin-inline: 0.2em 0;
           }
+        }
+
+        &.size-xxs {
+          font-size: var(--font-size-heading-xxs);
         }
 
         &.size-xs {
@@ -122,15 +128,15 @@ if (!_component && !hasText && !hasSlotContent) return;
         }
 
         &.align-start {
-          text-align: start;
+          justify-content: start;
         }
 
         &.align-center {
-          text-align: center;
+          justify-content: center;
         }
 
         &.align-end {
-          text-align: end;
+          justify-content: end;
         }
       }
     }

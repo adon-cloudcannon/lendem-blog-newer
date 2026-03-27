@@ -9,10 +9,9 @@ const {
   columnSpan = 4,
   rowSpan = 1,
   border = false,
+  padding = "md",
   _component,
   "data-children-prop": childrenDataProp,
-  "data-prop-columnSpan": customDataPropColumnSpan,
-  "data-prop-rowSpan": customDataPropRowSpan,
   ...htmlAttributes
 } = Astro.props;
 
@@ -27,7 +26,7 @@ const arrayDataAttributes = effectiveChildrenProp
   {...htmlAttributes}
 >
   <div
-    class:list={["bento-box-grid-item-content", border ? "with-border" : ""]}
+    class:list={["bento-box-grid-item-content", border ? "with-border" : "", `pad-${padding}`]}
     style={`--column-span: ${columnSpan}; --row-span: ${rowSpan}; ${userStyle ?? ""}`}
     {...arrayDataAttributes}
   >
@@ -58,8 +57,19 @@ const arrayDataAttributes = effectiveChildrenProp
       container-type: inline-size;
       grid-column: 1 / -1;
       grid-row: span var(--row-span, 1);
-      padding: var(--spacing-sm);
       height: 100%;
+
+      &-pad-none{
+        padding:0;
+      }
+
+      &.pad-sm{
+        padding:8px;
+      }
+
+      &.pad-md{
+        padding:16px;
+      }
 
       @media (width >= 768px) {
         grid-column: span var(--column-span, 4);

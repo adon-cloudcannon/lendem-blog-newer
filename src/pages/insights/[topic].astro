@@ -10,8 +10,6 @@ import Card from "@components/building-blocks/wrappers/card/Card.astro";
 import Image from "@components/building-blocks/core-elements/image/Image.astro";
 import Heading from "@components/building-blocks/core-elements/heading/Heading.astro";
 import SimpleText from "@components/building-blocks/core-elements/simple-text/SimpleText.astro";
-import Icon from "@components/building-blocks/core-elements/icon/Icon.astro";
-import readingTime from "@components/utils/readingTime";
 import Split from "@components/building-blocks/wrappers/split/Split.astro";
 import BentoBoxGrid from "@components/building-blocks/wrappers/bento-box-grid/BentoBoxGrid.astro";
 import FeatureDate from "@components/page-sections/blog/FeatureDate.astro";
@@ -34,6 +32,7 @@ const posts = await getCollection('blog', ({ data }) => {
 });
 
 let featuredArticle = topics.filter(x => x.name === topic.name)[0].featuredArticle;
+
 if(featuredArticle)
   featuredArticle = featuredArticle.replace("/src/content/insights/","").replace(".mdx","")
 const featuredPost = posts.filter(x => x.id === featuredArticle)[0]
@@ -68,11 +67,11 @@ const featuredPost = posts.filter(x => x.id === featuredArticle)[0]
         backgroundImage={{"source":null,"alt":null,"positionVertical":"top","positionHorizontal":"center"}}
         data-prop={undefined}
         editable={false}
-        data-cloudcannon-ignore
         link={`/insights/${featuredPost.id}`}
       >
         <Split
           distributionMode="forty-sixty"
+          gap="none"
         >
           <Fragment slot="first">
             <Image
@@ -85,7 +84,6 @@ const featuredPost = posts.filter(x => x.id === featuredArticle)[0]
               editable={false}
               data-prop-src={undefined}
               data-prop-alt={undefined}
-              data-cloudcannon-ignore
             />
           </Fragment>
           <Fragment slot="second">
@@ -97,15 +95,13 @@ const featuredPost = posts.filter(x => x.id === featuredArticle)[0]
               text={featuredPost.data.title}
               editable={false}
               data-prop={undefined}
-              data-cloudcannon-ignore
-              style="margin-bottom:0"
+              style="margin-bottom:8px"
             />
             <SimpleText
               alignX="start"
               size="md"
               editable={false}
               data-prop={undefined}
-              data-cloudcannon-ignore
               style="margin-top:0"
             >
               { featuredPost.data.description }
@@ -130,48 +126,19 @@ const featuredPost = posts.filter(x => x.id === featuredArticle)[0]
     >All in {topic.name}</Heading>
     <BentoBoxGrid>
     {
-      posts.map(post => <ArticleCardHorizontal post={post} />)
+      posts.map(post => <ArticleCardHorizontal post={post} columnSpan={6} />)
     }
     </BentoBoxGrid>
   </CustomSection>
 </Page>
 
 <style is:global>
-  .content .card-content > .split > .split-inner > .pane.second{
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-    height: 100%;
-    padding: 32px 0;
-  }
-
-  .feature-date-container,
-  .feature-date {
-    margin-top: 0;
-    color: #5a5a5a;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-  }
-
-  .feature-date-container {
-    margin-top:auto;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    font-size: var(--font-size-sm);
-    * {
-      font-size: var(--font-size-sm);
-      color: #5a5a5a;
+  .featured-article{
+    & .pane.second{
+      padding:32px;
+      height:100%;
+      display:flex;
+      flex-direction: column;
     }
-
-    & svg > * {
-      stroke: #5a5a5a;
-    }
-  }
-
-  .card {
-    box-shadow: 0px 1px 4px 0px rgba(12,12,13,0.1);
-    border-radius: var(--radius-xs);
   }
 </style>

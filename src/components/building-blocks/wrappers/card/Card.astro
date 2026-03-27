@@ -160,7 +160,8 @@ const usesAfterContentSections = !hasAfterSlot && showBeforeAfter && afterConten
 
       > .card-inner {
         color: inherit;
-        display: block;
+        display: flex;
+        flex-direction: column;
         height: 100%;
         overflow: hidden;
         position: relative;
@@ -179,6 +180,7 @@ const usesAfterContentSections = !hasAfterSlot && showBeforeAfter && afterConten
 
         > .card-outer-content {
           height: 100%;
+          flex-grow: 1;
           position: relative;
           z-index: var(--layer-2);
 

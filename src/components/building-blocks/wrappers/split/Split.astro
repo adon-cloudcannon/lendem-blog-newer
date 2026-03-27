@@ -8,9 +8,7 @@ const {
   distributionMode = "half",
   verticalAlignment = "top",
   reverse = false,
-  reverseOrderOnMobile = true,
   fixedWidth,
-  minSplitWidth = 700,
   gap = "lg",
   useDefaultEditableBinding = false,
   class: className,
@@ -156,6 +154,10 @@ const splitId = `split-${crypto.randomUUID()}`;
         display: grid;
         gap: var(--spacing-lg);
         grid-template-columns: var(--split-columns-desktop);
+
+        &.gap-none {
+          gap: 0;
+        }
 
         &.gap-xs {
           gap: var(--spacing-xs);

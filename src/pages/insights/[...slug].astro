@@ -15,11 +15,10 @@ import { getCollection, render, type CollectionEntry } from "astro:content";
 import SocialBar from "@components/page-sections/blog/SocialBar.astro";
 import Button from "@components/building-blocks/core-elements/button/Button.astro";
 import BentoBoxGrid from "@components/building-blocks/wrappers/bento-box-grid/BentoBoxGrid.astro";
-import BentoBoxGridItem from "@components/building-blocks/wrappers/bento-box-grid/BentoBoxGridItem.astro";
-import Card from "@components/building-blocks/wrappers/card/Card.astro";
 import { getEntry } from "astro:content";
-import readingTime from "@components/utils/readingTime";
 import SearchInput from "@components/page-sections/heroes/hero-search/SearchInput.astro";
+import FeatureDate from "@components/page-sections/blog/FeatureDate.astro";
+import ArticleCardVertical from "@components/page-sections/blog/ArticleCardVertical.astro";
 
 // Automatically import all components from building-blocks and page-sections for MDX
 const buildingBlocksImports = import.meta.glob("../../components/building-blocks/**/*.astro", {
@@ -153,6 +152,7 @@ if (post) post.data.minutesRead = `${Math.ceil(countWords(content) / WPM)} min r
         {
           post.data.description && (
             <SimpleText
+              data-pagefind-meta={`description:${post.data.description}`}
               data-prop="description"
               size="lg"
               style="color: var(--color-text-muted); margin-bottom: 0; margin-top: var(--spacing-xs);"
@@ -162,38 +162,9 @@ if (post) post.data.minutesRead = `${Math.ceil(countWords(content) / WPM)} min r
           )
         }
         <div class="date-socials">
-          <div
-            class="feature-date-container"
-            data-cloudcannon-ignore
-          >
-            <Icon
-              name="calendar"
-              size="none"
-            />
-            <SimpleText
-              alignX="start"
-              size="md"
-              class="feature-date"
-              editable={false}
-              data-cloudcannon-ignore
-            >
-              {
-                new Date(post.data.date).toLocaleDateString("en-US", {
-                  year: "numeric",
-                  month: "short",
-                  day: "numeric",
-                })
-              }
+          <FeatureDate post={post} />
 
-              <Icon
-                name="clock"
-                size="none"
-              />
-              {post?.data.minutesRead ?? ""}
-            </SimpleText>
-          </div>
-
-          <SocialBar size="lg" />
+          <SocialBar size="xl" />
         </div>
 
         {
@@ -222,11 +193,16 @@ if (post) post.data.minutesRead = `${Math.ceil(countWords(content) / WPM)} min r
 
         <div class:list={["share-bar"]}>
           Learned something new? Share it with a friend!
-          <SocialBar size="xl" />
+          <SocialBar size="2xl" />
         </div>
 
         <div class:list={["prev-next-buttons"]}>
-          <Button variant="tertiary" iconName="arrow-left" iconPosition="before" >
+          <Button 
+            variant="tertiary" 
+            iconName="arrow-left" 
+            iconPosition="before" 
+            link={`/insights/`}
+          >
             Previous Article
           </Button>
           
@@ -282,64 +258,7 @@ if (post) post.data.minutesRead = `${Math.ceil(countWords(content) / WPM)} min r
         article = article.replace("/src/content/insights/","").replace(".mdx","")
         const post = await getEntry('blog', article);
 
-        return <BentoBoxGridItem
-          columnSpan={3}
-          rowSpan={1}
-        >
-          <Card
-            backgroundColor="base"
-            rounded={true}
-            link={`/insights/${post?.id}`}
-            paddingHorizontal="md"
-            paddingVertical="md"
-          >
-            <Fragment slot="before">
-              <Image source={post?.data.image} aspectRatio="landscape" />
-            </Fragment>
-            <Heading level="h3" size="sm" 
-              style="
-                margin-bottom:0;
-                overflow: hidden;
-                display: -webkit-box;
-                -webkit-box-orient: vertical;
-                -webkit-line-clamp: 2;
-                line-clamp: 2;
-              "
-            >
-              {post?.data.title}
-            </Heading>
-            <SimpleText 
-              style="
-                margin-top:0;
-                overflow: hidden;
-                display: -webkit-box;
-                -webkit-box-orient: vertical;
-                -webkit-line-clamp: 2;
-                line-clamp: 2;
-              "
-            >
-              {post?.data.description}
-            </SimpleText>
-            <div class="feature-date-container" data-cloudcannon-ignore>
-              <Icon name="calendar" size="none" />
-              <SimpleText
-                alignX="start"
-                size="sm"
-                class="feature-date"
-                editable={false}
-                data-cloudcannon-ignore
-              >
-                { new Date(post.data.date).toLocaleDateString('en-US', {
-                  //year: 'numeric',
-                  month: 'short',
-                  day: 'numeric',
-                }) }
-                <Icon name="clock" size="none" />
-                { readingTime(post)}
-              </SimpleText>
-            </div>
-          </Card>
-        </BentoBoxGridItem>
+        return <ArticleCardVertical post={post} columnSpan={3} />
         })
       }
     </BentoBoxGrid>
@@ -429,30 +348,6 @@ if (post) post.data.minutesRead = `${Math.ceil(countWords(content) / WPM)} min r
     justify-content: space-between;
     border-bottom:1px solid var(--color-border-subtle);
     padding:16px 0;
-  }
-
-  .feature-date-container,
-  .feature-date {
-    margin-top: 0;
-    color: #5a5a5a;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-  }
-
-  .feature-date-container {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    font-size: var(--font-size-sm);
-    * {
-      font-size: var(--font-size-sm);
-      color: #5a5a5a;
-    }
-
-    & svg > * {
-      stroke: #5a5a5a;
-    }
   }
 
   .social-container{

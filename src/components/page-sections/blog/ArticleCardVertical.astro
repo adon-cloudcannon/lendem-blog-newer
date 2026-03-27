@@ -1,0 +1,95 @@
+---
+import Heading from "@components/building-blocks/core-elements/heading/Heading.astro";
+import Image from "@components/building-blocks/core-elements/image/Image.astro";
+import SimpleText from "@components/building-blocks/core-elements/simple-text/SimpleText.astro";
+import BentoBoxGridItem from "@components/building-blocks/wrappers/bento-box-grid/BentoBoxGridItem.astro";
+import Card from "@components/building-blocks/wrappers/card/Card.astro";
+import FeatureDate from "./FeatureDate.astro";
+
+const {
+    post,
+    columnSpan = 6
+} = Astro.props;
+---
+
+<BentoBoxGridItem
+    columnSpan={columnSpan}
+    rowSpan={1}
+    padding="none"
+    class:list={["article-card-vertical"]}
+>
+    <Card
+        paddingHorizontal="md"
+        paddingVertical="md"
+        link={`/insights/${post?.id}`}
+    >
+        <Fragment slot="before">
+            <Image
+                aspectRatio="widescreen"
+                source={post?.data.image || "/placeholder-image.jpg"}
+                data-pagefind-field="image"
+            />
+        </Fragment>
+        <div class="topic-pill" data-pagefind-field="topic">{post?.data.topic}</div>
+        <Heading
+            level="h3"
+            size="xs"
+            style="margin:0"
+            data-pagefind-field="title"
+        >{post?.data.title}</Heading>
+        <SimpleText
+            class:list={["article-card-vertical-description"]}
+            size="sm"
+            data-pagefind-field="description"
+        >{post?.data.description}</SimpleText>
+        <FeatureDate post={post} size="xs" data-pagefind-field="date" />
+    </Card>
+</BentoBoxGridItem>
+
+<style>
+    .article-card-vertical{
+        :global(.heading-inner){
+            overflow: hidden;
+            display: -webkit-box;
+            -webkit-box-orient: vertical;
+            -webkit-line-clamp: 2;
+            line-clamp: 2;
+        }
+
+        :global(.card-outer-content){
+            height:auto;
+        }
+
+        .card{
+            margin-top:0;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            border-radius:8px;
+            overflow:hidden;
+            height:100%;
+            background:white;
+
+            &:hover{
+                box-shadow: 0px 16px 32px -4px rgba(12,12,13,0.1);
+
+                :global(.heading-inner){
+                    color:var(--color-brand);
+                }
+            }
+
+            :global(.card-content){
+                display:flex;
+                flex-direction: column;
+                gap:8px;
+
+                .article-card-vertical-description{
+                    margin-top:0;
+                    overflow: hidden;
+                    display: -webkit-box;
+                    -webkit-box-orient: vertical;
+                    -webkit-line-clamp: 2; /* number of lines to show */
+                    line-clamp: 2;
+                }
+            }
+        }
+    }
+</style>

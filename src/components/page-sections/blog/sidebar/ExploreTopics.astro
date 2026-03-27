@@ -21,6 +21,7 @@ const { topic:blogTopic } = Astro.props;
         const posts = await getCollection("blog", ({ data }) => {
           return data.topic === topic.name;
         });
+
         return (
           <ListItem 
             link={`/insights/${topic.name}`}
@@ -42,7 +43,6 @@ const { topic:blogTopic } = Astro.props;
       :global(.heading-text) {
         display: flex;
         align-items: center;
-        gap: 8px;
       }
     }
 

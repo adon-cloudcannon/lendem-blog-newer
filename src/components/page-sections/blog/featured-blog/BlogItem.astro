@@ -1,16 +1,11 @@
 ---
-import Icon from "@components/building-blocks/core-elements/icon/Icon.astro";
 import Heading from "@core-elements/heading/Heading.astro";
-import SimpleText from "@core-elements/simple-text/SimpleText.astro";
 import Card from "@wrappers/card/Card.astro";
 import GridItem from "@wrappers/grid/GridItem.astro";
+import FeatureDate from "../FeatureDate.astro";
 
 const {
-  id,
-  title = "",
-  description = "",
-  date,
-  minutesRead = "",
+  post,
   editable = false,
   class: className,
   _component,
@@ -29,30 +24,13 @@ const cardClasses = ["blog-item", className].filter(Boolean).join(" ");
     rounded={false}
     border={false}
     backgroundColor=""
-    link={`/insights/${id}`}
+    link={`/insights/${post.id}`}
   >
     <div class="team-content">
       <Heading class="feature-title" level="h3" size="xs" alignX="start" editable={false}>
-        {title}
+        {post.data.title}
       </Heading>
-      <div class="feature-date-container">
-        <Icon name="calendar" size="none" />
-        <SimpleText
-          alignX="start"
-          size="sm"
-          class="feature-date"
-          editable={false}
-        >
-          { new Date(date).toLocaleDateString('en-US', {
-            year: 'numeric',
-            month: 'short',
-            day: 'numeric',
-          }) }
-        </SimpleText>
-        <div class="divider">•</div>
-        <Icon name="clock" size="none" />
-        {minutesRead}
-      </div>
+      <FeatureDate post={post} />
     </div>
   </Card>
 </GridItem>
@@ -76,33 +54,6 @@ const cardClasses = ["blog-item", className].filter(Boolean).join(" ");
 
       & .divider{
         margin:0;
-      }
-    }
-
-    .feature-date-container, .feature-date, .feature-date p{
-      color:#5A5A5A;
-      margin-bottom:0;
-    }
-
-    .feature-date-container, .feature-date{
-      margin-top:0;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .feature-date-container{
-      display:flex;
-      align-items: center;
-      gap:8px;
-      font-size:var(--font-size-sm);
-      *{
-        font-size:var(--font-size-sm);
-        color:#5A5A5A!important;
-      }
-
-      & svg>*{
-        stroke:#5A5A5A;
       }
     }
   }

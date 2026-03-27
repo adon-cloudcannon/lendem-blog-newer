@@ -1,6 +1,5 @@
 ---
 import CustomSection from "@builders/custom-section/CustomSection.astro";
-import Icon from "@components/building-blocks/core-elements/icon/Icon.astro";
 import Image from "@components/building-blocks/core-elements/image/Image.astro";
 import Card from "@components/building-blocks/wrappers/card/Card.astro";
 import Split from "@components/building-blocks/wrappers/split/Split.astro";
@@ -9,7 +8,6 @@ import SimpleText from "@core-elements/simple-text/SimpleText.astro";
 import BlogItem from "@page-sections/blog/featured-blog/BlogItem.astro";
 import Grid from "@wrappers/grid/Grid.astro";
 
-import readingTime from "@components/utils/readingTime";
 import SearchInput from "@components/page-sections/heroes/hero-search/SearchInput.astro";
 import { getCollection } from "astro:content";
 import FeatureDate from "../FeatureDate.astro";
@@ -29,6 +27,7 @@ const {
 const featuredPosts = featuredArticles.map(x => x.replace("/src/content/insights/","").replace(".mdx",""));
 const posts = await getCollection('blog', (page) => {
   const id = page.id.replace("/src/content/insights/","").replace(".mdx","")
+
   return featuredPosts.includes(id);
 })
 const featuredPost = posts[0];
@@ -76,7 +75,7 @@ const featuredPost = posts[0];
     {subtext}
   </SimpleText>
   <Split
-      class={"featured-blog-split"}
+      class:list={["featured-blog-split"]}
       label=""
       distributionMode="two-thirds-third"
       minSplitWidth={760}
@@ -156,9 +155,7 @@ const featuredPost = posts[0];
           posts.slice(1).map(async (post: any, index: number) => {
             return (
               <BlogItem
-                id={post.id}
-                minutesRead={readingTime(post)}
-                {...post.data}
+                post={post}
                 class="featured-blog-item"
                 data-index={index}
                 data-editable={undefined}

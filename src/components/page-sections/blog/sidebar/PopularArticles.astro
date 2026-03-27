@@ -1,15 +1,9 @@
 ---
 import Heading from "@components/building-blocks/core-elements/heading/Heading.astro";
-import Icon from "@components/building-blocks/core-elements/icon/Icon.astro";
-import Image from "@components/building-blocks/core-elements/image/Image.astro";
-import SimpleText from "@components/building-blocks/core-elements/simple-text/SimpleText.astro";
-import BentoBoxGridItem from "@components/building-blocks/wrappers/bento-box-grid/BentoBoxGridItem.astro";
-import Split from "@components/building-blocks/wrappers/split/Split.astro";
-
 import { popularArticles } from "@data/blog.json";
 import { getEntry } from "astro:content";
-import readingTime from "@components/utils/readingTime";
 import BentoBoxGrid from "@components/building-blocks/wrappers/bento-box-grid/BentoBoxGrid.astro";
+import ArticleCardHorizontal from "../ArticleCardHorizontal.astro";
 
 const popularPosts = popularArticles.map((x) =>
   x.replace("/src/content/insights/", "").replace(".mdx", "")
@@ -18,108 +12,36 @@ const popularPosts = popularArticles.map((x) =>
 
 <div class="blog-card">
   <Heading
+    class:list={["popular-articles-heading"]}
     text="Popular Articles"
     level="h3"
     size="sm"
+    iconName="arrow-trending-up"
+    iconPosition="before"
+    alignX="start"
+    style="margin:0"
   >
-    <Icon
-      name="arrow-trending-up"
-      color="orange"
-      size="none"
-    />
     Popular Articles
   </Heading>
   <BentoBoxGrid
-    gap="none"
+    gap="sm"
   >
   {
     popularPosts.map(async (article) => {
       const post = await getEntry("blog", article);
+
       return (
-        <BentoBoxGridItem
-          columnSpan={12}
-          rowSpan={1}
-        >
-          <a href={`/insights/${post?.id}`}>
-            <Split
-              verticalAlignment="center"
-              distributionMode="third-two-thirds"
-            >
-              <Fragment slot="first">
-                <Image
-                  source={post.data.image}
-                  aspectRatio="square"
-                  rounded={true}
-                />
-              </Fragment>
-              <Fragment slot="second">
-                <SimpleText
-                  size="sm"
-                  class="popular-article-title"
-                >
-                  {post?.data.title}
-                </SimpleText>
-                <div class="feature-date-container">
-                  <SimpleText
-                    alignX="start"
-                    size="xs"
-                    class="feature-date"
-                    editable={false}
-                  >
-                    { new Date(post?.data.date).toLocaleDateString('en-US', {
-                      year: 'numeric',
-                      month: 'numeric',
-                      day: 'numeric',
-                    }) }
-                  </SimpleText>
-                  <div class="divider">•</div>
-                  <Icon name="clock" size="none" />
-                  {readingTime(post)}
-                </div>
-              </Fragment>
-            </Split>
-          </a>
-        </BentoBoxGridItem>
+        <ArticleCardHorizontal post={post} columnSpan={12} size="sm" />
       );
     })
   }
   </BentoBoxGrid>
 </div>
 
-<style>
-  .blog-card {
-    :global(.heading){
-      margin:0;
-      :global(.heading-text) {
-        display: flex;
-        align-items: center;
-        gap: 8px;
-      }
-    }
-
-    :global(.bento-box-grid){
-      margin:0;
-    }
-
-    :global(.bento-box-grid-item-content){
-      padding:0;
-
-      & a{
-        text-decoration: none;
-        color:inherit;
-      }
-    }
-
-    :global(.split-inner) {
-      grid-template-columns: 80px 1fr !important;
-
-      :global(.pane.second) {
-        :global(.popular-article-title .simple-text-inner) {
-          font-family: "Poppins";
-          margin: 0 !important;
-          font-weight: bold;
-        }
-      }
+<style is:global>
+  .popular-articles-heading{
+    & svg path{
+      stroke: var(--color-brand);
     }
   }
 </style>

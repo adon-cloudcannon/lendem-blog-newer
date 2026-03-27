@@ -3,50 +3,66 @@ import Icon from "@components/building-blocks/core-elements/icon/Icon.astro";
 import SimpleText from "@components/building-blocks/core-elements/simple-text/SimpleText.astro";
 import readingTime from "@components/utils/readingTime";
 
-const { post } = Astro.props;
+const { 
+    post,
+    size = "sm",
+    ...htmlAttributes
+} = Astro.props;
 ---
 
-<div class="feature-date-container">
-    <Icon name="calendar" size="none" />
+<div class="feature-date-container" {...htmlAttributes}>
+    { size == "sm" && 
+        <Icon name="calendar" size={size} />
+    }
     <SimpleText
-    alignX="start"
-    size="sm"
-    class="feature-date"
-    editable={false}
+        alignX="start"
+        size={size}
+        class="feature-date"
+        editable={false}
+        style="margin-top:0;"
     >
-    { new Date(post.data.date).toLocaleDateString('en-US', {
+    { post && new Date(post.data.date).toLocaleDateString('en-US', {
         year: 'numeric',
-        month: 'short',
+        month: size == 'sm' ? 'short' : 'numeric',
         day: 'numeric',
     }) }
-    <div class="divider">•</div>
-    <Icon name="clock" size="none" />
-    { readingTime(post)}
+    </SimpleText>
+    <div class:list={[`divider`,`size-${size}`]}>•</div>
+    <Icon name="clock" size={size} />
+    <SimpleText
+        alignX="start"
+        size={size}
+        class="reading-time"
+        editable={false}
+        style="margin-top:0;"
+    >
+        { readingTime(post)}
     </SimpleText>
 </div>
 
 <style>
-    .feature-date-container, .feature-date{
-        margin-top:0;
+    .feature-date-container{
+        margin-top:auto;
         color:#5A5A5A;
         display: flex;
         align-items: center;
         gap: 8px;
-    }
 
-    .feature-date-container{
-        margin-top:auto;
-        display:flex;
-        align-items: center;
-        gap:8px;
-        font-size:var(--font-size-sm);
         *{
-            font-size:var(--font-size-sm);
             color:#5A5A5A;
+            stroke:#5A5A5A;
         }
 
-        & svg>*{
-            stroke:#5A5A5A;
+        .divider{
+            line-height:1.6;
+        }
+
+        .divider.size-xs{
+            font-size: var(--font-size-xs);
+        }
+
+        .divider.size-sm{
+            font-size: var(--font-size-sm);
         }
     }
 </style>
