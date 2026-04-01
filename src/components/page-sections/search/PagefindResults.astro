@@ -77,8 +77,8 @@ const {
 
         instance.on("search", () => {
             if(pagination)
-                pagination.style.display = "flex";
-            
+                pagination.style.display = "none";
+
             if(searchLoading)
                 searchLoading.style.display = "flex";
         })
@@ -92,7 +92,8 @@ const {
         const sort = Alpine.store("search")?.sort ? Alpine.store("search").sort : sortingSelect?.value;
         Alpine.store("search").sort = sort;
 
-        instance.on("results", (results:any) => {
+        //instance.on("results", (results:any) => {
+        document.addEventListener("results-loaded", e => {
             if(searchLoading)
                 searchLoading.style.display = "none";
             
@@ -100,7 +101,7 @@ const {
                 searchInfo.style.display = "flex";
 
             if(searchCount)
-                searchCount.innerText = results.results.length;
+                searchCount.innerText = instance.searchResult.results.length;
             
             if(searchTerm)
                 searchTerm.innerText = `"${instance.searchTerm}"`;

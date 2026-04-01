@@ -1,6 +1,11 @@
 import Alpine from "alpinejs";
 let currPage = 1;
 
+const resultsLoaded = new CustomEvent("results-loaded", {
+  bubbles: true, // Allows the event to bubble up the DOM
+  cancelable: true // Allows the event to be canceled with preventDefault()
+});
+
 const placeholderTemplate = () => {
     const placeholder = (max = 30) => {
         return ". ".repeat(Math.floor(10 + Math.random() * max));
@@ -138,6 +143,8 @@ export class ResultListCustom {
                 this.append(placeholderNodes);
                 return new ResultCustom({ result: r, placeholderNodes, resultFn: this.resultTemplate, intersectionEl: this.intersectionEl });
             })
+
+            document.dispatchEvent(resultsLoaded);
         });
 
         instance.on("loading", () => {
