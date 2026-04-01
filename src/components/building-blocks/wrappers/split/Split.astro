@@ -237,7 +237,7 @@ const splitId = `split-${crypto.randomUUID()}`;
         }
 
         & .pane {
-          container-type: inline-size;
+          /*container-type: inline-size;*/
           min-width: 0;
           overflow-wrap: break-word;
 
@@ -280,6 +280,10 @@ const splitId = `split-${crypto.randomUUID()}`;
 
         &.flexible-fixed {
           --split-columns-desktop: 1fr var(--split-fixed-width);
+        }
+
+        &.full-auto {
+          --split-columns-desktop: minmax(0, 1fr) auto;
         }
 
         @media (width < 640px) {

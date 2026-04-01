@@ -1,0 +1,117 @@
+---
+import Heading from "@components/building-blocks/core-elements/heading/Heading.astro";
+import Image from "@components/building-blocks/core-elements/image/Image.astro";
+import SimpleText from "@components/building-blocks/core-elements/simple-text/SimpleText.astro";
+import Card from "@components/building-blocks/wrappers/card/Card.astro";
+import FeatureDate from "./FeatureDate.astro";
+
+const { 
+    featuredPost,
+    direction = "vertical"
+} = Astro.props;
+---
+
+<Card
+    paddingHorizontal="lg"
+    paddingVertical="lg"
+    colorScheme="inherit"
+    backgroundColor="base"
+    class:list={["featured-article", direction]}
+    data-prop={undefined}
+    editable={false}
+    link={`/insights/${featuredPost?.id}`}
+    >
+    <Image
+        class="blog-image"
+        source={featuredPost?.data.image}
+        alt={""}
+        widths={[400, 800]}
+        sizes="400px"
+        editable={false}
+        data-prop-src={undefined}
+        data-prop-alt={undefined}
+        slot="before"
+    />
+    <Heading
+        level="h2"
+        size={direction == "vertical" ? "sm" : "md"}
+        alignX="start"
+        iconPosition="before"
+        text={featuredPost?.data.title}
+        editable={false}
+        data-prop={undefined}
+        style="margin-bottom:0"
+    />
+    <SimpleText
+        alignX="start"
+        size="md"
+        editable={false}
+        data-prop={undefined}
+        style="margin-top:0; color:var(--color-text-muted)"
+    >
+        { featuredPost?.data.description }
+    </SimpleText>
+    <FeatureDate post={featuredPost} />
+</Card>
+
+<style>
+    .featured-article{
+        box-shadow: 0px 1px 4px 0px rgba(12,12,13,0.1);
+        border-radius: var(--radius-xs);
+        overflow: hidden;
+        height:100%;
+        
+        &:hover{
+            box-shadow: 0px 16px 32px -4px rgba(12,12,13,0.1);
+            :global(.heading-text){
+                color:var(--color-bg-brand);
+            }
+        }
+
+        & > :global(.card-inner){
+            display:grid;
+
+            .blog-image{
+                height:300px;
+
+                & > :global(.image-inner){
+                    height:100%;
+
+                    & > :global(picture){
+                        height:100%;
+
+                        & > :global(img){
+                            object-fit: cover;
+                        }
+                    }
+                }
+            }
+        }
+
+        :global(.card-content){
+            display:flex;
+            flex-direction: column;
+            gap:16px;
+
+            & p, & h4, & .simple-text{
+                margin:0;
+            }
+        }
+
+        :global(.divider){
+            margin:0 8px;
+        }
+
+        &.vertical > :global(.card-inner){
+            grid-template-columns: 1fr;
+        }
+
+        &.horizontal > :global(.card-inner){
+            grid-template-columns: 2fr 3fr;
+
+            @media (width < 640px){
+                grid-template-columns: 1fr;
+            }
+        }
+    }
+</style>

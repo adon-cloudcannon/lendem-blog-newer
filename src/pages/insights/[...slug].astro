@@ -85,32 +85,42 @@ const { Content, headings } = await render(post);
     }
     class="breadcrumb-container"
   >
-    <Breadcrumb 
-      style="color:#757575"
-      crumbs={[
-        {"Home":"/"},
-        {"Insights":"/insights/"},
-        {[post.data.topic ?? ""]:`/insights/${post.data.topic}`},
-        {[post.data.title]: ""}
-      ]}
-    />
-    <SearchInput
-      style="margin:0; max-width:336px"
-    />
-    <script> 
-      import { isKeyboardEvent } from "@components/utils/isKeyboardEvent";
+   <Split
+      distributionMode="two-thirds-third"
+      gap="xl"
+      verticalAlignment="center"
+    >
+      <Fragment slot="first">
+        <Breadcrumb 
+          style="color:#757575"
+          crumbs={[
+            {"Home":"/"},
+            {"Insights":"/insights/"},
+            {[post.data.topic ?? ""]:`/insights/${post.data.topic}`},
+            {[post.data.title]: ""}
+          ]}
+        />
+      </Fragment>
+      <Fragment slot="second">
+        <SearchInput
+          style="margin:0;"
+        />
+        <script> 
+          import { isKeyboardEvent } from "@components/utils/isKeyboardEvent";
 
-      document.querySelector("input[name=search]")?.addEventListener("keydown", (e:Event) => {
-          if(!isKeyboardEvent(e))
-            throw new Error("Not a keyboard event");
+          document.querySelector("input[name=search]")?.addEventListener("keydown", (e:Event) => {
+              if(!isKeyboardEvent(e))
+                throw new Error("Not a keyboard event");
 
-          if(e.key == "Enter"){
-              const term = (e.target as HTMLInputElement).value;
-              if(term != "")
-                  window.location.href = `/search/?term=${term}`
-          }
-      })
-    </script>
+              if(e.key == "Enter"){
+                  const term = (e.target as HTMLInputElement).value;
+                  if(term != "")
+                      window.location.href = `/search/?term=${term}`
+              }
+          })
+        </script>
+      </Fragment>
+    </Split>
   </CustomSection>
 
   <CustomSection
@@ -144,18 +154,24 @@ const { Content, headings } = await render(post);
               data-pagefind-meta={`description:${post.data.description}`}
               data-prop="description"
               size="lg"
-              style="color: var(--color-text-muted); margin-bottom: 0; margin-top: var(--spacing-xs);"
+              style="color: var(--color-text-muted); margin-bottom: 0; margin-top: var(--spacing-sm);"
             >
               {post.data.description}
             </SimpleText>
           )
         }
-        <div class="date-socials">
-          <FeatureDate post={post} />
-
-          <SocialBar size="xl" />
-        </div>
-
+        
+        <Split
+          distributionMode="full-auto"
+        >
+          <Fragment slot="first">
+            <FeatureDate post={post} />
+          </Fragment>
+          <Fragment slot="second">
+            <SocialBar size="xl" />
+          </Fragment>
+        </Split>
+        
         {
           post.data.image && (
             <Image
@@ -181,10 +197,18 @@ const { Content, headings } = await render(post);
           <Content components={mdxComponents} />
         </div>
 
-        <div class:list={["share-bar"]}>
-          Learned something new? Share it with a friend!
-          <SocialBar size="2xl" />
-        </div>
+        <Split
+          distributionMode="full-auto"
+          verticalAlignment="center"
+          class:list={["share-bar"]}
+        >
+          <Fragment slot="first">
+            Learned something new? Share it with a friend!
+          </Fragment>
+          <Fragment slot="second">
+            <SocialBar size="2xl" />
+          </Fragment>
+      </Split>
 
         <div class:list={["prev-next-buttons"]}>
           <Button 
@@ -264,11 +288,6 @@ const { Content, headings } = await render(post);
     }
     .outer-content {
       padding: 24px 0;
-      .content {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-      }
     }
   }
 
@@ -326,13 +345,6 @@ const { Content, headings } = await render(post);
     margin-top: var(--spacing-xl);
   }
 
-  .date-socials{
-    display:flex;
-    justify-content: space-between;
-    border-bottom:1px solid var(--color-border-subtle);
-    padding:16px 0;
-  }
-
   .social-container{
     display: flex;
     gap:8px;
@@ -356,6 +368,7 @@ const { Content, headings } = await render(post);
   }
 
   .share-bar{
+    font-size: var(--font-size-sm);
     display:flex;
     align-items: center;
     border-bottom: 1px solid var(--color-border-subtle);
@@ -366,9 +379,10 @@ const { Content, headings } = await render(post);
   }
 
   .prev-next-buttons{
-    display:flex;
+    display:grid;
+    grid-template-columns: 1fr 1fr;
+    gap:32px;
     align-items: center;
-    justify-content: space-between;
 
     & a{
       justify-content: flex-start;

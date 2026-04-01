@@ -16,7 +16,7 @@ const {
 } = Astro.props;
 ---
 <Split
-    distributionMode="half"
+    distributionMode="three-quarters-quarter"
     verticalAlignment = "top"
 >
     <Fragment slot="first">
@@ -42,7 +42,6 @@ const {
             id="pagefind-sorting"
             iconName="chevron-down"
             iconPosition="after"
-            style="margin-left:auto"
         >
             <SelectOption label="Sort: Most Recent" value="most-recent" />
             <SelectOption label="Sort: Oldest First" value="oldest-first" />
@@ -92,7 +91,6 @@ const {
         const sort = Alpine.store("search")?.sort ? Alpine.store("search").sort : sortingSelect?.value;
         Alpine.store("search").sort = sort;
 
-        //instance.on("results", (results:any) => {
         document.addEventListener("results-loaded", e => {
             if(searchLoading)
                 searchLoading.style.display = "none";

@@ -71,9 +71,15 @@ const arrayDataAttributes = effectiveChildrenProp
         padding:16px;
       }
 
-      @media (width >= 768px) {
+      @media (width >= 640px) {
+        grid-column: span calc(var(--column-span, 4) * 2);
+      }
+
+      @media (width >= 900px) {
         grid-column: span var(--column-span, 4);
       }
+
+      
     }
 
     .bento-box-grid-item > .bento-box-grid-item-content > *:only-child {

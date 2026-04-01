@@ -17,6 +17,7 @@ import ExploreTopicsCta from "@components/page-sections/blog/explore-topics-cta/
 import CtaCenter from "@components/page-sections/ctas/cta-center/CtaCenter.astro";
 import SearchResult from "@components/page-sections/heroes/hero-search/SearchResult.astro";
 import PagefindResults from "@components/page-sections/search/PagefindResults.astro";
+import FeaturedBlogCard from "@components/page-sections/blog/FeaturedBlogCard.astro";
 
 export interface Props {
   page: CollectionEntry<"pages">;
@@ -62,58 +63,7 @@ const featuredPost = posts.filter(x => x.id === featuredArticle)[0]
   >
     {
       featuredPost && 
-      <Card
-        paddingHorizontal="none"
-        paddingVertical="none"
-        colorScheme="inherit"
-        backgroundColor="base"
-        class:list={["featured-article"]}
-        backgroundImage={{"source":null,"alt":null,"positionVertical":"top","positionHorizontal":"center"}}
-        data-prop={undefined}
-        editable={false}
-        link={`/insights/${featuredPost.id}`}
-      >
-        <Split
-          distributionMode="forty-sixty"
-          gap="none"
-        >
-          <Fragment slot="first">
-            <Image
-              class="blog-image"
-              source={featuredPost.data.image}
-              alt={""}
-              aspectRatio="widescreen"
-              widths={[400, 800]}
-              sizes="400px"
-              editable={false}
-              data-prop-src={undefined}
-              data-prop-alt={undefined}
-            />
-          </Fragment>
-          <Fragment slot="second">
-            <Heading
-              level="h2"
-              size="md"
-              alignX="start"
-              iconPosition="before"
-              text={featuredPost.data.title}
-              editable={false}
-              data-prop={undefined}
-              style="margin-bottom:8px"
-            />
-            <SimpleText
-              alignX="start"
-              size="md"
-              editable={false}
-              data-prop={undefined}
-              style="margin-top:0"
-            >
-              { featuredPost.data.description }
-            </SimpleText>
-            <FeatureDate post={featuredPost} />
-          </Fragment>
-        </Split>
-      </Card>
+      <FeaturedBlogCard featuredPost={featuredPost} direction="horizontal" />
     }
   </CustomSection>
   <CustomSection
@@ -194,11 +144,6 @@ const featuredPost = posts.filter(x => x.id === featuredArticle)[0]
       }
     }
 
-    & :global(.pane.second){
-      padding:32px;
-      height:100%;
-      display:flex;
-      flex-direction: column;
-    }
+    
   }
 </style>

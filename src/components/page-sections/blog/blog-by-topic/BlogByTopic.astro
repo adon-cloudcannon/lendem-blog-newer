@@ -42,7 +42,9 @@ const {
           <Heading alignX="start" level="h2" size="sm">
             Popular in {topic.name}
           </Heading>
-          <SimpleText>
+          <SimpleText
+            style="margin:0"
+          >
             <a href={`/insights/${topic.name}`} style="font-weight:bold;color:inherit">See more {topic.name} articles</a>
           </SimpleText>
         </div>

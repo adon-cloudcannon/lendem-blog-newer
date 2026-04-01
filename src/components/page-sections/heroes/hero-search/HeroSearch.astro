@@ -28,13 +28,14 @@ const {
     }
     maxContentWidth={"2xl"}
     paddingHorizontal="lg"
-    paddingVertical={"2xl"}
+    paddingVertical={"xl"}
 >
     { variation === "left-right" ?
         <>
             <Split
                 distributionMode="two-thirds-third"
                 style="margin-top:0"
+                verticalAlignment="center"
             >
                 <Fragment slot="first">
                     <Breadcrumb
@@ -45,11 +46,15 @@ const {
                             {[heading]:""}
                         ]}
                     />
-                    <Heading level="h1" size="lg">
+                    <Heading 
+                        level="h1" 
+                        size="lg"
+                        style="margin:12px 0"
+                    >
                         {heading}
                     </Heading>
                     <SimpleText
-                        style="color:white"
+                        style="color:white;margin:0"
                     >
                         {description}
                     </SimpleText>

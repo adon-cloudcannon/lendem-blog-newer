@@ -106,5 +106,9 @@ const { headings } = Astro.props;
                 color: var(--color-brand);
             }
         }
+
+        @container (max-width: 700px) {
+            display: none;
+        }
     }
 </style>
