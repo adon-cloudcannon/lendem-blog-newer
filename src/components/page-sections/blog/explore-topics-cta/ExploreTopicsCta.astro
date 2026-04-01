@@ -33,12 +33,13 @@ const {
                     <BentoBoxGridItem
                         columnSpan={3}
                         rowSpan={1}
+                        padding="none"
                     >
                         <Button
                             iconName={topic.icon}
                             iconPosition="before"
                             variant="large"
-                            link={`/topics/${topic.name}`}
+                            link={`/insights/${topic.name}`}
                         >{topic.name}</Button>
                     </BentoBoxGridItem>
                 )

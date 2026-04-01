@@ -8,7 +8,7 @@ const { size } = Astro.props;
 <div class="social-container">
 {
     socials.map(social => {
-        return <Icon name={social.logo} size={size} />
+        return <a href={social.url}><Icon name={social.logo} size={size} /></a>
     })
 }
 </div>

@@ -16,17 +16,18 @@ const { headings } = Astro.props;
     <List alignX="start" direction="vertical">
     {
         headings.map((heading:any,index:number) =>
-            <ListItem class:list={[index === 0 ? "active" : ""]} >
-                <a href={`#${slugifyLabel(heading.text)}`}>
-                    <Icon name="chevron-right" size="none" />
-                    {heading.text}
-                </a>
+            <ListItem 
+                class:list={[index === 0 && "active"]} 
+                link={`#${slugifyLabel(heading.text)}`}
+                iconName="chevron-right"
+            >
+                {heading.text}
             </ListItem>
         )
     }
     </List>
     <script>
-        const articleSections = document.querySelectorAll<HTMLDivElement>(".post h2");
+        const articleSections = document.querySelectorAll<HTMLElement>(".post h2");
 
         let currentActiveId: string | null = null;
 
@@ -94,10 +95,16 @@ const { headings } = Astro.props;
             }
         }
 
-        .item.active{
-            background: var(--color-bg-surface);
-            border-left: 2px solid var(--color-border-strong);
-            color: var(--color-brand);
+        .item{
+            &:hover{
+                cursor:pointer;
+                background:var(--color-bg-hover);
+            }
+            &.active{
+                background: var(--color-bg-surface);
+                border-left: 2px solid var(--color-border-strong);
+                color: var(--color-brand);
+            }
         }
     }
 </style>

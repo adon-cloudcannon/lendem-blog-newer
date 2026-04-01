@@ -11,9 +11,12 @@ import Image from "@components/building-blocks/core-elements/image/Image.astro";
 import Heading from "@components/building-blocks/core-elements/heading/Heading.astro";
 import SimpleText from "@components/building-blocks/core-elements/simple-text/SimpleText.astro";
 import Split from "@components/building-blocks/wrappers/split/Split.astro";
-import BentoBoxGrid from "@components/building-blocks/wrappers/bento-box-grid/BentoBoxGrid.astro";
 import FeatureDate from "@components/page-sections/blog/FeatureDate.astro";
 import ArticleCardHorizontal from "@components/page-sections/blog/ArticleCardHorizontal.astro";
+import ExploreTopicsCta from "@components/page-sections/blog/explore-topics-cta/ExploreTopicsCta.astro";
+import CtaCenter from "@components/page-sections/ctas/cta-center/CtaCenter.astro";
+import SearchResult from "@components/page-sections/heroes/hero-search/SearchResult.astro";
+import PagefindResults from "@components/page-sections/search/PagefindResults.astro";
 
 export interface Props {
   page: CollectionEntry<"pages">;
@@ -38,6 +41,7 @@ if(featuredArticle)
 const featuredPost = posts.filter(x => x.id === featuredArticle)[0]
 ---
 
+<div id="page-data" data-topic={topic.name}></div>
 <Page
   
 >
@@ -120,21 +124,77 @@ const featuredPost = posts.filter(x => x.id === featuredArticle)[0]
     backgroundColor="muted"
     class="search-container"
   >
-    <Heading
-      level="h2"
-      size="sm"
-    >All in {topic.name}</Heading>
-    <BentoBoxGrid>
-    {
-      posts.map(post => <ArticleCardHorizontal post={post} columnSpan={6} />)
-    }
-    </BentoBoxGrid>
+    <SearchResult 
+      id="card-template" 
+      Component={ArticleCardHorizontal}
+      ComponentProps={{columnSpan:6}}
+    />
+    <PagefindResults
+      id="topics"
+      heading={`All in ${topic.name}`}
+      showResultsCount={false}
+      hasPagination={true}
+    />
+    
+      <script src="/pagefind/pagefind-modular-ui.js" is:inline></script>
+      <script>
+        import {
+            ResultListCustom
+        } from "@components/utils/customPagefind";
+
+        window.addEventListener('DOMContentLoaded', (event) => {
+          const el = document.getElementById('page-data');
+          const topic = el?.dataset.topic || "";
+          const instance = window.instance;
+          instance.add(
+              new ResultListCustom({
+                  containerElement: "#topics",
+                  perPage:10
+              })
+          );
+          instance.triggerSearchWithFilters("__all__",{"topic":topic});
+        });
+      </script>
+    
   </CustomSection>
+  <ExploreTopicsCta 
+    backgroundColor="brand-linear-gradient-strong"
+  />
+  <CtaCenter
+    image="/src/assets/images/img_moneyhand.png"
+    imageAlt=""
+    heading="Need extra cash?"
+    subtext="A simple, secure way to cover urgent expenses."
+    buttonSections={[
+      {
+        _component:"building-blocks/core-elements/button",
+        text:"Apply Now",
+        hideText:false,
+        link:"",
+        iconName:"",
+        iconPosition:"before",
+        variant:"primary",
+        size:"md"
+      }
+    ]}
+    colorScheme="inherit"
+    backgroundColor="muted"
+    rounded={false}
+  />
 </Page>
 
-<style is:global>
+<style>
   .featured-article{
-    & .pane.second{
+    box-shadow: 0px 1px 4px 0px rgba(12,12,13,0.1);
+
+    &:hover{
+      box-shadow: 0px 16px 32px -4px rgba(12,12,13,0.1);
+      :global(.heading-text){
+        color:var(--color-bg-brand);
+      }
+    }
+
+    & :global(.pane.second){
       padding:32px;
       height:100%;
       display:flex;

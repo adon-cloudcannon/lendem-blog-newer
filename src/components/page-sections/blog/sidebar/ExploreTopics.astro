@@ -25,7 +25,7 @@ const { topic:blogTopic } = Astro.props;
         return (
           <ListItem 
             link={`/insights/${topic.name}`}
-            class:list={[blogTopic === topic.name ? "active" : ""]}
+            class:list={[blogTopic === topic.name && "active"]}
           >
             {topic.name}
             <span class="count">{posts.length}</span>

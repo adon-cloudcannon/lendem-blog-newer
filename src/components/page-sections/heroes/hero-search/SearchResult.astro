@@ -1,8 +1,6 @@
 ---
-import ArticleCardVertical from "@components/page-sections/blog/ArticleCardVertical.astro";
-
-const { id } = Astro.props;
+const { id, Component, ComponentProps } = Astro.props;
 ---
 <div id={id} style="display:none">
-    <ArticleCardVertical />
+    { Component && <Component {...ComponentProps} /> }
 </div>

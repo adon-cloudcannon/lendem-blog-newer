@@ -7,6 +7,8 @@ import Split from "@components/building-blocks/wrappers/split/Split.astro";
 import SimpleText from "@components/building-blocks/core-elements/simple-text/SimpleText.astro";
 import Button from "@components/building-blocks/core-elements/button/Button.astro";
 import SearchInput from "./SearchInput.astro";
+import Breadcrumb from "@components/page-sections/blog/Breadcrumb.astro";
+import ArticleCardVertical from "@components/page-sections/blog/ArticleCardVertical.astro";
 
 const {
     heading = "",
@@ -32,8 +34,17 @@ const {
         <>
             <Split
                 distributionMode="two-thirds-third"
+                style="margin-top:0"
             >
                 <Fragment slot="first">
+                    <Breadcrumb
+                        style="color:white"
+                        crumbs={[
+                            {"Home":"/"},
+                            {"Insights":"/insights/"},
+                            {[heading]:""}
+                        ]}
+                    />
                     <Heading level="h1" size="lg">
                         {heading}
                     </Heading>
@@ -49,9 +60,14 @@ const {
             </Split>
 
             <script> 
-                document.querySelector("input[name=search]")?.addEventListener("keydown", e => {
-                    if(e.keyCode == 13){
-                        const term = e.target.value;
+                import { isKeyboardEvent } from "@components/utils/isKeyboardEvent";
+
+                document.querySelector("input[name=search]")?.addEventListener("keydown", (e:Event) => {
+                    if(!isKeyboardEvent(e))
+                        throw new Error('not a keyboard event');
+
+                    if(e.key == "Enter"){
+                        const term = (e.target as HTMLInputElement).value;
                         if(term != "")
                             window.location.href = `/search/?term=${term}`
                     }
@@ -59,7 +75,14 @@ const {
             </script>
         </>
         :
-
+        <Breadcrumb
+            style="color:white"
+            crumbs={[
+                {"Home":"/"},
+                {"Insights":"/insights/"},
+                {[heading]:""}
+            ]}
+        />
         <Heading level="h1" size="lg">
             {heading}
         </Heading>
@@ -75,49 +98,58 @@ const {
             <Button class:list={["search-button"]} variant="primary">Search</Button>
         </div>
 
-        <SearchResult id="card-template" />
+        <SearchResult 
+            id="card-template" 
+            Component={ArticleCardVertical}
+        />
 
         <script>
-import readingTime from "@components/utils/readingTime";
-
+            import { isKeyboardEvent } from "@components/utils/isKeyboardEvent";
+            import {
+                ResultListCustom
+            } from "@components/utils/customPagefind";
+            
             window.addEventListener('DOMContentLoaded', (event) => {
-                const instance = new PagefindModularUI.Instance();
+                const instance = window.instance;
+                const searchInput = document.querySelector("input[name=search]") as HTMLInputElement;
                 const params = new URLSearchParams(window.location.search);
-                
-                instance.add(new PagefindModularUI.ResultList({
-                    containerElement: "#results",
-                    
-                    resultTemplate: (result) => {
-                        console.log(result)
-                        let template = document.getElementById("card-template");
-                        template.querySelector(`[data-pagefind-field=title] .heading-text`).innerText = result.meta.title
-                        template.querySelector(`[data-pagefind-field=image] img`).src = result.meta.image
-                        template.querySelector(`[data-pagefind-field=topic]`).innerText = result.meta.topic
-                        template.querySelector(`[data-pagefind-field=description] .simple-text-inner`).innerText = result.meta.description
 
-                        template.querySelector(`[data-pagefind-field=date] .feature-date .simple-text-inner`).innerText = new Date(result.meta.date).toLocaleDateString('en-US', {
-                            //year: 'numeric',
-                            month: 'short',
-                            day: 'numeric',
-                        })
-                        const readingTime = `${Math.ceil(result.word_count / 200)} min read`;
-                        template.querySelector(`[data-pagefind-field=date] .reading-time .simple-text-inner`).innerText = readingTime;
-                        /*
-                        template?.replace("[[PAGEFIND-DATE]]", new Date(result.meta.date).toLocaleDateString('en-US', {
-                            year: 'numeric',
-                            month: 'short',
-                            day: 'numeric',
-                        }))
-                        template = template?.replace("[[PAGEFIND-TOPIC]]", result.meta.topic)*/
-                        return template.innerHTML;
-                    }
-                }));
+                instance.add(
+                    new ResultListCustom({
+                        containerElement: "#results"
+                    })
+                );
 
                 if(params.size > 0){
                     const term = params.get("term");
-                    document.querySelector("input[name=search]").value = term;
+                    if(searchInput)
+                        searchInput.value = term || "";
                     instance.triggerSearch(term);
                 }
+
+                const search = (term:string) => {
+                    if(term != ""){
+                        const url = new URL(window.location.href);
+                        url.searchParams.set('term', term);
+                        window.history.pushState(null, '', url.toString());
+                        instance.triggerSearch(term);
+                    }
+                }
+
+                document.querySelector(".search-button")?.addEventListener("click", e => {
+                    const term = searchInput?.value
+                    search(term);
+                })
+
+                searchInput?.addEventListener("keydown", (e:Event) => {
+                    if(!isKeyboardEvent(e))
+                        throw new Error('not a keyboard event');
+
+                    if(e.key == "Enter"){
+                        const term = (e.target as HTMLInputElement).value;
+                        search(term);
+                    }
+                })
             });
         </script>
     }

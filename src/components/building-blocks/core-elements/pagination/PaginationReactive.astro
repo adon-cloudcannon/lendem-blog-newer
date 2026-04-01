@@ -1,0 +1,218 @@
+---
+import Icon from "@core-elements/icon/Icon.astro";
+
+const {
+  page,
+  class: className,
+  showArrows = true,
+  useDefaultEditableBinding: _useDefaultEditableBinding = false,
+  _component,
+  ...htmlAttributes
+} = Astro.props;
+---
+
+<script>
+  import Alpine from "alpinejs";
+
+  document.addEventListener('alpine:init', () => {
+      Alpine.store('search', {
+          currentPage: 1,
+          totalPages:5
+      });
+      Alpine.data('pagination', () => ({
+        maxVisiblePages: 5,
+        get maxVisible() { return this.maxVisiblePages - 1 },
+        get lastPage() { return this.$store.search.totalPages - 1 },
+        get startPage() { return Math.max(0, this.$store.search.currentPage - 2) },
+        get endPage() { return Math.min(this.lastPage, this.startPage + this.maxVisible) },
+        get adjustedStartPage(){
+          if(this.endPage === this.lastPage && this.startPage > 0)
+            return Math.max(0, this.lastPage - this.maxVisible);
+          return this.startPage;
+        },
+        get adjustedEndPage(){
+          const showFirst = this.startPage > 0;
+          const showLast = this.endPage < this.lastPage;
+          const visibleRange = this.endPage - this.adjustedStartPage + 1;
+          const totalVisible = visibleRange + (showFirst ? 1 : 0) + (showLast ? 1 : 0);
+          if (totalVisible > this.maxVisiblePages) {
+            const excess = totalVisible - this.maxVisiblePages;
+            console.log(`showFirst ${showFirst},showLast ${showLast},visibleRange ${visibleRange},totalVisible ${totalVisible},this.maxVisiblePages ${this.maxVisiblePages}, excess ${excess}`);
+            if (showFirst && showLast) {
+              console.log("show first and last")
+              // If showing both first and last, reduce the middle range
+              return Math.max(this.adjustedStartPage, this.endPage - excess);
+            } else if (showFirst || showLast) {
+              console.log("show first OR last")
+              // If showing one of first/last, reduce the range
+              return Math.max(this.adjustedStartPage, this.endPage - excess);
+            }
+            else return this.endPage
+          }
+          return this.endPage
+        },
+        get pages() {
+          const start = this.adjustedStartPage;
+          const end = this.endPage;
+          return Array.from({ length: end - start + 1 }, (_, i) => {
+            return start + i + 1
+          });
+        },
+        updateSearchResults(currPage:any) {
+            this.$store.search.currentPage=currPage;
+            this.$nextTick(() => { window.instance.triggerSearch(window.instance.searchTerm) });
+        }
+      }));
+  });
+</script>
+
+<nav
+  x-data="pagination"
+  class:list={["pagination", className]}
+  aria-label="Pagination Navigation"
+  {...htmlAttributes}
+>
+  {
+    showArrows && (
+      <template x-if="$store.search.currentPage > 1">
+        <span
+          class="pagination-arrow pagination-prev"
+          aria-label="Go to previous page"
+          @click="updateSearchResults($store.search.currentPage - 1)"
+        >
+          <Icon
+            name="arrow-left"
+            size="sm"
+          />
+        </span>
+      </template>
+    )
+  }
+
+  <template x-if="adjustedStartPage > 0">
+    <span @click="updateSearchResults(1)">1</span>
+  </template>
+
+  <template x-if="adjustedStartPage > 1">
+    <span aria-hidden="true">…</span>
+  </template>
+
+  <template x-for="page in pages" :key="page">
+    <span
+      :class="{ 'current': $store.search.currentPage === page }"
+      :aria-current="$store.search.currentPage === page ? 'page' : null"
+      :aria-label="$store.search.currentPage === page
+        ? `Page ${page}, current page` 
+        : `Go to page ${page}`"
+      x-text="page"
+      @click="updateSearchResults(page)"
+    ></span>
+  </template>
+
+  <template x-if="endPage < (lastPage-1)">
+    <span aria-hidden="true">…</span>
+  </template>
+  
+  <template x-if="endPage < lastPage">
+    <span @click="updateSearchResults($store.search.totalPages)" x-text="$store.search.totalPages"></span>
+  </template>
+  
+
+  {
+    showArrows && (
+      <template x-if="$store.search.currentPage < $store.search.totalPages">
+        <span
+          @click="updateSearchResults($store.search.currentPage + 1)"
+          class="pagination-arrow pagination-next"
+          aria-label="Go to next page"
+        >
+          <Icon
+            name="arrow-right"
+            size="sm"
+          />
+        </span>
+      </template>
+    )
+  }
+</nav>
+
+<style>
+  @layer components {
+    .pagination {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin-top: var(--spacing-lg);
+
+      a,
+      span {
+        cursor:pointer;
+        background-color: var(--color-bg);
+        border: 1px solid var(--color-border);
+        border-inline-start: none;
+        color: var(--color-text-strong);
+        font-weight: var(--font-weight-semibold);
+        padding: var(--spacing-sm) var(--spacing-md);
+        text-decoration: none;
+        transition: background-color var(--animation-normal) ease-in-out;
+
+        &:hover {
+          background-color: var(--color-state-hover);
+          color: var(--color-text-strong);
+        }
+
+        &:nth-child(1 of span, a):not(.pagination-arrow) {
+          border-bottom-left-radius: var(--radius-sm);
+          border-inline-start: 1px solid var(--color-border);
+          border-top-left-radius: var(--radius-sm);
+        }
+
+        &:nth-last-child(1 of span, a):not(.pagination-arrow) {
+          border-bottom-right-radius: var(--radius-sm);
+          border-top-right-radius: var(--radius-sm);
+        }
+
+        &[aria-hidden="true"] {
+          cursor: default;
+
+          &:hover {
+            background-color: var(--color-bg);
+            color: var(--color-text-strong);
+          }
+        }
+      }
+
+      .current,
+      .current:hover {
+        background-color: var(--color-bg-brand);
+        border-color: var(--color-bg-brand);
+        color: var(--color-text-on-brand);
+        cursor: default;
+      }
+
+      .pagination-arrow {
+        align-items: center;
+        display: flex;
+        justify-content: center;
+        min-width: 2.5rem;
+
+        :global(.icon) {
+          align-items: center;
+          display: flex;
+          justify-content: center;
+        }
+      }
+
+      .pagination-prev {
+        border-bottom-left-radius: var(--radius-sm);
+        border-inline-start: 1px solid var(--color-border);
+        border-top-left-radius: var(--radius-sm);
+      }
+
+      .pagination-next {
+        border-bottom-right-radius: var(--radius-sm);
+        border-top-right-radius: var(--radius-sm);
+      }
+    }
+  }
+</style>

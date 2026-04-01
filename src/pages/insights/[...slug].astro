@@ -1,5 +1,4 @@
 ---
-import Icon from "@components/building-blocks/core-elements/icon/Icon.astro";
 import Split from "@components/building-blocks/wrappers/split/Split.astro";
 import ExploreTopics from "@components/page-sections/blog/sidebar/ExploreTopics.astro";
 import PopularArticles from "@components/page-sections/blog/sidebar/PopularArticles.astro";
@@ -19,6 +18,7 @@ import { getEntry } from "astro:content";
 import SearchInput from "@components/page-sections/heroes/hero-search/SearchInput.astro";
 import FeatureDate from "@components/page-sections/blog/FeatureDate.astro";
 import ArticleCardVertical from "@components/page-sections/blog/ArticleCardVertical.astro";
+import Breadcrumb from "@components/page-sections/blog/Breadcrumb.astro";
 
 // Automatically import all components from building-blocks and page-sections for MDX
 const buildingBlocksImports = import.meta.glob("../../components/building-blocks/**/*.astro", {
@@ -64,13 +64,6 @@ interface Props {
 
 const { post } = Astro.props;
 const { Content, headings } = await render(post);
-
-const WPM = 200;
-const countWords = (str) => str.trim().split(/\s+/).length;
-
-const content = post?.body;
-
-if (post) post.data.minutesRead = `${Math.ceil(countWords(content) / WPM)} min read`;
 ---
 
 <Page
@@ -92,31 +85,27 @@ if (post) post.data.minutesRead = `${Math.ceil(countWords(content) / WPM)} min r
     }
     class="breadcrumb-container"
   >
-    <div class="breadcrumb">
-      Home
-      <Icon
-        name="chevron-right"
-        size="none"
-      />
-      <a href={`/insights/`}>Insights</a>
-      <Icon
-        name="chevron-right"
-        size="none"
-      />
-      <a href={`/insights/${post.data.topic}`}>{post.data.topic}</a>
-      <Icon
-        name="chevron-right"
-        size="none"
-      />
-      {post.data.title}
-    </div>
+    <Breadcrumb 
+      style="color:#757575"
+      crumbs={[
+        {"Home":"/"},
+        {"Insights":"/insights/"},
+        {[post.data.topic ?? ""]:`/insights/${post.data.topic}`},
+        {[post.data.title]: ""}
+      ]}
+    />
     <SearchInput
       style="margin:0; max-width:336px"
     />
     <script> 
-      document.querySelector("input[name=search]")?.addEventListener("keydown", e => {
-          if(e.keyCode == 13){
-              const term = e.target.value;
+      import { isKeyboardEvent } from "@components/utils/isKeyboardEvent";
+
+      document.querySelector("input[name=search]")?.addEventListener("keydown", (e:Event) => {
+          if(!isKeyboardEvent(e))
+            throw new Error("Not a keyboard event");
+
+          if(e.key == "Enter"){
+              const term = (e.target as HTMLInputElement).value;
               if(term != "")
                   window.location.href = `/search/?term=${term}`
           }
@@ -137,7 +126,7 @@ if (post) post.data.minutesRead = `${Math.ceil(countWords(content) / WPM)} min r
       gap="xl"
     >
       <Fragment slot="first">
-        <div class="topic-pill" data-pagefind-meta={`topic:${post.data.topic}`}>
+        <div class="topic-pill" data-pagefind-filter="topic" data-pagefind-meta={`topic:${post.data.topic}`}>
           {post.data.topic}
         </div>
         <Heading
@@ -188,6 +177,7 @@ if (post) post.data.minutesRead = `${Math.ceil(countWords(content) / WPM)} min r
           data-editable="text"
           data-prop="@content"
         >
+          <div hidden>__all__</div>
           <Content components={mdxComponents} />
         </div>
 
@@ -278,13 +268,6 @@ if (post) post.data.minutesRead = `${Math.ceil(countWords(content) / WPM)} min r
         display: flex;
         align-items: center;
         justify-content: space-between;
-
-        .breadcrumb {
-          align-items: center;
-          display: flex;
-          font-size: var(--font-size-xs);
-          gap: 8px;
-        }
       }
     }
   }

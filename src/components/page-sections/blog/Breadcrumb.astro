@@ -1,0 +1,50 @@
+---
+import Icon from "@components/building-blocks/core-elements/icon/Icon.astro";
+
+const { 
+    crumbs,
+    ...htmlAttributes
+} = Astro.props;
+---
+
+<div class="breadcrumb" {...htmlAttributes}>
+    {
+        crumbs.map((crumb,index,arr) => {
+            const [[key, value]] = Object.entries(crumb);
+            return key && 
+                <>
+                    {
+                        value ? 
+                        <a class:list={[index === arr.length - 1 && "highlight"]} href={value}>{key}</a>
+                        :
+                        <span class:list={[index === arr.length - 1 && "highlight"]}>{key}</span>
+                    }
+                    {
+                        (index !== arr.length - 1) &&
+                        <Icon
+                        name="chevron-right"
+                        size="none"
+                        />
+                    }
+                </>
+        })
+    }
+</div>
+
+<style>
+    .breadcrumb{
+        align-items: center;
+        display: flex;
+        font-size: var(--font-size-xs);
+        gap: 8px;
+
+        a{
+            text-decoration: none;
+            color:inherit;
+        }
+
+        .highlight{
+            font-weight:600;
+        }
+    }
+</style>

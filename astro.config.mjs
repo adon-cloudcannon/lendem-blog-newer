@@ -7,6 +7,8 @@ import { fileURLToPath } from "node:url";
 
 import mdx from "@astrojs/mdx";
 
+import alpinejs from "@astrojs/alpinejs";
+
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 // https://astro.build/config
@@ -24,58 +26,52 @@ export default defineConfig({
   image: {
     domains: ["picsum.photos"],
   },
-  integrations: [
-    {
-      name: "builder-preview-dev-only",
-      hooks: {
-        "astro:config:setup": ({ command, injectRoute, updateConfig }) => {
-          if (command === "dev") {
-            injectRoute({
-              pattern: "/component-docs/builder-preview",
-              entrypoint: "./src/component-docs/pages/builder-preview.astro",
-              prerender: false,
-            });
-            updateConfig({
-              adapter: {
-                name: "dev-only-server-preview",
-                serverEntrypoint: "",
-                supportedAstroFeatures: {
-                  serverOutput: "stable",
-                  staticOutput: "stable",
-                  hybridOutput: "stable",
-                  sharpImageService: "stable",
-                },
+  integrations: [{
+    name: "builder-preview-dev-only",
+    hooks: {
+      "astro:config:setup": ({ command, injectRoute, updateConfig }) => {
+        if (command === "dev") {
+          injectRoute({
+            pattern: "/component-docs/builder-preview",
+            entrypoint: "./src/component-docs/pages/builder-preview.astro",
+            prerender: false,
+          });
+          updateConfig({
+            adapter: {
+              name: "dev-only-server-preview",
+              serverEntrypoint: "",
+              supportedAstroFeatures: {
+                serverOutput: "stable",
+                staticOutput: "stable",
+                hybridOutput: "stable",
+                sharpImageService: "stable",
               },
-            });
-          }
-        },
+            },
+          });
+        }
       },
     },
-    editableRegions(),
-    icon({
-      iconDir: path.resolve(__dirname, "src/icons"),
-      svgoOptions: {
-        plugins: [
-          {
-            name: "preset-default"
-          }
-        ],
-      },
-    }),
-    sitemap({
-      filter: (page) => {
-        // Always exclude component library from sitemap if disabled
-        if (process.env.DISABLE_COMPONENT_LIBRARY === "true") {
-          return !page.includes("/component-docs");
+  }, editableRegions(), icon({
+    iconDir: path.resolve(__dirname, "src/icons"),
+    svgoOptions: {
+      plugins: [
+        {
+          name: "preset-default"
         }
-        // If not disabled, still exclude from sitemap (existing behavior)
+      ],
+    },
+  }), sitemap({
+    filter: (page) => {
+      // Always exclude component library from sitemap if disabled
+      if (process.env.DISABLE_COMPONENT_LIBRARY === "true") {
         return !page.includes("/component-docs");
-      },
-    }),
-    mdx({
-      extendMarkdownConfig: true
-    }),
-  ],
+      }
+      // If not disabled, still exclude from sitemap (existing behavior)
+      return !page.includes("/component-docs");
+    },
+  }), mdx({
+    extendMarkdownConfig: true
+  }), alpinejs()],
   vite: {
     css: {
       devSourcemap: true,

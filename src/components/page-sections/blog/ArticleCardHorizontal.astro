@@ -23,7 +23,7 @@ const {
   <Card
     paddingVertical="none"
     style="margin-top:0"
-    link={`/insights/${post.id}`}
+    link={`/insights/${post?.id}`}
   >
     <Split
       verticalAlignment="center"
@@ -31,11 +31,13 @@ const {
       style="margin-top:0"
       fixedWidth={size == "md" ? 128 : 80}
       gap={size == "md" ? "lg" : "md"}
+      responsive={false}
     >
       <Fragment slot="first">
         <Image
-          source={post.data.image}
+          source={post?.data.image || "/placeholder-image.jpg"}
           aspectRatio="square"
+          data-pagefind-field="image"
         />
       </Fragment>
       <Fragment slot="second">
@@ -43,10 +45,11 @@ const {
           level="h3"
           size={size == "md" ? "xs" : "xxs"}
           style="margin-bottom:8px"
+          data-pagefind-field="title"
         >
-          {post.data.title}
+          {post?.data.title}
         </Heading>
-        <FeatureDate post={post} size="xs" />
+        <FeatureDate post={post} size="xs" data-pagefind-field="date" />
       </Fragment>
     </Split>
   </Card>

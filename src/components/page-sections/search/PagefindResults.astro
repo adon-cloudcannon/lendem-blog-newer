@@ -1,0 +1,89 @@
+---
+import Heading from "@components/building-blocks/core-elements/heading/Heading.astro";
+import PaginationReactive from "@components/building-blocks/core-elements/pagination/PaginationReactive.astro";
+import SimpleText from "@components/building-blocks/core-elements/simple-text/SimpleText.astro";
+import Select from "@components/building-blocks/forms/select/Select.astro";
+import SelectOption from "@components/building-blocks/forms/select/SelectOption.astro";
+import BentoBoxGrid from "@components/building-blocks/wrappers/bento-box-grid/BentoBoxGrid.astro";
+import Split from "@components/building-blocks/wrappers/split/Split.astro";
+
+const { 
+    id = "results",
+    heading = "Search Results",
+    showResultsCount = true,
+    hasPagination = true
+} = Astro.props;
+---
+<Split
+    distributionMode="half"
+    verticalAlignment = "top"
+>
+    <Fragment slot="first">
+    { heading && <Heading
+            size="sm"
+            style="margin:0"
+        >
+            {heading}
+        </Heading>
+    }
+    { showResultsCount && <SimpleText
+            size="sm"
+            style="color:var(--color-text-muted)"
+        >
+            <span class="search-count"></span> results for <span class="search-term"></span>
+        </SimpleText>
+    }
+    </Fragment>
+    <Fragment slot="second">
+        <Select 
+            id="pagefind-sorting"
+            iconName="chevron-down"
+            iconPosition="after"
+            style="width:246px;margin-left:auto"
+        >
+            <SelectOption label="Sort: Most Recent" value="most-recent" />
+            <SelectOption label="Sort: Oldest First" value="oldest-first" />
+        </Select>
+    </Fragment>
+</Split>
+<BentoBoxGrid
+    id={id}
+    gap="lg"
+></BentoBoxGrid>
+{ 
+    hasPagination && <PaginationReactive />
+}
+
+<script>
+    import Alpine from "alpinejs";
+    document.addEventListener('alpine:init', () => {
+        let instance;
+        if(!window.instance)
+        {
+            instance = new PagefindModularUI.Instance();
+            window.instance = instance;
+        }
+        else instance = window.instance;
+
+        const sortingSelect = document.querySelector("#pagefind-sorting select") as HTMLInputElement;
+        sortingSelect.addEventListener("change", e =>{
+            Alpine.store("search").sort = e.target.value;
+            instance.triggerSearch(instance.searchTerm);
+        })
+
+        const sort = Alpine.store("search")?.sort ? Alpine.store("search").sort : sortingSelect?.value;
+        Alpine.store("search").sort = sort;
+
+        instance.on("results", (results:any) => {
+            const searchCount = document.querySelector(".search-count") as HTMLElement;
+
+            if(searchCount)
+                searchCount.innerText = results.results.length;
+            
+            const searchTerm = document.querySelector(".search-term") as HTMLElement;
+            
+            if(searchTerm)
+                searchTerm.innerText = `"${instance.searchTerm}"`;
+        });
+    });
+</script>

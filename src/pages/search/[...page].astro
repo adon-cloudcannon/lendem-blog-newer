@@ -1,11 +1,11 @@
 ---
-import BentoBoxGrid from "@components/building-blocks/wrappers/bento-box-grid/BentoBoxGrid.astro";
 import Split from "@components/building-blocks/wrappers/split/Split.astro";
 import ExploreTopics from "@components/page-sections/blog/sidebar/ExploreTopics.astro";
 import PopularArticles from "@components/page-sections/blog/sidebar/PopularArticles.astro";
 import CustomSection from "@components/page-sections/builders/custom-section/CustomSection.astro";
 import CtaCenter from "@components/page-sections/ctas/cta-center/CtaCenter.astro";
 import HeroSearch from "@components/page-sections/heroes/hero-search/HeroSearch.astro";
+import PagefindResults from "@components/page-sections/search/PagefindResults.astro";
 import Page from "@layouts/Page.astro";
 
 import { getCollection } from "astro:content";
@@ -47,10 +47,12 @@ export async function getStaticPaths({ paginate }: { paginate: Paginate }) {
       gap="xl"
     >
       <Fragment slot="first">
-        <BentoBoxGrid 
+        <PagefindResults 
           id="results"
-          gap="lg"
-        ></BentoBoxGrid>
+          heading="Search Results"
+          showResultsCount={true}
+          hasPagination={true}
+        />
       </Fragment>
       <Fragment slot="second">
         <PopularArticles />

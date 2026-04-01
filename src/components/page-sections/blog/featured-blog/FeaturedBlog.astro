@@ -11,6 +11,7 @@ import Grid from "@wrappers/grid/Grid.astro";
 import SearchInput from "@components/page-sections/heroes/hero-search/SearchInput.astro";
 import { getCollection } from "astro:content";
 import FeatureDate from "../FeatureDate.astro";
+import Breadcrumb from "../Breadcrumb.astro";
 
 const {
   id = "",
@@ -43,6 +44,13 @@ const featuredPost = posts[0];
   id={id}
   {...htmlAttributes}
 >
+  <Breadcrumb
+      style="color:#757575"
+      crumbs={[
+        {"Home":"/"},
+        {"Insights":"/insights/"}
+      ]}
+    />
   <div style="display:flex; align-items:center;justify-content:space-between">
     <Heading
       class="team-grid-heading"
@@ -51,7 +59,7 @@ const featuredPost = posts[0];
       alignX="start"
       data-prop="heading"
       text={heading}
-      style="margin:0"
+      style="margin-bottom:0"
     />
     <SearchInput
       style="margin:0; max-width:336px"

@@ -9,7 +9,7 @@
 
   --color-text: var(--gray-10);
   --color-text-strong: var(--gray-12);
-  --color-text-muted: var(--gray-8);
+  --color-text-muted: #5A5A5A;
   --color-text-on-muted: var(--gray-12);
   --color-text-on-brand: var(--gray-0);
   --color-text-inverse: var(--gray-0);

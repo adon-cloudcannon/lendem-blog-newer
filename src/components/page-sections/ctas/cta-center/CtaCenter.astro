@@ -32,7 +32,7 @@ const {
   useDefaultEditableBinding={useDefaultEditableBinding}
   {...htmlAttributes}
 >
-  <div class:list={["cta-content",`bg-${backgroundColor}`, rounded ? "rounded-sm" : ""]}>
+  <div class:list={["cta-content",`bg-${backgroundColor}`, rounded && "rounded-sm"]}>
     <Image 
       source={image} 
       alt={imageAlt}

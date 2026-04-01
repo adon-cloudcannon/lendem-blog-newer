@@ -1,4 +1,5 @@
 ---
+import Icon from "@components/building-blocks/core-elements/icon/Icon.astro";
 import SelectOption from "./SelectOption.astro";
 
 const {
@@ -7,6 +8,8 @@ const {
   options = [],
   placeholder,
   required = false,
+  iconName,
+  iconPosition = "before",
   value,
   class: className,
   useDefaultEditableBinding: _useDefaultEditableBinding = false,
@@ -15,9 +18,11 @@ const {
 } = Astro.props;
 
 const fieldId = htmlAttributes.id || `select-${crypto.randomUUID()}`;
+const hasIcon = iconName?.trim().length > 0;
 ---
 
-<div class:list={["select", className]}>
+<div class:list={["select", className]}
+{...htmlAttributes}>
   {
     label && (
       <label
@@ -36,38 +41,82 @@ const fieldId = htmlAttributes.id || `select-${crypto.randomUUID()}`;
       </label>
     )
   }
-  <select
-    name={name}
-    id={fieldId}
-    required={required}
-    aria-required={required}
-    class="field"
-    {...htmlAttributes}
-  >
-    {
-      placeholder && (
-        <option
-          value=""
-          disabled
+  {
+    hasIcon ? (
+      <span class:list={["field-shell", iconPosition === "after" && "icon-after"]}>
+        <Icon
+          name={iconName}
+          size="none"
+          class="input-icon"
+          aria-hidden="true"
+          role="presentation"
+        />
+        <select
+          name={name}
+          id={fieldId}
+          required={required}
+          aria-required={required}
+          class="field"
         >
-          {placeholder}
-        </option>
-      )
-    }
-    {
-      options.length > 0 ? (
-        options.map((option) => (
-          <SelectOption
-            value={option.value}
-            label={option.label}
-            selected={option.value === value}
-          />
-        ))
-      ) : (
-        <slot />
-      )
-    }
-  </select>
+          {
+            placeholder && (
+              <option
+                value=""
+                disabled
+              >
+                {placeholder}
+              </option>
+            )
+          }
+          {
+            options.length > 0 ? (
+              options.map((option) => (
+                <SelectOption
+                  value={option.value}
+                  label={option.label}
+                  selected={option.value === value}
+                />
+              ))
+            ) : (
+              <slot />
+            )
+          }
+        </select>
+      </span>
+    ) : (
+      <select
+        name={name}
+        id={fieldId}
+        required={required}
+        aria-required={required}
+        class="field"
+      >
+        {
+          placeholder && (
+            <option
+              value=""
+              disabled
+            >
+              {placeholder}
+            </option>
+          )
+        }
+        {
+          options.length > 0 ? (
+            options.map((option) => (
+              <SelectOption
+                value={option.value}
+                label={option.label}
+                selected={option.value === value}
+              />
+            ))
+          ) : (
+            <slot />
+          )
+        }
+      </select>
+    )
+  }
 </div>
 
 <style>
@@ -77,12 +126,74 @@ const fieldId = htmlAttributes.id || `select-${crypto.randomUUID()}`;
       flex-direction: column;
       gap: var(--spacing-xs);
       margin: 0;
-      margin-bottom: var(--spacing-md);
       width: 100%;
+
+      .field-shell {
+        position:relative;
+        border:1px solid var(--color-border-subtle);
+        align-items: center;
+        background-color: var(--color-bg);
+        display: flex;
+        overflow:hidden;
+        border-radius: var(--radius-xs);
+        transition:
+          border-color var(--animation-normal) ease-in-out,
+          box-shadow var(--animation-normal) ease-in-out;
+
+        &:focus-within {
+          border-color: var(--color-brand);
+          box-shadow: 0 0 0 3px var(--color-focus-ring);
+        }
+
+        & .icon.input-icon{
+          display: flex;
+          align-items: center;
+          width: 48px;
+          height: 48px;
+          justify-content: center;
+          position: absolute;
+          pointer-events: none;
+        }
+
+        &.icon-after {
+          flex-direction: row-reverse;
+
+          input{
+            align-self:stretch;
+            border-bottom-left-radius: var(--radius-xs);
+            border-top-left-radius: var(--radius-xs);
+          }
+        }
+
+        :global(.input-icon) {
+          color: var(--color-text-muted);
+          flex-shrink: 0;
+          font-size: 1.25em;
+        }
+
+        > .field {
+          background-color: transparent;
+          
+          border-radius: 0;
+          box-shadow: none;
+          flex: 1 1 auto;
+          min-width: 0;
+          
+
+          &:focus {
+            box-shadow: none;
+          }
+        }
+      }
 
       .select-required {
         color: var(--color-error);
         margin-inline-end: var(--spacing-em-xs);
+      }
+
+      & select{
+        border:none;
+        appearance:none;
       }
     }
   }

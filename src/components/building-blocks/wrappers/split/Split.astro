@@ -8,7 +8,10 @@ const {
   distributionMode = "half",
   verticalAlignment = "top",
   reverse = false,
+  reverseOrderOnMobile = true,
   fixedWidth,
+  responsive = true,
+  minSplitWidth = 700,
   gap = "lg",
   useDefaultEditableBinding = false,
   class: className,
@@ -84,7 +87,7 @@ const splitId = `split-${crypto.randomUUID()}`;
       { reversed: reverse },
     ]}
     data-split-id={splitId}
-    style={fixedWidth ? `--split-fixed-width: ${fixedWidth}px;` : ""}
+    style={fixedWidth && `--split-fixed-width: ${fixedWidth}px;`}
   >
     <div
       class="pane first"
@@ -140,6 +143,32 @@ const splitId = `split-${crypto.randomUUID()}`;
     </div>
   </div>
 </section>
+
+{
+  responsive && (
+    <style
+      is:inline
+      set:html={`
+    @container (max-width: ${minSplitWidth}px) {
+      .split-inner[data-split-id="${splitId}"] {
+        grid-template-columns: var(--split-columns-mobile);
+      }
+      ${
+        reverseOrderOnMobile
+          && `
+      .split-inner.reversed[data-split-id="${splitId}"] .pane.first {
+        order: 2;
+      }
+      .split-inner.reversed[data-split-id="${splitId}"] .pane.second {
+        order: 1;
+      }
+      `
+      }
+    }
+  `}
+    />
+  )
+}
 
 <style>
   @layer components {
