@@ -2,10 +2,11 @@
 import Heading from "@components/building-blocks/core-elements/heading/Heading.astro";
 import PaginationReactive from "@components/building-blocks/core-elements/pagination/PaginationReactive.astro";
 import SimpleText from "@components/building-blocks/core-elements/simple-text/SimpleText.astro";
-import Select from "@components/building-blocks/forms/select/Select.astro";
 import SelectOption from "@components/building-blocks/forms/select/SelectOption.astro";
 import BentoBoxGrid from "@components/building-blocks/wrappers/bento-box-grid/BentoBoxGrid.astro";
 import Split from "@components/building-blocks/wrappers/split/Split.astro";
+import Select from "./select/Select.astro";
+import Loading from "./Loading.astro";
 
 const { 
     id = "results",
@@ -29,23 +30,26 @@ const {
     { showResultsCount && <SimpleText
             size="sm"
             style="color:var(--color-text-muted)"
+            id="results-info"
+            style="display:none"
         >
             <span class="search-count"></span> results for <span class="search-term"></span>
         </SimpleText>
     }
     </Fragment>
     <Fragment slot="second">
-        <Select 
+        <Select
             id="pagefind-sorting"
             iconName="chevron-down"
             iconPosition="after"
-            style="width:246px;margin-left:auto"
+            style="margin-left:auto"
         >
             <SelectOption label="Sort: Most Recent" value="most-recent" />
             <SelectOption label="Sort: Oldest First" value="oldest-first" />
         </Select>
     </Fragment>
 </Split>
+<Loading id="search-loading" />
 <BentoBoxGrid
     id={id}
     gap="lg"
@@ -57,6 +61,11 @@ const {
 <script>
     import Alpine from "alpinejs";
     document.addEventListener('alpine:init', () => {
+        const searchInfo = document.getElementById("results-info") as HTMLElement;
+        const searchCount = searchInfo?.querySelector(".search-count") as HTMLElement;
+        const searchTerm = searchInfo?.querySelector(".search-term") as HTMLElement;
+        const searchLoading = document.getElementById("search-loading") as HTMLElement;
+
         let instance;
         if(!window.instance)
         {
@@ -64,6 +73,10 @@ const {
             window.instance = instance;
         }
         else instance = window.instance;
+
+        instance.on("search", () => {
+            searchLoading.style.display = "flex";
+        })
 
         const sortingSelect = document.querySelector("#pagefind-sorting select") as HTMLInputElement;
         sortingSelect.addEventListener("change", e =>{
@@ -75,12 +88,14 @@ const {
         Alpine.store("search").sort = sort;
 
         instance.on("results", (results:any) => {
-            const searchCount = document.querySelector(".search-count") as HTMLElement;
+            if(searchLoading)
+                searchLoading.style.display = "none";
+            
+            if(searchInfo)
+                searchInfo.style.display = "flex";
 
             if(searchCount)
                 searchCount.innerText = results.results.length;
-            
-            const searchTerm = document.querySelector(".search-term") as HTMLElement;
             
             if(searchTerm)
                 searchTerm.innerText = `"${instance.searchTerm}"`;

@@ -1,0 +1,63 @@
+---
+const { id = "" } = Astro.props;
+---
+
+<div id={id} class:list={["loading-circle"]}>
+    <span></span>
+    <span></span>
+    <span></span>
+</div>
+
+<style>
+    .loading-circle{
+        margin:auto;
+        width:96px;
+        height:96px;
+        background:white;
+        border-radius: 100%;
+        display:none;
+        align-items: center;
+        justify-content: center;
+        position:relative;
+
+        & span{
+            position: absolute;
+            background-color: var(--color-bg-brand);
+            width:8px;
+            height:8px;
+            border-radius:100%;
+            margin-bottom:0;
+            animation: loading 1000ms infinite ease-out;
+            animation-delay:100ms;
+
+            &:first-child{
+                margin-left:-22px;
+                animation-delay:0ms;
+            }
+            &:last-child{
+                margin-left:22px;
+                animation-delay:200ms;
+            }
+
+            
+        }
+    }
+    @keyframes loading {
+        0%{
+            opacity:.3;
+            margin-bottom:0;
+        }
+        20%{
+            opacity:1;
+            margin-bottom:16px;
+        }
+        40%{
+            opacity:.3;
+            margin-bottom:0;
+        }
+        100%{
+            opacity:.3;
+            margin-bottom:0;
+        }
+    }
+</style>
