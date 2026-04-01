@@ -55,7 +55,7 @@ const {
     gap="lg"
 ></BentoBoxGrid>
 { 
-    hasPagination && <PaginationReactive />
+    hasPagination && <PaginationReactive id="pagefind-pagination" />
 }
 
 <script>
@@ -65,6 +65,7 @@ const {
         const searchCount = searchInfo?.querySelector(".search-count") as HTMLElement;
         const searchTerm = searchInfo?.querySelector(".search-term") as HTMLElement;
         const searchLoading = document.getElementById("search-loading") as HTMLElement;
+        const pagination = document.getElementById("pagefind-pagination") as HTMLElement;
 
         let instance;
         if(!window.instance)
@@ -99,6 +100,9 @@ const {
             
             if(searchTerm)
                 searchTerm.innerText = `"${instance.searchTerm}"`;
+
+            if(pagination)
+                pagination.style.display = "flex";
         });
     });
 </script>

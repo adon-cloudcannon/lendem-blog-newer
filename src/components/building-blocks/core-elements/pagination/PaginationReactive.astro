@@ -2,6 +2,7 @@
 import Icon from "@core-elements/icon/Icon.astro";
 
 const {
+  id = "",
   page,
   class: className,
   showArrows = true,
@@ -67,6 +68,7 @@ const {
 </script>
 
 <nav
+  id={id}
   x-data="pagination"
   class:list={["pagination", className]}
   aria-label="Pagination Navigation"
@@ -139,7 +141,7 @@ const {
 <style>
   @layer components {
     .pagination {
-      display: flex;
+      display: none;
       flex-wrap: wrap;
       justify-content: center;
       margin-top: var(--spacing-lg);
