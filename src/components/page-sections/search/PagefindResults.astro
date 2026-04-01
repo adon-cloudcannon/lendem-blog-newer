@@ -76,7 +76,11 @@ const {
         else instance = window.instance;
 
         instance.on("search", () => {
-            searchLoading.style.display = "flex";
+            if(pagination)
+                pagination.style.display = "flex";
+            
+            if(searchLoading)
+                searchLoading.style.display = "flex";
         })
 
         const sortingSelect = document.querySelector("#pagefind-sorting select") as HTMLInputElement;
