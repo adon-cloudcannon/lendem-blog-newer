@@ -5,6 +5,7 @@ import PopularArticles from "@components/page-sections/blog/sidebar/PopularArtic
 import CustomSection from "@components/page-sections/builders/custom-section/CustomSection.astro";
 import CtaCenter from "@components/page-sections/ctas/cta-center/CtaCenter.astro";
 import HeroSearch from "@components/page-sections/heroes/hero-search/HeroSearch.astro";
+import NoResults from "@components/page-sections/search/NoResults.astro";
 import PagefindResults from "@components/page-sections/search/PagefindResults.astro";
 import Page from "@layouts/Page.astro";
 
@@ -43,7 +44,8 @@ export async function getStaticPaths({ paginate }: { paginate: Paginate }) {
     class="search-container"
   >
     <Split
-      distributionMode="two-thirds-third"
+      distributionMode="flexible-fixed"
+      fixedWidth="384"
       gap="xl"
     >
       <Fragment slot="first">
@@ -53,6 +55,7 @@ export async function getStaticPaths({ paginate }: { paginate: Paginate }) {
           showResultsCount={true}
           hasPagination={true}
         />
+        <NoResults />
       </Fragment>
       <Fragment slot="second">
         <PopularArticles />

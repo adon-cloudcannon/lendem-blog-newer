@@ -1,0 +1,27 @@
+---
+import CtaCenter from "../ctas/cta-center/CtaCenter.astro";
+
+
+---
+
+<CtaCenter
+    image="/src/assets/images/img_moneyhand.png"
+    heading="No Results Found"
+    subtext="We couldn't find any articles matching <span>Test</span>"
+    backgroundColor="muted"
+    rounded={true}
+    paddingHorizontal="none"
+    paddingVertical="none"
+    buttonSections={[
+        {
+            _component: "building-blocks/core-elements/button",
+            text: "Apply Now",
+            hideText: false,
+            link: "",
+            iconName: "",
+            iconPosition: "before",
+            variant: "primary",
+            size: "md",
+        },
+    ]}
+/>

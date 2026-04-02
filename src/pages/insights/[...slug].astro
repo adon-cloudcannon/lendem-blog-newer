@@ -86,7 +86,8 @@ const { Content, headings } = await render(post);
     class="breadcrumb-container"
   >
    <Split
-      distributionMode="two-thirds-third"
+      distributionMode="flexible-fixed"
+      fixedWidth="384"
       gap="xl"
       verticalAlignment="center"
     >
@@ -145,7 +146,8 @@ const { Content, headings } = await render(post);
     class="post-container"
   >
     <Split
-      distributionMode="two-thirds-third"
+      distributionMode="flexible-fixed"
+      fixedWidth="384"
       gap="xl"
     >
       <Fragment slot="first">
