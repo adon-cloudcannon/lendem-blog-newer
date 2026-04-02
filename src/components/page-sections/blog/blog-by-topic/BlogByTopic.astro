@@ -43,6 +43,7 @@ const {
             Popular in {topic.name}
           </Heading>
           <SimpleText
+            class:list={["see-more-desktop"]}
             style="margin:0"
           >
             <a href={`/insights/${topic.name}`} style="font-weight:bold;color:inherit">See more {topic.name} articles</a>
@@ -56,6 +57,13 @@ const {
             )
           }
         </BentoBoxGrid>
+        <SimpleText
+          class:list={["see-more-mobile"]}
+          alignX="center"
+          
+        >
+          <a href={`/insights/${topic.name}`} style="font-weight:bold;color:inherit">See more {topic.name} articles</a>
+        </SimpleText>
       </ContentSelectorPanel>
     })}
   </ContentSelector>
@@ -70,6 +78,23 @@ const {
 
     :global(.content-selector-input:checked + .content-selector-tab .content-selector-tab-heading){
       font-weight:bold;
+    }
+
+    .see-more-desktop{
+      display:none;
+
+      @media(min-width:748px){
+        display:flex;
+      }
+    }
+
+    .see-more-mobile{
+      display:flex;
+      justify-content: center;
+
+      @media(min-width:748px){
+        display:none;
+      }
     }
   }
 </style>

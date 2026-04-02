@@ -9,21 +9,23 @@ import FeatureDate from "./FeatureDate.astro";
 const { 
   post,
   columnSpan = "12",
-  size = "md"
+  background = "white",
+  size = "md",
+  borderless = false,
 } = Astro.props;
 ---
 
 <BentoBoxGridItem
   columnSpan={columnSpan}
   rowSpan={1}
-  style="background:white"
-  class:list={["article-card-horizontal"]}
-  padding={size}
+  class:list={["article-card-horizontal",`bg-${background}`, borderless ? "borderless" : "bordered"]}
+  padding={borderless ? "none" : size}
 >
   <Card
     paddingVertical="none"
     style="margin-top:0"
     link={`/insights/${post?.id}`}
+    data-pagefind-field="link"
   >
     <Split
       verticalAlignment="center"
@@ -57,10 +59,29 @@ const {
 
 <style>
   .article-card-horizontal{
+    &.bg-white{
+      :global(.bento-box-grid-item-content){
+        background:white;
+      }
+    }
+
+    &.borderless:not(:last-of-type){
+      :global(.bento-box-grid-item-content){
+        padding-bottom: 1rem;
+        border-bottom: 1px solid var(--color-border-subtle)!important;
+      }
+    }
+
+    &.bordered{
+      :global(.bento-box-grid-item-content){
+        border-radius: var(--radius-xs);
+        border: 1px solid var(--color-border-subtle);
+      }
+    }
+
     cursor:pointer;
+
     :global(.bento-box-grid-item-content){
-      border: 1px solid var(--color-border-subtle);
-      border-radius: var(--radius-xs);
       overflow: hidden;
 
       &:hover{

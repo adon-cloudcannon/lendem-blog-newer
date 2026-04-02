@@ -30,15 +30,6 @@
   --font-weight-bold: 700;
 
   @media (width < 640px) {
-    --font-size-xs: 0.625rem;
-    --font-size-sm: 0.75rem;
-    --font-size-md: 0.875rem;
-    --font-size-lg: 1rem;
-    --font-size-xl: 1.125rem;
-    --font-size-2xl: 1.375rem;
-    --font-size-3xl: 1.625rem;
-    --font-size-4xl: 1.875rem;
-
     --font-size-heading-xs: 1rem;
     --font-size-heading-sm: 1.25rem;
     --font-size-heading-md: 1.5rem;

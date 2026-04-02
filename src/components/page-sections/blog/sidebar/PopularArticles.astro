@@ -24,14 +24,20 @@ const popularPosts = popularArticles.map((x) =>
     Popular Articles
   </Heading>
   <BentoBoxGrid
-    gap="sm"
+    gap="md"
   >
   {
     popularPosts.map(async (article) => {
       const post = await getEntry("blog", article);
 
       return (
-        <ArticleCardHorizontal post={post} columnSpan={12} size="sm" />
+        <ArticleCardHorizontal 
+          post={post} 
+          columnSpan={12} 
+          size="sm" 
+          background="none" 
+          borderless={true}
+        />
       );
     })
   }

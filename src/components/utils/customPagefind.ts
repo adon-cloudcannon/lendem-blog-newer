@@ -154,10 +154,16 @@ export class ResultListCustom {
     }
 }
 export const searchResultTemplate = (result:any) => {
+    console.log(result);
     const template = document.getElementById("card-template");
     
     if(template)
     {
+        const link = template.querySelector(`[data-pagefind-field=link]>a`) as HTMLAnchorElement;
+
+        if(link)
+            link.href = result.url;
+
         const heading = template.querySelector(`[data-pagefind-field=title] .heading-text`) as HTMLElement;
         
         if(heading)

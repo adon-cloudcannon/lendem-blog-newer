@@ -287,32 +287,13 @@ const splitId = `split-${crypto.randomUUID()}`;
         }
 
         @media (width < 640px) {
-          &.gap-xs {
-            gap: var(--spacing-xs);
+
+          &.fixed-flexible {
+            --split-columns-desktop: max(80px, calc(var(--split-fixed-width) * 0.75)) 1fr;
           }
 
-          &.gap-sm {
-            gap: var(--spacing-xs);
-          }
-
-          &.gap-md {
-            gap: var(--spacing-sm);
-          }
-
-          &.gap-lg {
-            gap: var(--spacing-md);
-          }
-
-          &.gap-xl {
-            gap: var(--spacing-md);
-          }
-
-          &.gap-2xl {
-            gap: var(--spacing-lg);
-          }
-
-          &.gap-3xl {
-            gap: var(--spacing-xl);
+          &.flexible-fixed {
+            --split-columns-desktop: max(80px, calc(var(--split-fixed-width) * 0.75)) 1fr;
           }
         }
       }
