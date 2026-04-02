@@ -86,12 +86,28 @@ const featuredPost = posts[0];
         style="margin:0"
       />
       <script> 
-        document.querySelector("input[name=search]")?.addEventListener("keydown", e => {
-            if(e.keyCode == 13){
-                const term = e.target.value;
+        import { isKeyboardEvent } from "@components/utils/isKeyboardEvent";
+        window.addEventListener("DOMContentLoaded", (event) => {
+          const searchInput = document.querySelector("input[name=search]") as HTMLInputElement;
+          document.querySelectorAll(".search-input .input-icon, .search-button")?.forEach(el => {
+            el.addEventListener("click", e => {
+              console.log("here");
+                const term = searchInput.value;
+                if(term != "")
+                    window.location.href = `/search/?term=${term}`
+            })
+          });
+
+          document.querySelector("input[name=search]")?.addEventListener("keydown", (e:Event) => {
+            if(!isKeyboardEvent(e))
+              throw new Error("Not a keyboard event");
+
+            if(e.key == "Enter"){
+                const term = (e.target as HTMLInputElement).value;
                 if(term != "")
                     window.location.href = `/search/?term=${term}`
             }
+          })
         })
       </script>
     </Fragment>

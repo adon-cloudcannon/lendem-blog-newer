@@ -71,7 +71,9 @@ export default defineConfig({
     },
   }), mdx({
     extendMarkdownConfig: true
-  }), alpinejs()],
+  }), alpinejs(
+    { entrypoint: '/src/entrypoint' }
+  )],
   vite: {
     css: {
       devSourcemap: true,

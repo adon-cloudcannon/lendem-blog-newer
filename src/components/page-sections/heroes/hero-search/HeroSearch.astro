@@ -67,15 +67,27 @@ const {
             <script> 
                 import { isKeyboardEvent } from "@components/utils/isKeyboardEvent";
 
-                document.querySelector("input[name=search]")?.addEventListener("keydown", (e:Event) => {
-                    if(!isKeyboardEvent(e))
-                        throw new Error('not a keyboard event');
+                window.addEventListener("DOMContentLoaded", (event) => {
+                    const searchInput = document.querySelector("input[name=search]") as HTMLInputElement;
 
-                    if(e.key == "Enter"){
-                        const term = (e.target as HTMLInputElement).value;
-                        if(term != "")
-                            window.location.href = `/search/?term=${term}`
-                    }
+                    document.querySelectorAll(".search-input .input-icon, .search-button")?.forEach(el => {
+                        el.addEventListener("click", e => {
+                            const term = searchInput.value;
+                            if(term != "")
+                                window.location.href = `/search/?term=${term}`
+                        })
+                    });
+
+                    document.querySelector("input[name=search]")?.addEventListener("keydown", (e:Event) => {
+                        if(!isKeyboardEvent(e))
+                            throw new Error('not a keyboard event');
+
+                        if(e.key == "Enter"){
+                            const term = (e.target as HTMLInputElement).value;
+                            if(term != "")
+                                window.location.href = `/search/?term=${term}`
+                        }
+                    })
                 })
             </script>
         </>
@@ -94,14 +106,13 @@ const {
 
         <link href="/pagefind/pagefind-modular-ui.css" rel="stylesheet">
         <script src="/pagefind/pagefind-modular-ui.js" is:inline></script>
-        <div style="display:flex;gap:16px">
-            <SearchInput 
-                iconPosition="before" 
-                borderless={true}
-                style="height:100%;margin:0"
-            />
-            <Button class:list={["search-button"]} variant="primary">Search</Button>
-        </div>
+        <SearchInput 
+            variation="full"
+            iconPosition="before" 
+            borderless={true}
+            style="height:100%;margin:0"
+            class:list={["desktop-only"]}
+        />
 
         <SearchResult 
             id="card-template" 
@@ -141,10 +152,12 @@ const {
                     }
                 }
 
-                document.querySelector(".search-button")?.addEventListener("click", e => {
-                    const term = searchInput?.value
-                    search(term);
-                })
+                document.querySelectorAll(".search-input .input-icon, .search-button")?.forEach(el => {
+                    el.addEventListener("click", e => {
+                        const term = searchInput?.value
+                        search(term);
+                    });
+                });
 
                 searchInput?.addEventListener("keydown", (e:Event) => {
                     if(!isKeyboardEvent(e))
@@ -172,13 +185,5 @@ const {
       img{
         object-fit:contain;
       }
-    }
-
-    .search-button{
-        a{
-            width: fit-content;
-            min-width: 180px;
-            height:100%
-        }
     }
 </style>

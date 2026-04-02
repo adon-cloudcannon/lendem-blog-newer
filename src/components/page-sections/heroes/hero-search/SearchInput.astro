@@ -1,33 +1,67 @@
 ---
+import Button from "@components/building-blocks/core-elements/button/Button.astro";
 import Input from "@components/building-blocks/forms/input/Input.astro";
 
 const {
+    variation = "compact",
     borderless = false,
     ...htmlAttributes
 } = Astro.props;
 ---
 
-<Input
-    name="search"
-    placeholder="Search by keyword, topic..."
-    type="text"
-    iconName="magnifying-glass"
-    iconPosition="after"
-    class:list={[borderless ? "borderless" : "bordered"]}
-    {...htmlAttributes}
-/>
+<div x-init="
+    $watch('mobile', value => { 
+      if(value === true){ 
+        $el.querySelector('.field-shell').classList.add('icon-after')
+      } else {
+        $el.querySelector('.field-shell').classList.remove('icon-after')
+      }
+    })
+" x-data="{ 'mobile': false }" style="display:flex;gap:16px" x-resize.document="mobile = $width <= 748">
+    <Input
+        name="search"
+        placeholder="Search by keyword, topic..."
+        type="text"
+        iconName="magnifying-glass"
+        iconPosition="after"
+        class:list={["search-input",borderless ? "borderless" : "bordered", variation]}
+        {...htmlAttributes}
+    />
+    {
+        variation === "full" &&
+            <Button class:list={["search-button"]} variant="primary">Search</Button>
+    }
+</div>
+
+<script>
+
+</script>
 
 <style is:global>
-    .input.bordered .icon-after input{
-        border: 2px solid var(--color-border-subtle);
-        border-right:none;
+    .search-input{
+        &.input.bordered .icon-after input{
+            border: 2px solid var(--color-border-subtle);
+            border-right:none;
+        }
+
+        &.input.borderless input{
+            border: none;
+        }
+
+        & .icon.input-icon{
+            cursor:pointer;
+        }
     }
 
-    .input.borderless input{
-        border: none;
-    }
+    .search-button{
+        a{
+            width: fit-content;
+            min-width: 180px;
+            height:100%
+        }
 
-    .icon.input-icon{
-        cursor:pointer;
+        @media(max-width: 748){
+            display: none;
+        }
     }
 </style>

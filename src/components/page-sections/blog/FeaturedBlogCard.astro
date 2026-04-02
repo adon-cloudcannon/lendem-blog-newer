@@ -70,22 +70,6 @@ const {
 
         & > :global(.card-inner){
             display:grid;
-
-            .blog-image{
-                height:300px;
-
-                & > :global(.image-inner){
-                    height:100%;
-
-                    & > :global(picture){
-                        height:100%;
-
-                        & > :global(img){
-                            object-fit: cover;
-                        }
-                    }
-                }
-            }
         }
 
         :global(.card-content){
@@ -108,6 +92,22 @@ const {
 
         &.horizontal > :global(.card-inner){
             grid-template-columns: 2fr 3fr;
+
+            .blog-image{
+                height:300px;
+
+                & > :global(.image-inner){
+                    height:100%;
+
+                    & > :global(picture){
+                        height:100%;
+
+                        & > :global(img){
+                            object-fit: cover;
+                        }
+                    }
+                }
+            }
 
             @media (width < 640px){
                 grid-template-columns: 1fr;
