@@ -60,7 +60,6 @@ const featuredPost = posts[0];
     verticalAlignment="start"
     gap="xl"
     editable={false}
-    data-cloudcannon-ignore
   >
     <Fragment slot="first">
       <Heading
@@ -114,7 +113,7 @@ const featuredPost = posts[0];
     </Fragment>
   </Split>
   <Split
-      class:list={["featured-blog-split"]}
+      class:list={[]}
       label=""
       distributionMode="two-thirds-third"
       minSplitWidth={760}
@@ -183,6 +182,11 @@ const featuredPost = posts[0];
     & .heading{
       margin:0;
     }
+  }
+
+  .featured-blog-split > :global(.split-inner){
+    column-gap: var(--spacing-xl)!important;
+    row-gap:var(--spacing-sm)!important;
   }
   
 </style>
