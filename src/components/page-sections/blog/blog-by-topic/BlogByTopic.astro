@@ -51,6 +51,7 @@ const {
         </div>
         <BentoBoxGrid
           gap="md"
+          class:list={["popular-articles-grid"]}
         >
           { posts.slice(0,4).map(post => 
               <ArticleCardHorizontal post={post} columnSpan={6} />
@@ -86,6 +87,10 @@ const {
       @media(min-width:748px){
         display:flex;
       }
+    }
+
+    .popular-articles-grid{
+      margin-top:0;
     }
 
     .see-more-mobile{
